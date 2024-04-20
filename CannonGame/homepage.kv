@@ -1,5 +1,5 @@
-<Homepage>:
-    name: "main"
+<Play>:
+    name: "play"
     GridLayout:
         cols: 3
         canvas:
@@ -12,10 +12,54 @@
             anchor_y: "center"
             BoxLayout:
                 orientation: 'vertical'
+                Label:
+                    text: "CANNON GAME"
+                    color: 0, 0, 0, 1
+                Label:
+                    text: "PLAY"
+                    color: 0, 0, 0, 1
+                    size_hint: 1, .2
+                Button:
+                    size_hint: 1, .3
+                    background_color: (0, 0, 0, 0)
+                    on_release: app.root.current = 'main'
+                    Image:
+                        source: 'playButton.png'
+                        allow_stretch: False
+                        keep_ratio: True
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                Label:
+
+<Homepage>:
+    name: "main"
+    GridLayout:
+        cols: 3
+        canvas:
+            Rectangle:
+                source: "Homepage.jpeg"
+                size: self.size
+                pos: self.pos
+        Button:
+            background_color: (0, 0, 0, 0)
+            on_release: app.root.current = 'play'
+            size_hint: .1, 1
+            Image:
+                source: 'undoArrow.png'
+                allow_stretch: False
+                keep_ratio: True
+                center_x: self.parent.center_x
+                center_y: self.center_y
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "center"
+            BoxLayout:
+                orientation: 'vertical'
                 Button:
                     text: 'New Game'
                     color: 0, 0, 0, 1
                     background_color: 1, 1, 1, 0
+                    on_release: app.root.current = 'NG'
                 Button:
                     text: 'Load Game'
                     color: 0, 0, 0, 1
@@ -30,7 +74,9 @@
                     text: 'General Settings'
                     color: 0, 0, 0, 1
                     background_color: 1, 1, 1, 0
+                    on_release: app.root.current = 'GS'
                 Button:
                     text: 'Credits'
                     color: 0, 0, 0, 1
                     background_color: 1, 1, 1, 0
+                    on_release: app.root.current = 'C'
