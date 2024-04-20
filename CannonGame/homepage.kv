@@ -1,0 +1,36 @@
+<Homepage>:
+    name: "main"
+    GridLayout:
+        cols: 3
+        canvas:
+            Rectangle:
+                source: "Homepage.jpeg"
+                size: self.size
+                pos: self.pos
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "center"
+            BoxLayout:
+                orientation: 'vertical'
+                Button:
+                    text: 'New Game'
+                    color: 0, 0, 0, 1
+                    background_color: 1, 1, 1, 0
+                Button:
+                    text: 'Load Game'
+                    color: 0, 0, 0, 1
+                    background_color: 1, 1, 1, 0
+                    on_release: app.root.current = 'LG'
+                Button:
+                    text: 'Hall of Fame'
+                    color: 0, 0, 0, 1
+                    background_color: 1, 1, 1, 0
+                    on_release: app.root.current = 'HoF'
+                Button:
+                    text: 'General Settings'
+                    color: 0, 0, 0, 1
+                    background_color: 1, 1, 1, 0
+                Button:
+                    text: 'Credits'
+                    color: 0, 0, 0, 1
+                    background_color: 1, 1, 1, 0
