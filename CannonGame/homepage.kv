@@ -4,7 +4,7 @@
         cols: 3
         canvas:
             Rectangle:
-                source: "Homepage.jpeg"
+                source: "Images/Homepage.jpeg"
                 size: self.size
                 pos: self.pos
         AnchorLayout:
@@ -24,7 +24,7 @@
                     background_color: (0, 0, 0, 0)
                     on_release: app.root.current = 'main'
                     Image:
-                        source: 'playButton.png'
+                        source: 'Images/playButton.png'
                         allow_stretch: False
                         keep_ratio: True
                         center_x: self.parent.center_x
@@ -37,7 +37,7 @@
         cols: 3
         canvas:
             Rectangle:
-                source: "Homepage.jpeg"
+                source: "Images/Homepage.jpeg"
                 size: self.size
                 pos: self.pos
         Button:
@@ -45,7 +45,7 @@
             on_release: app.root.current = 'play'
             size_hint: .1, 1
             Image:
-                source: 'undoArrow.png'
+                source: 'Images/undoArrow.png'
                 allow_stretch: False
                 keep_ratio: True
                 center_x: self.parent.center_x

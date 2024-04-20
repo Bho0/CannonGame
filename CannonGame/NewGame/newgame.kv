@@ -1,5 +1,51 @@
 <NewGame>:
     name: "NG"
-    Button:
-        text: "Back to Menu"
-        on_release: app.root.current = 'main'
+    GridLayout:
+        cols: 3
+        canvas:
+            Rectangle:
+                source: "Images/BackGround.png"
+                size: self.size
+                pos: self.pos
+        Button:
+            background_color: (0, 0, 0, 0)
+            on_release: app.root.current = 'main'
+            size_hint: .1, 1
+            Image:
+                source: 'Images/undoArrow.png'
+                allow_stretch: False
+                keep_ratio: True
+                center_x: self.parent.center_x
+                center_y: self.center_y
+        AnchorLayout:
+            anchor_x: "center"
+            anchor_y: "center"
+            BoxLayout:
+                orientation: 'vertical'
+                GridLayout:
+                    cols: 2
+                    Label:
+                        Image:
+                            source: 'Images/Cap.png'
+                            allow_stretch: True
+                            keep_ratio: True
+                            size: 400, 400
+                            center_x: self.parent.center_x
+                            center_y: self.parent.center_y
+                    Label:
+                        text: "What is your name, pirate?"
+                GridLayout:
+                    cols: 2
+                    TextInput:
+                        hint_text: "Enter your name"
+                        multiline: False
+                    Image:
+                        source: 'Images\Spugna.png'
+                        allow_stretch: True
+                        keep_ratio: True
+                        size: 500, 500
+                        center_x: self.parent.center_x
+                        center_y: self.parent.center_y
+                Button:
+                    text: "Start"
+                    size_hint: 0.3, 0.3
