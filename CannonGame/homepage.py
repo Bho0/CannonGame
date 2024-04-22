@@ -15,6 +15,7 @@ from LoadGame.loadgame import LoadGame
 from Credits.credits import Credits
 from GeneralSettings.generalsettings import GeneralSettings
 from NewGame.newgame import NewGame
+from Ship.ship import Ship, NewShip
 
 class Play(Screen):
     pass
@@ -33,6 +34,7 @@ class MyApp(App):
         Builder.load_file('Credits\credits.kv')
         Builder.load_file('GeneralSettings\generalsettings.kv')
         Builder.load_file('NewGame/newgame.kv')
+        Builder.load_file('Ship/ship.kv')
         self.window_manager = WindowManager()
         self.window_manager.add_widget(Play(name='play'))
         self.window_manager.add_widget(Homepage(name='main'))
@@ -41,6 +43,8 @@ class MyApp(App):
         self.window_manager.add_widget(Credits(name='C'))
         self.window_manager.add_widget(GeneralSettings(name='GS'))
         self.window_manager.add_widget(NewGame(name='NG'))
+        self.window_manager.add_widget(Ship(name='S'))
+        self.window_manager.add_widget(NewShip(name='NS'))
         return self.window_manager
 
 
