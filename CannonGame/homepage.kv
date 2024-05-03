@@ -1,12 +1,12 @@
 <Play>:
     name: "play"
-    GridLayout:
-        cols: 3
-        canvas:
-            Rectangle:
-                source: "Images/Homepage.jpeg"
-                size: self.size
-                pos: self.pos
+    FloatLayout:
+        Image:
+            source: "Images/Homepage.jpg"
+            size_hint: 1, 1 
+            pos: self.pos
+            allow_stretch: True
+            keep_ratio: True
         AnchorLayout:
             anchor_x: "center"
             anchor_y: "center"
@@ -35,11 +35,12 @@
     name: "main"
     GridLayout:
         cols: 3
-        canvas:
-            Rectangle:
-                source: "Images/Homepage.jpeg"
-                size: self.size
-                pos: self.pos
+        Image:
+            source: "Images/Homepage.jpg"
+            size: self.size
+            pos: self.pos
+            allow_stretch: False
+            keep_ratio: True
         Button:
             background_color: (0, 0, 0, 0)
             on_release: app.root.current = 'play'
@@ -57,26 +58,26 @@
                 orientation: 'vertical'
                 Button:
                     text: 'New Game'
-                    color: 0, 0, 0, 1
+                    color: 1, 1, 1, 1 
                     background_color: 1, 1, 1, 0
                     on_release: app.root.current = 'NG'
                 Button:
                     text: 'Load Game'
-                    color: 0, 0, 0, 1
+                    color: 1, 1, 1, 1 
                     background_color: 1, 1, 1, 0
                     on_release: app.root.current = 'LG'
                 Button:
                     text: 'Hall of Fame'
-                    color: 0, 0, 0, 1
+                    color: 1, 1, 1, 1 
                     background_color: 1, 1, 1, 0
                     on_release: app.root.current = 'HoF'
                 Button:
                     text: 'General Settings'
-                    color: 0, 0, 0, 1
+                    color: 1, 1, 1, 1 
                     background_color: 1, 1, 1, 0
                     on_release: app.root.current = 'GS'
                 Button:
                     text: 'Credits'
-                    color: 0, 0, 0, 1
+                    color: 1, 1, 1, 1 
                     background_color: 1, 1, 1, 0
                     on_release: app.root.current = 'C'

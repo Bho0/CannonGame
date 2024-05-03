@@ -5,6 +5,7 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.widget import Widget
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
 from kivy.uix.textinput import TextInput
@@ -17,6 +18,7 @@ from GeneralSettings.generalsettings import GeneralSettings
 from NewGame.newgame import NewGame
 from Ship.ship import Ship, NewShip
 from Levels.levels import Levels
+from Levels.Level1.level1 import Level1, Cannon
 
 class Play(Screen):
     pass
@@ -37,6 +39,7 @@ class MyApp(App):
         Builder.load_file('NewGame/newgame.kv')
         Builder.load_file('Ship\ship.kv')
         Builder.load_file('Levels\levels.kv')
+        Builder.load_file('Levels\Level1\level1.kv')
         self.window_manager = WindowManager()
         self.window_manager.add_widget(Play(name='play'))
         self.window_manager.add_widget(Homepage(name='main'))
@@ -48,6 +51,7 @@ class MyApp(App):
         self.window_manager.add_widget(Ship(name='S'))
         self.window_manager.add_widget(NewShip(name='NS'))
         self.window_manager.add_widget(Levels(name='L'))
+        self.window_manager.add_widget(Level1(name='L1'))
         return self.window_manager
 
 
