@@ -1,0 +1,29 @@
+<CustomImageButton@ButtonBehavior+Image>:
+    source: 'playButton.png'
+    allow_stretch: True
+    keep_ratio: False
+
+<NewGame>:
+    name: 'newgame'    
+    FloatLayout:
+        Image:
+            source: 'path/to/your/background_image.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        
+        Label:
+            text: 'PLAY'
+            font_size: 52
+            font_name: 'Caribbean.ttf'  # Specifica il font personalizzato
+            color: 0, 0, 0, 1  # Testo nero
+            size_hint: (None, None)
+            size: self.texture_size
+            pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+        
+        CustomImageButton:
+            size_hint: (None, None)
+            size: 200, 200
+            pos_hint: {'center_x': 0.5, 'center_y': 0.3}
+            on_press: app.root.current = 'homepage'

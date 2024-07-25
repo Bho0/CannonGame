@@ -1,0 +1,101 @@
+#:import Factory kivy.factory.Factory
+<VolPopup@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+
+<HoFPopup@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+
+<CredPopup@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+
+<HomePage>:
+    name: 'homepage'
+    FloatLayout:
+        Image:
+            source: 'path/to/your/background_image.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        BoxLayout:
+            orientation: 'vertical'
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+            size_hint: (1, .5)
+            Button:
+                text: 'New Game'
+                color: 0, 0, 0, 1
+                font_size: 52
+                font_name: 'Caribbean.ttf'
+                background_normal: ''  # Rimuove il background predefinito
+                background_down: ''    # Rimuove il background quando il bottone è premuto
+            Button:
+                text: 'Load Game'
+                color: 0, 0, 0, 1
+                font_size: 52
+                font_name: 'Caribbean.ttf'
+                background_normal: ''  # Rimuove il background predefinito
+                background_down: ''    # Rimuove il background quando il bottone è premuto
+
+        BoxLayout:
+            orientation: 'horizontal'
+            pos_hint: {'center_x': 0.5, 'center_y': .05}
+            size_hint: (.3, .1)
+
+            Button:
+                background_normal: ''  # Rimuove il background predefinito del bottone
+                background_down: ''    # Rimuove il background quando il bottone è premuto
+                on_press: app.root.current = 'newgame'
+                Image:
+                    source: 'homeButton.png'
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+                    size: 50, 50
+
+            Button:
+                background_normal: ''  # Rimuove il background predefinito del bottone
+                background_down: ''    # Rimuove il background quando il bottone è premuto
+                on_press: Factory.VolPopup().open()
+                Image:
+                    source: 'volumeButton.webp'
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+                    size: 50, 50
+
+            Button:
+                background_normal: ''  # Rimuove il background predefinito del bottone
+                background_down: ''    # Rimuove il background quando il bottone è premuto
+                on_press: Factory.HoFPopup().open()
+                Image:
+                    source: 'hofButton.webp'
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+                    size: 50, 50
+
+            Button:
+                background_normal: ''  # Rimuove il background predefinito del bottone
+                background_down: ''    # Rimuove il background quando il bottone è premuto
+                on_press: Factory.CredPopup().open()
+                Image:
+                    source: 'creditButton.png'
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+                    size: 50, 50
+#            Button:
+#               text: 'Settings'
+#                color: 0, 0, 0, 1
+#                font_name: 'Caribbean.ttf'
+#                background_normal: ''  # Rimuove il background predefinito
+#            Button:
+#                text: 'Hall Of Fame'
+#                color: 0, 0, 0, 1
+#                font_name: 'Caribbean.ttf'
+#                background_normal: ''  # Rimuove il background predefinito
+#            Button:
+#                text: 'Credits'
+#                color: 0, 0, 0, 1
+#                font_name: 'Caribbean.ttf'
+#                background_normal: ''  # Rimuove il background predefinito
