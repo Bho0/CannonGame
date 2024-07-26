@@ -41,6 +41,7 @@
                 font_name: 'Caribbean.ttf'
                 background_normal: ''  # Rimuove il background predefinito
                 background_down: ''    # Rimuove il background quando il bottone è premuto
+                on_press: app.root.current = 'newgame'
             Button:
                 text: 'Load Game'
                 color: 0, 0, 0, 1
@@ -48,6 +49,7 @@
                 font_name: 'Caribbean.ttf'
                 background_normal: ''  # Rimuove il background predefinito
                 background_down: ''    # Rimuove il background quando il bottone è premuto
+                on_press: app.root.current = 'loadgame'
 
         BoxLayout:
             orientation: 'horizontal'
@@ -57,7 +59,7 @@
             Button:
                 background_normal: ''  # Rimuove il background predefinito del bottone
                 background_down: ''    # Rimuove il background quando il bottone è premuto
-                on_press: app.root.current = 'newgame'
+                on_press: app.root.current = 'start'
                 Image:
                     source: 'homeButton.png'
                     center_x: self.parent.center_x

@@ -1,0 +1,39 @@
+<NewGame>:
+    name: 'newgame'
+    FloatLayout:
+        Image:
+            source: 'path/to/your/background_image.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        
+        Button:
+            pos_hint: {'center_x': .05, 'center_y': .91}
+            size_hint: (.1, .1)
+            background_normal: ''  # Rimuove il background predefinito del bottone
+            background_down: ''    # Rimuove il background quando il bottone è premuto
+            on_press: app.root.current = 'homepage'
+            Image:
+                source: 'homeButton.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 50, 50
+        
+        Image:
+            source: ''
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (.2, .5)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.2, 'center_y': 0.3}
+
+        Label:
+            text: 'Testo stile professore pokemon che introduce al gioco'
+            font_size: 12
+            font_name: 'Caribbean.ttf'  # Specifica il font personalizzato
+            color: 0, 0, 0, 1  # Testo nero
+            size_hint: (None, None)
+            size: self.texture_size
+            pos_hint: {'center_x': 0.6, 'center_y': 0.6}
+        
+        TextInput:
