@@ -21,10 +21,10 @@
                 size: 50, 50
         
         Image:
-            source: ''
-            allow_stretch: True
-            keep_ratio: False
-            size_hint: (.2, .5)  # Copre l'intero layout
+            source: 'captain.png'
+            allow_stretch: False
+            keep_ratio: True
+            size_hint: (1, 1)
             pos_hint: {'center_x': 0.2, 'center_y': 0.3}
 
         Label:
@@ -37,3 +37,13 @@
             pos_hint: {'center_x': 0.6, 'center_y': 0.6}
         
         TextInput:
+            id: text_input
+            multiline: False
+            size_hint: (.4, .05)
+            pos_hint: {'center_x': 0.6, 'center_y': 0.4}
+
+        Button:
+            pos_hint: {'center_x': .9, 'center_y': .1}
+            size_hint: (.1, .05)
+            text: 'Start'
+            on_press: app.root.current = ''
