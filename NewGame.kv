@@ -2,7 +2,7 @@
     name: 'newgame'
     FloatLayout:
         Image:
-            source: 'path/to/your/background_image.jpg'
+            source: 'Default_pirate_captain_cabin_in_the_ship_2.jpg'
             allow_stretch: True
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
@@ -11,8 +11,7 @@
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
             size_hint: (.1, .1)
-            background_normal: ''  # Rimuove il background predefinito del bottone
-            background_down: ''    # Rimuove il background quando il bottone è premuto
+            background_color: 0, 0, 0, 0
             on_press: app.root.current = 'homepage'
             Image:
                 source: 'homeButton.png'
