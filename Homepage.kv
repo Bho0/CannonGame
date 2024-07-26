@@ -1,15 +1,24 @@
 #:import Factory kivy.factory.Factory
 <VolPopup@Popup>:
     auto_dismiss: True
-    size_hint: (.5, .5)
+    size_hint: (.5, .3)
+    title: 'Music'
+    BoxLayout:
+        orientation: 'vertical'
+        Slider:
+            id: slider
+            value_track: True
+            value_track_color: [0, 0, 1, 1]
 
 <HoFPopup@Popup>:
     auto_dismiss: True
     size_hint: (.5, .5)
+    title: 'Hall Of Fame'
 
 <CredPopup@Popup>:
     auto_dismiss: True
     size_hint: (.5, .5)
+    title: 'Credits'
 
 <HomePage>:
     name: 'homepage'
