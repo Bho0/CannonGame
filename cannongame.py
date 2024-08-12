@@ -2,6 +2,9 @@ from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.screenmanager import Screen, ScreenManager
 from kivy.lang import Builder
+from kivy.core.audio import SoundLoader
+from kivy.properties import ObjectProperty
+
 from homepage import HomePage
 from loadgame import LoadGame
 from newgame import NewGame
@@ -10,7 +13,14 @@ class Start(Screen):
     pass
 
 class CannonGame(App):
+
     def build(self):
+
+        self.sound = SoundLoader.load('pirate-tavern-full-version-167990.mp3')
+        if self.sound:
+            self.sound.loop = True
+            self.sound.play()
+
         Builder.load_file('CannonGame.kv')
         Builder.load_file('Homepage.kv')
         Builder.load_file('LoadGame.kv')
@@ -21,8 +31,12 @@ class CannonGame(App):
         sm.add_widget(HomePage(name='homepage'))
         sm.add_widget(LoadGame(name='loadgame'))
         sm.add_widget(NewGame(name='newgame'))
-        return sm
+        return sm 
 
+    def change_volume(self, value):
+        # Cambia il volume della musica
+        if self.sound:
+            self.sound.volume = value    
 
 if __name__ == '__main__':
     CannonGame().run()
