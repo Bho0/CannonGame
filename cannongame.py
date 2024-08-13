@@ -8,6 +8,7 @@ from kivy.properties import ObjectProperty
 from homepage import HomePage
 from loadgame import LoadGame
 from newgame import NewGame
+from mainpage import MainPage
 
 class Start(Screen):
     pass
@@ -25,18 +26,20 @@ class CannonGame(App):
         Builder.load_file('Homepage.kv')
         Builder.load_file('LoadGame.kv')
         Builder.load_file('NewGame.kv')
+        Builder.load_file('MainPage.kv')
 
         sm = ScreenManager()
         sm.add_widget(Start(name='start'))
         sm.add_widget(HomePage(name='homepage'))
         sm.add_widget(LoadGame(name='loadgame'))
         sm.add_widget(NewGame(name='newgame'))
+        sm.add_widget(MainPage(name='mainpage'))
         return sm 
 
     def change_volume(self, value):
         # Cambia il volume della musica
         if self.sound:
-            self.sound.volume = value    
+            self.sound.volume = value
 
 if __name__ == '__main__':
     CannonGame().run()

@@ -1,0 +1,34 @@
+<MainPage>:
+    name: 'mainpage'
+    FloatLayout:
+        Image:
+            source: 'Default_a_harbor_with_only_one_pirate_ship_0.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        
+        Image:
+            id: cap_img
+            source: 'captain.png'
+            allow_stretch: False
+            keep_ratio: True
+            size_hint: (1, 1)
+            pos_hint: {'center_x': 0.2, 'center_y': 0.3}
+
+        Label:
+            id: tutorial_label
+            text: root.texts[root.index]
+            font_size: 12
+            font_name: 'Caribbean.ttf'  # Specifica il font personalizzato
+            color: 0, 0, 0, 1  # Testo nero
+            size_hint: (None, None)
+            size: self.texture_size
+            pos_hint: {'center_x': 0.4, 'center_y': 0.6}
+        
+        Button:
+            id: tutorial_button
+            pos_hint: {'center_x': .4, 'center_y': .5}
+            size_hint: (.1, .05)
+            text: 'Skip'
+            on_press: root.change_text()
