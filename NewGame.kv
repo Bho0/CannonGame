@@ -1,13 +1,13 @@
 <NewGame>:
     name: 'newgame'
-    FloatLayout:
+    FloatLayout:        
         Image:
             source: 'Default_pirate_captain_cabin_in_the_ship_2.jpg'
             allow_stretch: True
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        
+
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
             size_hint: (.1, .1)
@@ -26,7 +26,7 @@
             size_hint: (1, 1)
             pos_hint: {'center_x': 0.2, 'center_y': 0.3}
 
-        Label:
+        CustomLabel:
             text: 'Testo stile professore pokemon che introduce al gioco'
             font_size: 12
             font_name: 'Caribbean.ttf'  # Specifica il font personalizzato
