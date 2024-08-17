@@ -27,6 +27,15 @@ class MainPage(Screen):
     texts = ListProperty(["Tutorial1", "Tutorial2", "Tutorial3", "Tutorial4"])
     index = 0
 
+    def __init__(self, **kw):
+        super().__init__(**kw)
+        self.ids.level_button.opacity = 0
+        self.ids.level_button.disabled = True
+        self.ids.ship_button.opacity = 0
+        self.ids.ship_button.disabled = True
+        self.ids.market_button.opacity = 0
+        self.ids.market_button.disabled = True
+
     def change_text(self):
         # Incrementa l'indice
         self.index += 1
@@ -40,3 +49,9 @@ class MainPage(Screen):
             self.ids.tutorial_button.disabled = True  # Disabilita il bottone
             self.ids.tutorial_label.opacity = 0
             self.ids.cap_img.opacity = 0
+            self.ids.level_button.opacity = 1
+            self.ids.level_button.disabled = False
+            self.ids.ship_button.opacity = 1
+            self.ids.ship_button.disabled = False
+            self.ids.market_button.opacity = 1
+            self.ids.market_button.disabled = False
