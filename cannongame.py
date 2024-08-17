@@ -9,6 +9,7 @@ from homepage import HomePage
 from loadgame import LoadGame
 from newgame import NewGame
 from mainpage import MainPage
+from levels import Levels
 
 class Start(Screen):
     pass
@@ -27,6 +28,7 @@ class CannonGame(App):
         Builder.load_file('LoadGame.kv')
         Builder.load_file('NewGame.kv')
         Builder.load_file('MainPage.kv')
+        Builder.load_file('Levels.kv')
 
         sm = ScreenManager()
         sm.add_widget(Start(name='start'))
@@ -34,6 +36,7 @@ class CannonGame(App):
         sm.add_widget(LoadGame(name='loadgame'))
         sm.add_widget(NewGame(name='newgame'))
         sm.add_widget(MainPage(name='mainpage'))
+        sm.add_widget(Levels(name='levels'))
         return sm 
 
     def change_volume(self, value):
