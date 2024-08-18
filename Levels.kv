@@ -3,13 +3,9 @@
     ScrollView:
         do_scroll_x: True
         do_scroll_y: False
-        bar_width: 10  # Imposta la larghezza della barra di scorrimento, opzionale
+        bar_width: 100
 
-        Image:
-            source: "Default_a_harbor_with_only_one_pirate_ship_0.jpg"  # Sostituisci con il percorso della tua immagine
-            size_hint_x: None  # Necessario per lo scrolling orizzontale
-            width: self.texture_size[0]  # Larghezza dinamica in base alla texture dell'immagine
-            height: self.texture_size[1]  # Altezza dinamica in base alla texture dell'immagine
-            allow_stretch: True  # Se vuoi che l'immagine si adatti
-            keep_ratio: True  # Mantieni le proporzioni dell'immagine
+
+        Button:
+            text: 'prova'
         
