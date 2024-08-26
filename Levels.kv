@@ -1,11 +1,75 @@
-<Levels>
-    name: 'levels'
-    ScrollView:
-        do_scroll_x: True
-        do_scroll_y: False
-        bar_width: 100
-
-
-        Button:
-            text: 'prova'
+<Level02>:
+    name: 'level0-2'
+    FloatLayout:
+        Image:
+            source: 'LVL0-2.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         
+        Button:
+            pos_hint: {'center_x': .5, 'center_y': .9}
+            size_hint: (.1, .1)
+            text: '^'
+            on_press: app.root.current = 'level3-5'
+
+<Level35>:
+    name: 'level3-5'
+    FloatLayout:
+        Image:
+            source: 'LVL3-5.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+<Level68>:
+    name: 'level6-8'
+    FloatLayout:
+        Image:
+            source: 'LVL0-2.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+<Level911>:
+    name: 'level9-11'
+    FloatLayout:
+        Image:
+            source: 'LVL0-2.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+<Level1214>:
+    name: 'level12-14'
+    FloatLayout:
+        Image:
+            source: 'LVL0-2.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+<Level1517>:
+    name: 'level15-17'
+    FloatLayout:
+        Image:
+            source: 'LVL0-2.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+<Level1820>:
+    name: 'level18-20'
+    FloatLayout:
+        Image:
+            source: 'LVL0-2.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}

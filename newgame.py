@@ -3,6 +3,8 @@ from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle
 from kivy.properties import ListProperty, NumericProperty
 
+from mainpage import MainPage
+
 class CustomLabel(Label):
     # Create a property to dynamically store the background color
     background_color = ListProperty([1, 1, 1, 1])  # White with full opacity
@@ -23,4 +25,11 @@ class CustomLabel(Label):
         self.bg_rect.pos = self.pos
 
 class NewGame(Screen):
-    pass
+    flag = True
+    def add_screen(self):
+        if self.flag == False:
+            self.root.add_widget(MainPage(name='mainpage'))
+            self.flag = True
+        else:
+            self.flag = False
+            pass

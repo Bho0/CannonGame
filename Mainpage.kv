@@ -1,3 +1,52 @@
+#:import Factory kivy.factory.Factory
+#:import MainPage mainpage
+
+<OpPopup@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+    title: 'Options'
+    BoxLayout:
+        orientation: 'vertical'
+        Button:
+            text: 'Save'
+            color: 1, 1, 1, 1
+            font_size: 30
+            font_name: 'Caribbean.ttf'
+            background_color: 0, 0, 0, 0
+        
+        Button:
+            text: 'Exit'
+            color: 1, 1, 1, 1
+            font_size: 30
+            font_name: 'Caribbean.ttf'
+            background_color: 0, 0, 0, 0
+            on_press:
+                root.dismiss()
+                root.remove_screen()
+                app.root.current = 'homepage'
+
+        Label:
+            text: "Music"
+            font_name: 'Caribbean.ttf'
+
+        Slider:
+            id: slider
+            value_track: True
+            value_track_color: [0, 0, 1, 1]
+            min: 0
+            max: 1
+            value: 0.5
+            on_value: app.change_volume(self.value)
+
+        Label:
+            text: "Sounds"
+            font_name: 'Caribbean.ttf'
+
+        Slider:
+            id: slider
+            value_track: True
+            value_track_color: [0, 0, 1, 1]
+
 <MainPage>:
     name: 'mainpage'
     FloatLayout:
@@ -38,7 +87,7 @@
             pos_hint: {'center_x': .9, 'center_y': .1}
             size_hint: (.1, .1)
             text: 'Levels'
-            on_press: app.root.current = 'levels'
+            on_press: app.root.current = 'level0-2'
 
         Button:
             id: ship_button
@@ -51,3 +100,15 @@
             pos_hint: {'center_x': .3, 'center_y': .5}
             size_hint: (.1, .1)
             text: 'Market'
+        
+        Button:
+            id: option_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .9, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.OpPopup().open()
+            Image:
+                source: 'options.webp'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 75, 75
