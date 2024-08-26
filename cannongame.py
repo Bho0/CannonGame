@@ -35,7 +35,6 @@ class CannonGame(App):
         sm.add_widget(HomePage(name='homepage'))
         sm.add_widget(LoadGame(name='loadgame'))
         sm.add_widget(NewGame(name='newgame'))
-        sm.add_widget(MainPage(name='mainpage'))
         sm.add_widget(Level02(name='level0-2'))
         sm.add_widget(Level35(name='level3-5'))
         sm.add_widget(Level68(name='level6-8'))
@@ -49,6 +48,12 @@ class CannonGame(App):
         # Cambia il volume della musica
         if self.sound:
             self.sound.volume = value
+    
+    def remove_screen(self):
+        self.root.remove_widget(self.root.get_screen('mainpage'))
+    
+    def add_screen(self):
+        self.root.add_widget(MainPage(name='mainpage'))
 
 if __name__ == '__main__':
     CannonGame().run()

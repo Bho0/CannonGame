@@ -45,5 +45,6 @@
             pos_hint: {'center_x': .9, 'center_y': .1}
             size_hint: (.1, .05)
             text: 'Start'
-            on_press: root.add_screen()
-            on_press: app.root.current = 'mainpage'
+            on_press:
+                app.add_screen()
+                app.root.current = 'mainpage'

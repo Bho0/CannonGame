@@ -1,6 +1,5 @@
 from kivy.uix.screenmanager import Screen
 from kivy.uix.label import Label
-from kivy.uix.popup import Popup
 from kivy.graphics import Color, Rectangle
 from kivy.properties import ListProperty, NumericProperty
 
@@ -60,7 +59,3 @@ class MainPage(Screen):
             self.ids.market_button.disabled = False
             self.ids.option_button.opacity = 1
             self.ids.option_button.disabled = False
-
-class OpPopup(Popup):
-    def remove_screen(self):
-        self.remove_widget(self.get_screen('mainpage'))

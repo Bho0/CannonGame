@@ -25,11 +25,4 @@ class CustomLabel(Label):
         self.bg_rect.pos = self.pos
 
 class NewGame(Screen):
-    flag = True
-    def add_screen(self):
-        if self.flag == False:
-            self.root.add_widget(MainPage(name='mainpage'))
-            self.flag = True
-        else:
-            self.flag = False
-            pass
+    pass
