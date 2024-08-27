@@ -9,7 +9,7 @@ from homepage import HomePage
 from loadgame import LoadGame
 from newgame import NewGame
 from mainpage import MainPage
-from levels import Level02, Level35, Level68, Level911, Level1214, Level1517, Level1820
+from levels import Levels, ComingSoon
 
 class Start(Screen):
     pass
@@ -35,13 +35,8 @@ class CannonGame(App):
         sm.add_widget(HomePage(name='homepage'))
         sm.add_widget(LoadGame(name='loadgame'))
         sm.add_widget(NewGame(name='newgame'))
-        sm.add_widget(Level02(name='level0-2'))
-        sm.add_widget(Level35(name='level3-5'))
-        sm.add_widget(Level68(name='level6-8'))
-        sm.add_widget(Level911(name='level9-11'))
-        sm.add_widget(Level1214(name='level12-14'))
-        sm.add_widget(Level1517(name='level15-17'))
-        sm.add_widget(Level1820(name='level18-20'))
+        sm.add_widget(Levels(name='levels'))
+        sm.add_widget(ComingSoon(name='comingsoon'))
         return sm 
 
     def change_volume(self, value):
