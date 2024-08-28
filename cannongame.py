@@ -34,7 +34,6 @@ class CannonGame(App):
         sm.add_widget(Start(name='start'))
         sm.add_widget(HomePage(name='homepage'))
         sm.add_widget(LoadGame(name='loadgame'))
-        sm.add_widget(NewGame(name='newgame'))
         sm.add_widget(Levels(name='levels'))
         sm.add_widget(ComingSoon(name='comingsoon'))
         return sm 
@@ -46,9 +45,13 @@ class CannonGame(App):
     
     def remove_screen(self):
         self.root.remove_widget(self.root.get_screen('mainpage'))
+        self.root.remove_widget(self.root.get_screen('newgame'))
     
-    def add_screen(self):
+    def add_mainpage(self):
         self.root.add_widget(MainPage(name='mainpage'))
+    
+    def add_newgame(self):
+        self.root.add_widget(NewGame(name='newgame'))
 
 if __name__ == '__main__':
     CannonGame().run()

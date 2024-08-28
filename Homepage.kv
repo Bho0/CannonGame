@@ -59,7 +59,9 @@
                 font_size: 52
                 font_name: 'Caribbean.ttf'
                 background_color: 0, 0, 0, 0 
-                on_press: app.root.current = 'newgame'
+                on_press:
+                    app.add_newgame()
+                    app.root.current = 'newgame'
             Button:
                 text: 'Load Game'
                 color: 0, 0, 0, 1

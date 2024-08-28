@@ -31,10 +31,16 @@ class MainPage(Screen):
         super().__init__(**kw)
         self.ids.level_button.opacity = 0
         self.ids.level_button.disabled = True
+        self.ids.level_label.opacity = 0
+
         self.ids.ship_button.opacity = 0
         self.ids.ship_button.disabled = True
+        self.ids.ship_label.opacity = 0
+
         self.ids.market_button.opacity = 0
         self.ids.market_button.disabled = True
+        self.ids.market_label.opacity = 0
+
         self.ids.option_button.opacity = 0
         self.ids.option_button.disabled = True
 
@@ -51,11 +57,18 @@ class MainPage(Screen):
             self.ids.tutorial_button.disabled = True  # Disabilita il bottone
             self.ids.tutorial_label.opacity = 0
             self.ids.cap_img.opacity = 0
+            
             self.ids.level_button.opacity = 1
             self.ids.level_button.disabled = False
+            self.ids.level_label.opacity = 1
+
             self.ids.ship_button.opacity = 1
             self.ids.ship_button.disabled = False
+            self.ids.ship_label.opacity = 1
+
             self.ids.market_button.opacity = 1
             self.ids.market_button.disabled = False
+            self.ids.market_label.opacity = 1
+
             self.ids.option_button.opacity = 1
             self.ids.option_button.disabled = False

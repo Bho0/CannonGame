@@ -27,6 +27,7 @@
             pos_hint: {'center_x': 0.2, 'center_y': 0.3}
 
         CustomLabel:
+            id: label
             text: 'Testo stile professore pokemon che introduce al gioco'
             font_size: 12
             font_name: 'Caribbean.ttf'  # Specifica il font personalizzato
@@ -46,5 +47,4 @@
             size_hint: (.1, .05)
             text: 'Start'
             on_press:
-                app.add_screen()
-                app.root.current = 'mainpage'
+                root.check_name()

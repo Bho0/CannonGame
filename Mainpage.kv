@@ -1,5 +1,4 @@
 #:import Factory kivy.factory.Factory
-#:import MainPage mainpage
 
 <OpPopup@Popup>:
     auto_dismiss: True
@@ -82,24 +81,51 @@
             text: 'Skip'
             on_press: root.change_text()
         
+        Label:
+            id: level_label
+            text: 'Levels'
+            pos_hint: {'center_x': .9, 'center_y': .01}
         Button:
             id: level_button
+            background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .9, 'center_y': .1}
             size_hint: (.1, .1)
-            text: 'Levels'
             on_press: app.root.current = 'levels'
-
+            Image:
+                source: 'island.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 100, 100
+        
+        Label:
+            id: ship_label
+            text: 'Ship'
+            pos_hint: {'center_x': .7, 'center_y': .2}
         Button:
             id: ship_button
+            background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .7, 'center_y': .3}
             size_hint: (.1, .1)
-            text: 'Ship'
-
+            Image:
+                source: 'wheels-icon-png-31839.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 100, 100
+        
+        Label:
+            id: market_label
+            text: 'Market'
+            pos_hint: {'center_x': .3, 'center_y': .55}
         Button:
             id: market_button
+            background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .3, 'center_y': .5}
             size_hint: (.1, .1)
-            text: 'Market'
+            Image:
+                source: 'market-icon-23.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
         
         Button:
             id: option_button
