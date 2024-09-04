@@ -12,7 +12,9 @@
             pos_hint: {'center_x': .05, 'center_y': .91}
             size_hint: (.1, .1)
             background_color: 0, 0, 0, 0
-            on_press: app.root.current = 'homepage'
+            on_press:
+                app.root.current = 'homepage'
+                app.remove_newgame()
             Image:
                 source: 'homeButton.png'
                 center_x: self.parent.center_x

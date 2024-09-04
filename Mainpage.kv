@@ -21,7 +21,8 @@
             background_color: 0, 0, 0, 0
             on_press:
                 root.dismiss()
-                app.remove_screen()
+                app.remove_mainpage()
+                app.remove_newgame()
                 app.root.current = 'homepage'
 
         Label:
@@ -106,6 +107,7 @@
             background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .7, 'center_y': .3}
             size_hint: (.1, .1)
+            on_press: app.root.current = 'ship'
             Image:
                 source: 'wheels-icon-png-31839.png'
                 center_x: self.parent.center_x
@@ -121,6 +123,7 @@
             background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .3, 'center_y': .5}
             size_hint: (.1, .1)
+            on_press: app.root.current = 'market'
             Image:
                 source: 'market-icon-23.png'
                 center_x: self.parent.center_x

@@ -1,0 +1,30 @@
+#:import Factory kivy.factory.Factory
+
+<Captain@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+    title: 'Choose your capitain'
+
+<Ship>:
+    name: 'ship'
+    FloatLayout:
+        Image:
+            source: 'Concept_Art_pirate_ship_view_from_above_3.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        
+        Button:
+            pos_hint: {'center_x': .05, 'center_y': .91}
+            size_hint: (.1, .1)
+            background_color: 0, 0, 0, 0
+            on_press:
+                app.root.current = 'mainpage'
+            Image:
+                source: 'homeButton.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 50, 50
+        
+        Button 

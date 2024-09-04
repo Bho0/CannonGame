@@ -10,6 +10,8 @@ from loadgame import LoadGame
 from newgame import NewGame
 from mainpage import MainPage
 from levels import Levels, ComingSoon
+from ship import Ship
+from market import Market
 
 class Start(Screen):
     pass
@@ -29,6 +31,8 @@ class CannonGame(App):
         Builder.load_file('NewGame.kv')
         Builder.load_file('MainPage.kv')
         Builder.load_file('Levels.kv')
+        Builder.load_file('Ship.kv')
+        Builder.load_file('Market.kv')
 
         sm = ScreenManager()
         sm.add_widget(Start(name='start'))
@@ -36,6 +40,8 @@ class CannonGame(App):
         sm.add_widget(LoadGame(name='loadgame'))
         sm.add_widget(Levels(name='levels'))
         sm.add_widget(ComingSoon(name='comingsoon'))
+        sm.add_widget(Ship(name='ship'))
+        sm.add_widget(Market(name='market'))
         return sm 
 
     def change_volume(self, value):
@@ -43,8 +49,10 @@ class CannonGame(App):
         if self.sound:
             self.sound.volume = value
     
-    def remove_screen(self):
+    def remove_mainpage(self):
         self.root.remove_widget(self.root.get_screen('mainpage'))
+    
+    def remove_newgame(self):
         self.root.remove_widget(self.root.get_screen('newgame'))
     
     def add_mainpage(self):
