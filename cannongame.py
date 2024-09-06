@@ -1,6 +1,6 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
-from kivy.uix.screenmanager import Screen, ScreenManager
+from kivy.uix.screenmanager import Screen, ScreenManager, FadeTransition
 from kivy.lang import Builder
 from kivy.core.audio import SoundLoader
 from kivy.properties import ObjectProperty

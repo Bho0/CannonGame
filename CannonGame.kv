@@ -1,7 +1,4 @@
-<CustomImageButton@ButtonBehavior+Image>:
-    source: 'playButton.png'
-    allow_stretch: True
-    keep_ratio: False
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
 
 <Start>:
     name: 'start'    
@@ -22,8 +19,17 @@
             size: self.texture_size
             pos_hint: {'center_x': 0.5, 'center_y': 0.7}
         
-        CustomImageButton:
-            size_hint: (None, None)
-            size: 200, 200
-            pos_hint: {'center_x': 0.5, 'center_y': 0.3}
-            on_press: app.root.current = 'homepage'
+        Button:
+            id: play_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .5, 'center_y': .3}
+            on_press:
+                root.manager.transition = FadeTransition(duration=0.5)
+                app.root.current = 'homepage'
+            Image:
+                source: 'playButton.png'
+                allow_stretch: True
+                keep_ratio: False
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 200, 200

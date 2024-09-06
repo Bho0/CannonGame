@@ -1,3 +1,6 @@
+#:import FadeTransition kivy.uix.screenmanager.FadeTransition
+#:import SlideTransition kivy.uix.screenmanager.SlideTransition
+
 <Levels>:
     name: 'levels'
     FloatLayout:
@@ -13,13 +16,30 @@
             size_hint: (.05, .05)
             text: '^'
             on_press:
-                app.root.current = 'comingsoon'
+                root.manager.transition = SlideTransition()
                 root.manager.transition.direction = 'down'
+                app.root.current = 'comingsoon'
+        
+        Button:
+            pos_hint: {'center_x': .05, 'center_y': .91}
+            size_hint: (.1, .1)
+            background_color: 0, 0, 0, 0
+            on_press:
+                app.root.current = 'mainpage'
+            Image:
+                source: 'homeButton.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 50, 50
 
 <ComingSoon>:
     name: 'comingsoon'
     FloatLayout:
-        Label:
+        Button:
+            background_color: 0, 0, 0, 0
             text: 'Coming Soon'
             font_name: 'Caribbean.ttf'
             font_size: 52
+            on_press:
+                root.manager.transition = FadeTransition()
+                app.root.current = 'levels'
