@@ -1,10 +1,30 @@
 #:import Factory kivy.factory.Factory
 
-<Captain@Popup>:
+<Cannon@Popup>:
     auto_dismiss: True
     size_hint: (.5, .5)
-    title: 'CHOOSE YOUR CAPTAIN'
-    font: 100
+    title: ''
+    BoxLayout:
+        orientation: 'vertical'
+        
+        Label:
+            text: 'Choose your ammunition:'
+            size_hint_y: None
+            height: '44dp'
+        
+        GridLayout:
+            cols: 3
+            spacing: '10dp'
+            padding: '10dp'
+            
+            Button:
+                text: 'Cannonball'
+            
+            Button:
+                text: 'Chain shot'
+            
+            Button:
+                text: 'Grapeshot'
 
 <Ship>:
     name: 'ship'
@@ -29,13 +49,68 @@
                 size: 50, 50
         
         Button:
-            id: option_button
+            id: captain_button
             background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .25, 'center_y': .4}
             size_hint: (.1, .1)
-            on_press: Factory.Captain().open()
+            on_press: app.root.current = 'captain'
             Image:
                 source: 'wheels-icon-png-31839.png'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 75, 75
+        
+        Button:
+            id: cannon_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .6, 'center_y': .25}
+            size_hint: (.1, .1)
+            on_press: Factory.Cannon().open()
+            Image:
+                source: 'cannon.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 100, 100
+
+<Captain>:
+    name: 'captain'
+    FloatLayout:
+        Image:
+            source: 'Default_pirate_captain_cabin_in_the_ship_2.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        
+        BoxLayout:
+            orientation: 'vertical'
+            
+            Label:
+                text: 'Choose your captain:'
+                font_size: 32
+                font_name: 'Caribbean.ttf'  # Specifica il font personalizzato
+            
+            GridLayout:
+                cols: 3
+                spacing: '10dp'
+                padding: '10dp'
+                
+                Button:
+                    text: 'Cap1'
+                
+                Button:
+                    text: 'Cap2'
+                
+                Button:
+                    text: 'Cap3'
+
+        Button:
+            pos_hint: {'center_x': .05, 'center_y': .91}
+            size_hint: (.1, .1)
+            background_color: 0, 0, 0, 0
+            on_press: app.root.current = 'ship'
+            Image:
+                source: 'homeButton.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 50, 50

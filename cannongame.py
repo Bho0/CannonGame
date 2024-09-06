@@ -10,7 +10,7 @@ from loadgame import LoadGame
 from newgame import NewGame
 from mainpage import MainPage
 from levels import Levels, ComingSoon
-from ship import Ship
+from ship import Ship, Captain
 from market import Market
 
 class Start(Screen):
@@ -42,6 +42,7 @@ class CannonGame(App):
         sm.add_widget(ComingSoon(name='comingsoon'))
         sm.add_widget(Ship(name='ship'))
         sm.add_widget(Market(name='market'))
+        sm.add_widget(Captain(name='captain'))
         return sm 
 
     def change_volume(self, value):
