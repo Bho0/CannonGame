@@ -2,7 +2,7 @@
     name: 'market'
     FloatLayout:
         Image:
-            source: 'Concept_Art_pirate_market_stand_3.jpg'
+            source: 'images/Concept_Art_pirate_market_stand_3.jpg'
             allow_stretch: True
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
@@ -14,7 +14,7 @@
             Label:
                 text: 'This is our market:'
                 font_size: 32
-                font_name: 'Caribbean.ttf'  # Specifica il font personalizzato
+                font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
             
             GridLayout:
                 cols: 3
@@ -23,10 +23,12 @@
                 
                 Button:
                     text: 'Dressing room'
+                    font_name: 'fonts/Caribbean.ttf'
                     on_press: app.root.current = 'dressingRoom'
                 
                 Button:
                     text: 'Projectile store'
+                    font_name: 'fonts/Caribbean.ttf'
                     on_press: app.root.current = 'projectileStore'
 
         Button:
@@ -35,7 +37,7 @@
             background_color: 0, 0, 0, 0
             on_press: app.root.current = 'mainpage'
             Image:
-                source: 'homeButton.png'
+                source: 'images/homeButton.png'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 50, 50
@@ -44,7 +46,7 @@
     name: 'dressingRoom'
     FloatLayout:
         Image:
-            source: 'Concept_Art_pirate_market_stand_3.jpg'
+            source: 'images/Concept_Art_pirate_market_stand_3.jpg'
             allow_stretch: True
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
@@ -53,7 +55,7 @@
         Label:
             text: 'Choose your style:'
             font_size: 32
-            font_name: 'Caribbean.ttf'  # Specifica il font personalizzato
+            font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
 
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
@@ -61,7 +63,7 @@
             background_color: 0, 0, 0, 0
             on_press: app.root.current = 'market'
             Image:
-                source: 'undo.png'
+                source: 'images/undo.png'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 50, 50
@@ -71,7 +73,7 @@
     name: 'projectileStore'
     FloatLayout:
         Image:
-            source: 'Concept_Art_pirate_market_stand_3.jpg'
+            source: 'images/Concept_Art_pirate_market_stand_3.jpg'
             allow_stretch: True
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
@@ -80,7 +82,7 @@
         Label:
             text: 'Buy new projectile:'
             font_size: 32
-            font_name: 'Caribbean.ttf'  # Specifica il font personalizzato
+            font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
 
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
@@ -88,7 +90,7 @@
             background_color: 0, 0, 0, 0
             on_press: app.root.current = 'market'
             Image:
-                source: 'undo.png'
+                source: 'images/undo.png'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 50, 50

@@ -10,14 +10,14 @@
             text: 'Save'
             color: 1, 1, 1, 1
             font_size: 30
-            font_name: 'Caribbean.ttf'
+            font_name: 'fonts/Caribbean.ttf'
             background_color: 0, 0, 0, 0
         
         Button:
             text: 'Exit'
             color: 1, 1, 1, 1
             font_size: 30
-            font_name: 'Caribbean.ttf'
+            font_name: 'fonts/Caribbean.ttf'
             background_color: 0, 0, 0, 0
             on_press:
                 root.dismiss()
@@ -27,7 +27,7 @@
 
         Label:
             text: "Music"
-            font_name: 'Caribbean.ttf'
+            font_name: 'fonts/Caribbean.ttf'
 
         Slider:
             id: slider
@@ -40,7 +40,7 @@
 
         Label:
             text: "Sounds"
-            font_name: 'Caribbean.ttf'
+            font_name: 'fonts/Caribbean.ttf'
 
         Slider:
             id: slider
@@ -51,7 +51,7 @@
     name: 'mainpage'
     FloatLayout:
         Image:
-            source: 'Default_a_harbor_with_only_one_pirate_ship_0.jpg'
+            source: 'images/Default_a_harbor_with_only_one_pirate_ship_0.jpg'
             allow_stretch: True
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
@@ -59,7 +59,7 @@
         
         Image:
             id: cap_img
-            source: 'captain.png'
+            source: 'images/captain.png'
             allow_stretch: False
             keep_ratio: True
             size_hint: (1, 1)
@@ -69,7 +69,7 @@
             id: tutorial_label
             text: root.texts[root.index]
             font_size: 12
-            font_name: 'Caribbean.ttf'  # Specifica il font personalizzato
+            font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
             color: 0, 0, 0, 1  # Testo nero
             size_hint: (None, None)
             size: self.texture_size
@@ -93,7 +93,7 @@
             size_hint: (.1, .1)
             on_press: app.root.current = 'levels'
             Image:
-                source: 'island.png'
+                source: 'images/island.png'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 100, 100
@@ -109,7 +109,7 @@
             size_hint: (.1, .1)
             on_press: app.root.current = 'ship'
             Image:
-                source: 'wheels-icon-png-31839.png'
+                source: 'images/wheels-icon-png-31839.png'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 100, 100
@@ -125,7 +125,7 @@
             size_hint: (.1, .1)
             on_press: app.root.current = 'market'
             Image:
-                source: 'market-icon-23.png'
+                source: 'images/market-icon-23.png'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 60, 60
@@ -137,7 +137,7 @@
             size_hint: (.1, .1)
             on_press: Factory.OpPopup().open()
             Image:
-                source: 'options.webp'
+                source: 'images/options.webp'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 75, 75

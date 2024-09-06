@@ -2,7 +2,7 @@
     name: 'loadgame'
     FloatLayout:
         Image:
-            source: 'Default_pirate_captain_cabin_in_the_ship_2.jpg'
+            source: 'images/Default_pirate_captain_cabin_in_the_ship_2.jpg'
             allow_stretch: True
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
@@ -11,7 +11,7 @@
         Label:
             text: 'SELECT YOUR PIRATE'
             font_size: 32
-            font_name: 'Caribbean.ttf'  # Specifica il font personalizzato
+            font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
             color: 0, 0, 0, 1  # Testo nero
             size_hint: (None, None)
             size: self.texture_size
@@ -23,7 +23,7 @@
             background_color: 0, 0, 0, 0
             on_press: app.root.current = 'homepage'
             Image:
-                source: 'undo.png'
+                source: 'images/undo.png'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 50, 50

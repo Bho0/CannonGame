@@ -4,7 +4,7 @@
     name: 'start'    
     FloatLayout:
         Image:
-            source: 'Default_pirate_ship_3.jpg'
+            source: 'images/Default_pirate_ship_3.jpg'
             allow_stretch: True
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
@@ -13,7 +13,7 @@
         Label:
             text: 'PLAY'
             font_size: 52
-            font_name: 'Caribbean.ttf'  # Specifica il font personalizzato
+            font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
             color: 0, 0, 0, 1  # Testo nero
             size_hint: (None, None)
             size: self.texture_size
@@ -27,7 +27,7 @@
                 root.manager.transition = FadeTransition(duration=0.5)
                 app.root.current = 'homepage'
             Image:
-                source: 'playButton.png'
+                source: 'images/playButton.png'
                 allow_stretch: True
                 keep_ratio: False
                 center_x: self.parent.center_x

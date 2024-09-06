@@ -5,7 +5,7 @@
     name: 'levels'
     FloatLayout:
         Image:
-            source: 'levels.jpg'
+            source: 'images/levels.jpg'
             allow_stretch: True
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
@@ -27,7 +27,7 @@
             on_press:
                 app.root.current = 'mainpage'
             Image:
-                source: 'homeButton.png'
+                source: 'images/homeButton.png'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 50, 50
@@ -38,7 +38,7 @@
         Button:
             background_color: 0, 0, 0, 0
             text: 'Coming Soon'
-            font_name: 'Caribbean.ttf'
+            font_name: 'fonts/Caribbean.ttf'
             font_size: 52
             on_press:
                 root.manager.transition = FadeTransition()

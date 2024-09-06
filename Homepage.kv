@@ -9,7 +9,7 @@
 
         Label:
             text: "Music"
-            font_name: 'Caribbean.ttf'
+            font_name: 'fonts/Caribbean.ttf'
 
         Slider:
             id: slider
@@ -22,7 +22,7 @@
 
         Label:
             text: "Sounds"
-            font_name: 'Caribbean.ttf'
+            font_name: 'fonts/Caribbean.ttf'
 
         Slider:
             id: slider
@@ -43,7 +43,7 @@
     name: 'homepage'
     FloatLayout:
         Image:
-            source: 'Default_pirate_ship_3.jpg'
+            source: 'images/Default_pirate_ship_3.jpg'
             allow_stretch: True
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
@@ -57,7 +57,7 @@
                 text: 'New Game'
                 color: 0, 0, 0, 1
                 font_size: 52
-                font_name: 'Caribbean.ttf'
+                font_name: 'fonts/Caribbean.ttf'
                 background_color: 0, 0, 0, 0 
                 on_press:
                     app.add_newgame()
@@ -66,7 +66,7 @@
                 text: 'Load Game'
                 color: 0, 0, 0, 1
                 font_size: 52
-                font_name: 'Caribbean.ttf'
+                font_name: 'fonts/Caribbean.ttf'
                 background_color: 0, 0, 0, 0 
                 on_press: app.root.current = 'loadgame'
 
@@ -79,7 +79,7 @@
                 background_color: 0, 0, 0, 0
                 on_press: app.root.current = 'start'
                 Image:
-                    source: 'homeButton.png'
+                    source: 'images/homeButton.png'
                     center_x: self.parent.center_x
                     center_y: self.parent.center_y
                     size: 50, 50
@@ -88,7 +88,7 @@
                 background_color: 0, 0, 0, 0
                 on_press: Factory.VolPopup().open()
                 Image:
-                    source: 'volumeButton.webp'
+                    source: 'images/volumeButton.webp'
                     center_x: self.parent.center_x
                     center_y: self.parent.center_y
                     size: 50, 50
@@ -97,7 +97,7 @@
                 background_color: 0, 0, 0, 0
                 on_press: Factory.HoFPopup().open()
                 Image:
-                    source: 'hofButton.webp'
+                    source: 'images/hofButton.webp'
                     center_x: self.parent.center_x
                     center_y: self.parent.center_y
                     size: 50, 50
@@ -106,7 +106,7 @@
                 background_color: 0, 0, 0, 0
                 on_press: Factory.CredPopup().open()
                 Image:
-                    source: 'creditButton.png'
+                    source: 'images/creditButton.png'
                     center_x: self.parent.center_x
                     center_y: self.parent.center_y
                     size: 50, 50

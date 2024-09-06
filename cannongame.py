@@ -20,7 +20,7 @@ class CannonGame(App):
 
     def build(self):
 
-        self.sound = SoundLoader.load('pirate-tavern-full-version-167990.mp3')
+        self.sound = SoundLoader.load('sounds\pirate-tavern-full-version-167990.mp3')
         if self.sound:
             self.sound.loop = True
             self.sound.play()
