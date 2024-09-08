@@ -4,7 +4,9 @@ from kivy.app import App
 from kivy.graphics import Color, Rectangle
 from kivy.properties import ListProperty, NumericProperty
 
-from mainpage import MainPage
+import json
+import os
+from datetime import datetime
 
 class CustomLabel(Label):
     # Create a property to dynamically store the background color
@@ -29,8 +31,32 @@ class NewGame(Screen):
     def check_name(self):
         app = App.get_running_app()
         if self.ids.text_input.text.strip():
+            self.save_data()
             app.add_mainpage()
             app.root.current = 'mainpage'
         else:
             self.ids.label.text = "I need to know your name!"
             self.ids.text_input.hint_text = 'Insert here your name'
+    
+    def save_data(self):
+         # Dati da salvare
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        data = {
+            'name': self.ids.text_input.text
+        }
+
+        filename = 'save_data.json'
+
+        # Se il file esiste, carica i dati precedenti
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                all_data = json.load(f)
+        else:
+            all_data = {}
+
+        # Aggiungi i nuovi dati al dizionario con timestamp come chiave
+        all_data[timestamp] = data
+        
+        # Salva il dizionario aggiornato nel file JSON
+        with open(filename, 'w') as f:
+            json.dump(all_data, f, indent=4)

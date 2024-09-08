@@ -17,6 +17,16 @@
             size: self.texture_size
             pos_hint: {'center_x': 0.5, 'center_y': 0.9}
         
+        BoxLayout:
+            orientation: 'vertical'
+
+            ScrollView:
+                GridLayout:
+                    id: load_grid
+                    cols: 1
+                    size_hint_y: None
+                    height: self.minimum_height
+        
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
             size_hint: (.1, .1)
