@@ -1,14 +1,14 @@
 {
-    "2024-09-09 10:38:44": {
+    "2024-09-09 12:15:47": {
         "name": "prova1",
-        "tutorial": false
-    },
-    "2024-09-09 11:05:50": {
-        "name": "prova2",
-        "tutorial": true
-    },
-    "2024-09-09 11:34:04": {
-        "name": "prova3",
-        "tutorial": false
+        "tutorial": false,
+        "levels": 0,
+        "coins": 0,
+        "projectiles": [
+            "classic"
+        ],
+        "dresses": [
+            "red"
+        ]
     }
 }

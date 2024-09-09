@@ -48,7 +48,11 @@ class MainPage(Screen):
         else:
             update_tutorial = {
                 'name': save_data['name'],
-                'tutorial': False
+                'tutorial': False,
+                'levels' : save_data['levels'],
+                'coins' : save_data['coins'],
+                'projectiles': save_data['projectiles'],
+                'dresses': save_data['dresses']
             }
             all_data[timestamp] = update_tutorial
             with open(filename, 'w') as f:
@@ -130,7 +134,11 @@ class MainPage(Screen):
         
         updated_data = {
             'name': save_data['name'],
-            'tutorial': save_data['tutorial']
+            'tutorial': save_data['tutorial'],
+            'levels' : save_data['levels'],
+            'coins' : save_data['coins'],
+            'projectiles': save_data['projectiles'],
+            'dresses': save_data['dresses']
         }
 
         # Aggiungi i nuovi dati al dizionario con timestamp come chiave

@@ -44,7 +44,11 @@ class NewGame(Screen):
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         data = {
             'name': self.ids.text_input.text,
-            'tutorial': True
+            'tutorial': True,
+            'levels' : 0,
+            'coins' : 0,
+            'projectiles': ['classic'],
+            'dresses': ['red']
         }
 
         filename = 'save_data.json'

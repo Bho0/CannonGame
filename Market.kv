@@ -1,3 +1,131 @@
+#import Factory kivy.factory.Factory
+
+<Cap1@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+    title: ''
+    BoxLayout:
+        orientation: 'vertical'
+        
+        Label:
+            text: 'Vestito Blu'
+            size_hint_y: .4
+            height: '44dp'
+        
+        Label:
+            text: '50$'
+            size_hint_y: .4
+            height: '44dp'
+
+        Button:
+            text: 'BUY'
+            size_hint_y: .2
+
+<Cap2@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+    title: ''
+    BoxLayout:
+        orientation: 'vertical'
+        
+        Label:
+            text: 'Vestito Verde'
+            size_hint_y: .4
+            height: '44dp'
+        
+        Label:
+            text: '50$'
+            size_hint_y: .4
+            height: '44dp'
+
+        Button:
+            text: 'BUY'
+            size_hint_y: .2
+
+<Cap3@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+    title: ''
+    BoxLayout:
+        orientation: 'vertical'
+        
+        Label:
+            text: 'Vestito Giallo'
+            size_hint_y: .4
+            height: '44dp'
+        
+        Label:
+            text: '50$'
+            size_hint_y: .4
+            height: '44dp'
+
+        Button:
+            text: 'BUY'
+            size_hint_y: .2
+
+<P1@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+    title: ''
+    BoxLayout:
+        orientation: 'vertical'
+        
+        Label:
+            text: 'Bomb'
+            size_hint_y: .4
+            height: '44dp'
+        
+        Label:
+            text: '50$'
+            size_hint_y: .4
+            height: '44dp'
+
+        Button:
+            text: 'BUY'
+            size_hint_y: .2
+
+<P2@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+    title: ''
+    BoxLayout:
+        orientation: 'vertical'
+        
+        Label:
+            text: 'Bomb'
+            size_hint_y: .4
+            height: '44dp'
+        
+        Label:
+            text: '50$'
+            size_hint_y: .4
+            height: '44dp'
+
+        Button:
+            text: 'BUY'
+            size_hint_y: .2
+
+<P3@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+    title: ''
+    BoxLayout:
+        orientation: 'vertical'
+        
+        Label:
+            text: 'Bomb'
+            size_hint_y: .4
+            height: '44dp'
+        
+        Label:
+            text: '50$'
+            size_hint_y: .4
+            height: '44dp'
+
+        Button:
+            text: 'BUY'
+            size_hint_y: .2
+
 <Market>:
     name: 'market'
     FloatLayout:
@@ -67,12 +195,15 @@
                 
                 Button:
                     text: 'Cap1'
+                    on_press: Factory.Cap1().open()
                 
                 Button:
                     text: 'Cap2'
+                    on_press: Factory.Cap2().open()
                 
                 Button:
                     text: 'Cap3'
+                    on_press: Factory.Cap3().open()
 
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
@@ -110,13 +241,16 @@
                 padding: '10dp'
                 
                 Button:
-                    text: 'Cap1'
+                    text: 'P1'
+                    on_press: Factory.P1().open()
                 
                 Button:
-                    text: 'Cap2'
+                    text: 'P2'
+                    on_press: Factory.P2().open()
                 
                 Button:
-                    text: 'Cap3'
+                    text: 'P3'
+                    on_press: Factory.P3().open()
 
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
