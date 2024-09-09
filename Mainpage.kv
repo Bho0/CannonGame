@@ -12,6 +12,7 @@
             font_size: 30
             font_name: 'fonts/Caribbean.ttf'
             background_color: 0, 0, 0, 0
+            on_press: app.root.get_screen('mainpage').save_game(app.root.get_screen('mainpage').timestamp)
         
         Button:
             text: 'Exit'
@@ -80,7 +81,7 @@
             pos_hint: {'center_x': .4, 'center_y': .5}
             size_hint: (.1, .05)
             text: 'Skip'
-            on_press: root.change_text()
+            on_press: root.change_text(root.timestamp)
         
         Label:
             id: level_label

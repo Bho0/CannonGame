@@ -31,9 +31,10 @@ class NewGame(Screen):
     def check_name(self):
         app = App.get_running_app()
         if self.ids.text_input.text.strip():
-            self.save_data()
-            app.add_mainpage()
-            app.root.current = 'mainpage'
+            if self.check_name_repetition():
+                self.ids.label.text = "There exist another pirate with the same name, choose another name"
+            else:
+                self.save_data()
         else:
             self.ids.label.text = "I need to know your name!"
             self.ids.text_input.hint_text = 'Insert here your name'
@@ -42,7 +43,8 @@ class NewGame(Screen):
          # Dati da salvare
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         data = {
-            'name': self.ids.text_input.text
+            'name': self.ids.text_input.text,
+            'tutorial': True
         }
 
         filename = 'save_data.json'
@@ -60,3 +62,32 @@ class NewGame(Screen):
         # Salva il dizionario aggiornato nel file JSON
         with open(filename, 'w') as f:
             json.dump(all_data, f, indent=4)
+        
+        self.load_game(timestamp)
+    
+    def load_game(self, timestamp):
+        app = App.get_running_app()
+        filename = 'save_data.json'
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                all_data = json.load(f)
+            
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
+
+                # Naviga verso il nuovo schermo
+                app.add_mainpage()
+                game_screen = self.manager.get_screen('mainpage')  # Ottieni il nuovo schermo
+                game_screen.load_saved_game(save_data, timestamp)  # Passa i dati al nuovo schermo
+                self.manager.current = 'mainpage'  # Cambia schermo
+
+    def check_name_repetition(self):
+        filename = 'save_data.json'
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                all_data = json.load(f)
+            
+            for timestamp, data in all_data.items():
+                if self.ids.text_input.text == data['name']:
+                    return True
+        return False

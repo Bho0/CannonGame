@@ -1,7 +1,10 @@
 from kivy.uix.screenmanager import Screen
 from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle
-from kivy.properties import ListProperty, NumericProperty
+from kivy.properties import ListProperty, NumericProperty, StringProperty
+
+import json
+import os
 
 class CustomLabel(Label):
     # Create a property to dynamically store the background color
@@ -25,33 +28,31 @@ class CustomLabel(Label):
 
 class MainPage(Screen):
     texts = ListProperty(["Tutorial1", "Tutorial2", "Tutorial3", "Tutorial4"])
-    index = 0
+    index = -1
+    timestamp = StringProperty("")
 
-    def __init__(self, **kw):
-        super().__init__(**kw)
-        self.ids.level_button.opacity = 0
-        self.ids.level_button.disabled = True
-        self.ids.level_label.opacity = 0
-
-        self.ids.ship_button.opacity = 0
-        self.ids.ship_button.disabled = True
-        self.ids.ship_label.opacity = 0
-
-        self.ids.market_button.opacity = 0
-        self.ids.market_button.disabled = True
-        self.ids.market_label.opacity = 0
-
-        self.ids.option_button.opacity = 0
-        self.ids.option_button.disabled = True
-
-    def change_text(self):
+    def change_text(self, timestamp):
         # Incrementa l'indice
         self.index += 1
-        
+        filename = 'save_data.json'
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                all_data = json.load(f)
+            
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
+
         # Controlla se siamo all'ultimo elemento
         if self.index < len(self.texts):
             self.ids.tutorial_label.text = self.texts[self.index]
         else:
+            update_tutorial = {
+                'name': save_data['name'],
+                'tutorial': False
+            }
+            all_data[timestamp] = update_tutorial
+            with open(filename, 'w') as f:
+                json.dump(all_data, f, indent=4)
             # Nascondi il bottone quando si raggiunge l'ultimo elemento
             self.ids.tutorial_button.opacity = 0  # Rende il bottone invisibile
             self.ids.tutorial_button.disabled = True  # Disabilita il bottone
@@ -72,3 +73,69 @@ class MainPage(Screen):
 
             self.ids.option_button.opacity = 1
             self.ids.option_button.disabled = False
+    
+    def load_saved_game(self, save_data, timestamp):
+        # Funzione per caricare i dati del gioco salvato e visualizzarli
+        # Qui puoi impostare i widget dello schermo con i dati caricati
+
+        self.timestamp = timestamp
+
+        if save_data['tutorial'] == True:
+            self.ids.level_button.opacity = 0
+            self.ids.level_button.disabled = True
+            self.ids.level_label.opacity = 0
+
+            self.ids.ship_button.opacity = 0
+            self.ids.ship_button.disabled = True
+            self.ids.ship_label.opacity = 0
+
+            self.ids.market_button.opacity = 0
+            self.ids.market_button.disabled = True
+            self.ids.market_label.opacity = 0
+
+            self.ids.option_button.opacity = 0
+            self.ids.option_button.disabled = True
+
+            self.change_text(timestamp)
+        
+        else:
+            self.ids.tutorial_button.opacity = 0  # Rende il bottone invisibile
+            self.ids.tutorial_button.disabled = True  # Disabilita il bottone
+            self.ids.tutorial_label.opacity = 0
+            self.ids.cap_img.opacity = 0
+            
+            self.ids.level_button.opacity = 1
+            self.ids.level_button.disabled = False
+            self.ids.level_label.opacity = 1
+
+            self.ids.ship_button.opacity = 1
+            self.ids.ship_button.disabled = False
+            self.ids.ship_label.opacity = 1
+
+            self.ids.market_button.opacity = 1
+            self.ids.market_button.disabled = False
+            self.ids.market_label.opacity = 1
+
+            self.ids.option_button.opacity = 1
+            self.ids.option_button.disabled = False
+    
+    def save_game(self, timestamp):
+        filename = 'save_data.json'
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                all_data = json.load(f)
+            
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
+        
+        updated_data = {
+            'name': save_data['name'],
+            'tutorial': save_data['tutorial']
+        }
+
+        # Aggiungi i nuovi dati al dizionario con timestamp come chiave
+        all_data[timestamp] = updated_data
+        
+        # Salva il dizionario aggiornato nel file JSON
+        with open(filename, 'w') as f:
+            json.dump(all_data, f, indent=4)

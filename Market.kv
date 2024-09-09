@@ -51,11 +51,28 @@
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        
-        Label:
-            text: 'Choose your style:'
-            font_size: 32
-            font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
+                
+        BoxLayout:
+            orientation: 'vertical'
+            
+            Label:
+                text: 'Choose your style:'
+                font_size: 32
+                font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
+            
+            GridLayout:
+                cols: 3
+                spacing: '10dp'
+                padding: '10dp'
+                
+                Button:
+                    text: 'Cap1'
+                
+                Button:
+                    text: 'Cap2'
+                
+                Button:
+                    text: 'Cap3'
 
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
@@ -79,10 +96,27 @@
             size_hint: (1, 1)  # Copre l'intero layout
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
         
-        Label:
-            text: 'Buy new projectile:'
-            font_size: 32
-            font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
+        BoxLayout:
+            orientation: 'vertical'
+            
+            Label:
+                text: 'Buy your projectiles'
+                font_size: 32
+                font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
+            
+            GridLayout:
+                cols: 3
+                spacing: '10dp'
+                padding: '10dp'
+                
+                Button:
+                    text: 'Cap1'
+                
+                Button:
+                    text: 'Cap2'
+                
+                Button:
+                    text: 'Cap3'
 
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
