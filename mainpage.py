@@ -83,7 +83,7 @@ class MainPage(Screen):
         # Qui puoi impostare i widget dello schermo con i dati caricati
 
         self.timestamp = timestamp
-
+        print (self.timestamp)
         if save_data['tutorial'] == True:
             self.ids.level_button.opacity = 0
             self.ids.level_button.disabled = True
@@ -124,6 +124,7 @@ class MainPage(Screen):
             self.ids.option_button.disabled = False
     
     def save_game(self, timestamp):
+        print (timestamp)
         filename = 'save_data.json'
         if os.path.exists(filename):
             with open(filename, 'r') as f:
@@ -147,3 +148,16 @@ class MainPage(Screen):
         # Salva il dizionario aggiornato nel file JSON
         with open(filename, 'w') as f:
             json.dump(all_data, f, indent=4)
+    
+    def get_json_value(self, timestamp, data):
+        filename = 'save_data.json'
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                all_data = json.load(f)
+            
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
+                result = str(save_data[data])
+                return result
+            else: 
+                return 'ERROR!'

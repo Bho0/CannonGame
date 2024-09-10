@@ -10,5 +10,17 @@
         "dresses": [
             "red"
         ]
+    },
+    "2024-09-10 11:04:06": {
+        "name": "prova2",
+        "tutorial": true,
+        "levels": 0,
+        "coins": 0,
+        "projectiles": [
+            "classic"
+        ],
+        "dresses": [
+            "red"
+        ]
     }
 }

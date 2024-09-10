@@ -57,7 +57,37 @@
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        
+
+        CustomLabel:
+            id: white_label
+            pos_hint: {'center_x': 0, 'center_y': .9}
+            size_hint: (.1, .05)
+        CustomLabel:
+            id: name_label
+            pos_hint: {'center_x': .15, 'center_y': .9}
+            text: 'Name: ' + root.get_json_value(root.timestamp, 'name')
+            font_size: 12
+            font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
+            color: 0, 0, 0, 1  # Testo nero
+            size_hint: (.2, None)
+            size: self.texture_size
+        CustomLabel:
+            id: coins_label
+            pos_hint: {'center_x': .15, 'center_y': .86}
+            text: 'Coins: ' + root.get_json_value(root.timestamp, 'coins')
+            font_size: 12
+            font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
+            color: 0, 0, 0, 1  # Testo nero
+            size_hint: (.2, None)
+            size: self.texture_size
+        Image:
+            id: dress_img
+            source: 'images/captain.png'
+            allow_stretch: False
+            keep_ratio: True
+            size_hint: (.1, .1)
+            pos_hint: {'center_x': .05, 'center_y': 0.88}
+
         Image:
             id: cap_img
             source: 'images/captain.png'
