@@ -1,38 +1,3 @@
-#:import Factory kivy.factory.Factory
-
-<Cannon>:
-    auto_dismiss: True
-    size_hint: (.5, .5)
-    title: ''
-    BoxLayout:
-        orientation: 'vertical'
-        
-        Label:
-            text: 'Choose your ammunition:'
-            size_hint_y: None
-            height: '44dp'
-        
-        GridLayout:
-            id: ammo_grid
-            cols: 3
-            spacing: '10dp'
-            padding: '10dp'
-            
-            ToggleButton:
-                id: cannonball
-                text: 'Cannonball'
-                on_press: app.root.get_screen('ship').select_projectile('cannonball')
-            
-            ToggleButton:
-                id: chainshot
-                text: 'Chain shot'
-                on_press: app.root.get_screen('ship').select_projectile('chainshot')
-            
-            ToggleButton:
-                id: grapeshot
-                text: 'Grapeshot'
-                on_press: app.root.get_screen('ship').select_projectile('grapeshot')
-
 <Ship>:
     name: 'ship'
     FloatLayout:
@@ -72,7 +37,7 @@
             background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .6, 'center_y': .25}
             size_hint: (.1, .1)
-            on_press: Factory.Cannon().open(root.timestamp)
+            on_press: root.goto_projectile(root.timestamp)
             Image:
                 source: 'images/cannon.png'
                 center_x: self.parent.center_x
@@ -121,6 +86,55 @@
                     group: 'C'
                     on_press: root.select_dress('cap3')
 
+        Button:
+            pos_hint: {'center_x': .05, 'center_y': .91}
+            size_hint: (.1, .1)
+            background_color: 0, 0, 0, 0
+            on_press: app.root.current = 'ship'
+            Image:
+                source: 'images/undo.png'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 50, 50
+
+<Projectile>:
+    name: 'projectile'
+    FloatLayout:
+        Image:
+            source: 'images/Default_pirate_captain_cabin_in_the_ship_2.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+        
+        BoxLayout:
+            orientation: 'vertical'
+            
+            Label:
+                text: 'Choose your captain:'
+                font_size: 32
+                font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
+            
+            GridLayout:
+                id: ammo_grid
+                cols: 3
+                spacing: '10dp'
+                padding: '10dp'
+                
+                ToggleButton:
+                    id: cannonball
+                    text: 'Cannonball'
+                    on_press: app.root.get_screen('ship').select_projectile('cannonball')
+                
+                ToggleButton:
+                    id: chainshot
+                    text: 'Chain shot'
+                    on_press: app.root.get_screen('ship').select_projectile('chainshot')
+                
+                ToggleButton:
+                    id: grapeshot
+                    text: 'Grapeshot'
+                    on_press: app.root.get_screen('ship').select_projectile('grapeshot')
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
             size_hint: (.1, .1)
