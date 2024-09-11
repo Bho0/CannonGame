@@ -59,7 +59,7 @@
             background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .25, 'center_y': .4}
             size_hint: (.1, .1)
-            on_press: app.root.current = 'captain'
+            on_press: root.goto_captain(root.timestamp)
             Image:
                 source: 'images/wheels-icon-png-31839.png'
                 center_x: self.parent.center_x
@@ -97,6 +97,7 @@
                 font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
             
             GridLayout:
+                id: cap_grid
                 cols: 3
                 spacing: '10dp'
                 padding: '10dp'
