@@ -145,7 +145,7 @@
             background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .7, 'center_y': .3}
             size_hint: (.1, .1)
-            on_press: app.root.current = 'ship'
+            on_press: root.goto_ship(root.timestamp)
             Image:
                 source: 'images/wheels-icon-png-31839.png'
                 center_x: self.parent.center_x

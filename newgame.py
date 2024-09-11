@@ -45,7 +45,7 @@ class NewGame(Screen):
         data = {
             'name': self.ids.text_input.text,
             'tutorial': True,
-            'levels' : 0,
+            'levels' : 1,
             'coins' : 0,
             'projectiles': ['classic'],
             'dresses': ['red'],

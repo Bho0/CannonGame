@@ -2,6 +2,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.label import Label
 from kivy.graphics import Color, Rectangle
 from kivy.properties import ListProperty, NumericProperty, StringProperty
+from kivy.app import App
 
 import json
 import os
@@ -125,7 +126,6 @@ class MainPage(Screen):
             self.ids.option_button.disabled = False
     
     def save_game(self, timestamp):
-        print (timestamp)
         filename = 'save_data.json'
         if os.path.exists(filename):
             with open(filename, 'r') as f:
@@ -182,3 +182,9 @@ class MainPage(Screen):
                     return 'image\captain.png'
                 if result == 'yellow':
                     return 'image\captain.png'
+    
+    def goto_ship(self, timestamp):
+        # Naviga verso il nuovo schermo
+        game_screen = self.manager.get_screen('ship')  # Ottieni il nuovo schermo
+        game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
+        self.manager.current = 'ship'  # Cambia schermo

@@ -17,14 +17,20 @@
             spacing: '10dp'
             padding: '10dp'
             
-            Button:
+            ToggleButton:
+                id: cannonball
                 text: 'Cannonball'
+                on_press: app.root.get_screen('ship').select_projectile('cannonball')
             
-            Button:
+            ToggleButton:
+                id: chainshot
                 text: 'Chain shot'
+                on_press: app.root.get_screen('ship').select_projectile('chainshot')
             
-            Button:
+            ToggleButton:
+                id: grapeshot
                 text: 'Grapeshot'
+                on_press: app.root.get_screen('ship').select_projectile('grapeshot')
 
 <Ship>:
     name: 'ship'
@@ -95,14 +101,23 @@
                 spacing: '10dp'
                 padding: '10dp'
                 
-                Button:
+                ToggleButton:
+                    id: cap1
                     text: 'Cap1'
-                
-                Button:
+                    group: 'C'
+                    on_press: root.select_dress('cap1')
+            
+                ToggleButton:
+                    id: cap2
                     text: 'Cap2'
+                    group: 'C'
+                    on_press: root.select_dress('cap2')
                 
-                Button:
+                ToggleButton:
+                    id: cap3
                     text: 'Cap3'
+                    group: 'C'
+                    on_press: root.select_dress('cap3')
 
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
