@@ -48,7 +48,9 @@ class NewGame(Screen):
             'levels' : 0,
             'coins' : 0,
             'projectiles': ['classic'],
-            'dresses': ['red']
+            'dresses': ['red'],
+            'selected_dress': 'red',
+            'selected_projectiles': ['classic']
         }
 
         filename = 'save_data.json'

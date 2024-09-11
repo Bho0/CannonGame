@@ -52,7 +52,9 @@ class MainPage(Screen):
                 'levels' : save_data['levels'],
                 'coins' : save_data['coins'],
                 'projectiles': save_data['projectiles'],
-                'dresses': save_data['dresses']
+                'dresses': save_data['dresses'],
+                'selected_dress': save_data['selected_dress'],
+                'selected_projectiles': save_data['selected_projectiles']
             }
             all_data[timestamp] = update_tutorial
             with open(filename, 'w') as f:
@@ -83,7 +85,6 @@ class MainPage(Screen):
         # Qui puoi impostare i widget dello schermo con i dati caricati
 
         self.timestamp = timestamp
-        print (self.timestamp)
         if save_data['tutorial'] == True:
             self.ids.level_button.opacity = 0
             self.ids.level_button.disabled = True
@@ -139,7 +140,9 @@ class MainPage(Screen):
             'levels' : save_data['levels'],
             'coins' : save_data['coins'],
             'projectiles': save_data['projectiles'],
-            'dresses': save_data['dresses']
+            'dresses': save_data['dresses'],
+            'selected_dress': save_data['selected_dress'],
+            'selected_projectiles': save_data['selected_projectiles']
         }
 
         # Aggiungi i nuovi dati al dizionario con timestamp come chiave
@@ -161,3 +164,21 @@ class MainPage(Screen):
                 return result
             else: 
                 return 'ERROR!'
+    
+    def chosen_dress(self, timestamp):
+        filename = 'save_data.json'
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                all_data = json.load(f)
+            
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
+                result = str(save_data['selected_dress'])
+                if result == 'red':
+                    return 'images\captain.png'
+                if result == 'blu':
+                    return 'image\captain.png'
+                if result == 'grenn':
+                    return 'image\captain.png'
+                if result == 'yellow':
+                    return 'image\captain.png'
