@@ -6,26 +6,37 @@ from kivy.properties import StringProperty
 import json
 import os
 
+class Cannon(Popup):
+    def select_projectile(self, projectile_type):        
+        if self.selected_projectile == projectile_type:
+            self.selected_projectile = ''
+        else:
+            self.selected_projectile = projectile_type
+    
+    def open(self, timestamp):
+        grid = self.ids.ammo_grid
+        grid.clear_widgets()  # Pulisci la lista prima di aggiungere nuovi elementi
+
+        filename = 'save_data.json'
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                all_data = json.load(f)
+
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
+
+            for projectile in save_data['projectiles']:
+                button = ToggleButton(text=f"{projectile} dress",
+                                on_press=lambda btn, pr=projectile: self.select_projectile(pr)
+                                )
+                grid.add_widget(button)
+
 class Ship(Screen):
     timestamp = StringProperty("")
     selected_projectile = StringProperty('')
 
     def load_screen(self, timestamp):
         self.timestamp = timestamp
-        
-    def select_projectile(self, projectile_type):
-        filename = 'save_data.json'
-        if os.path.exists(filename):
-            with open(filename, 'r') as f:
-                all_data = json.load(f)
-            
-            if self.timestamp in all_data:
-                save_data = all_data[self.timestamp]
-        
-        if self.selected_projectile == projectile_type:
-            self.selected_projectile = ''
-        else:
-            self.selected_projectile = projectile_type
     
     def goto_captain(self, timestamp):
         game_screen = self.manager.get_screen('captain')  # Ottieni il nuovo schermo
