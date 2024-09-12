@@ -1,18 +1,19 @@
 {
-    "2024-09-11 12:16:02": {
+    "2024-09-12 10:59:27": {
         "name": "prova1",
         "tutorial": false,
         "levels": 1,
         "coins": 0,
-        "projectiles": [
-            "classic"
-        ],
-        "dresses": [
-            "red"
-        ],
+        "bullet": true,
+        "bomb": false,
+        "laser": false,
+        "red_dress": true,
+        "blu_dress": false,
+        "green_dress": false,
+        "yellow_dress": false,
         "selected_dress": "red",
         "selected_projectiles": [
-            "classic"
+            "bullet"
         ]
     }
 }

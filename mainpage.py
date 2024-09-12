@@ -52,8 +52,13 @@ class MainPage(Screen):
                 'tutorial': False,
                 'levels' : save_data['levels'],
                 'coins' : save_data['coins'],
-                'projectiles': save_data['projectiles'],
-                'dresses': save_data['dresses'],
+                'bullet': save_data['bullet'],
+                'bomb': save_data['bomb'],
+                'laser': save_data['laser'],
+                'red_dress': save_data['red_dress'],
+                'blu_dress': save_data['blu_dress'],
+                'green_dress': save_data['green_dress'],
+                'yellow_dress': save_data['yellow_dress'],
                 'selected_dress': save_data['selected_dress'],
                 'selected_projectiles': save_data['selected_projectiles']
             }
@@ -139,8 +144,13 @@ class MainPage(Screen):
             'tutorial': save_data['tutorial'],
             'levels' : save_data['levels'],
             'coins' : save_data['coins'],
-            'projectiles': save_data['projectiles'],
-            'dresses': save_data['dresses'],
+            'bullet': save_data['bullet'],
+            'bomb': save_data['bomb'],
+            'laser': save_data['laser'],
+            'red_dress': save_data['red_dress'],
+            'blu_dress': save_data['blu_dress'],
+            'green_dress': save_data['green_dress'],
+            'yellow_dress': save_data['yellow_dress'],
             'selected_dress': save_data['selected_dress'],
             'selected_projectiles': save_data['selected_projectiles']
         }

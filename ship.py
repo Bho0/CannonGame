@@ -44,11 +44,55 @@ class Captain(Screen):
             if timestamp in all_data:
                 save_data = all_data[timestamp]
 
-            for dress in save_data['dresses']:
-                button = ToggleButton(text=f"{dress} dress",
+            if save_data['red_dress'] == True:
+                button = ToggleButton(text=f"red dress",
                                 group='C',
                                 background_normal='images\captain.png',
-                                on_press=lambda btn, dr=dress: self.select_dress(dr)
+                                on_press=lambda btn, dr='red_dress': self.select_dress(dr)
+                                )
+                grid.add_widget(button)
+            else: 
+                button = ToggleButton(text=f"NOT OWNED",
+                                disabled=True
+                                )
+                grid.add_widget(button)
+            
+            if save_data['blu_dress'] == True:
+                button = ToggleButton(text=f"blu dress",
+                                group='C',
+                                background_normal='images\captain.png',
+                                on_press=lambda btn, dr='blu_dress': self.select_dress(dr)
+                                )
+                grid.add_widget(button)
+            else: 
+                button = ToggleButton(text=f"NOT OWNED",
+                                disabled=True
+                                )
+                grid.add_widget(button)
+            
+            if save_data['green_dress'] == True:
+                button = ToggleButton(text=f"green dress",
+                                group='C',
+                                background_normal='images\captain.png',
+                                on_press=lambda btn, dr='green_dress': self.select_dress(dr)
+                                )
+                grid.add_widget(button)
+            else: 
+                button = ToggleButton(text=f"NOT OWNED",
+                                disabled=True
+                                )
+                grid.add_widget(button)
+            
+            if save_data['yellow_dress'] == True:
+                button = ToggleButton(text=f"yellow dress",
+                                group='C',
+                                background_normal='images\captain.png',
+                                on_press=lambda btn, dr='yellow_dress': self.select_dress(dr)
+                                )
+                grid.add_widget(button)
+            else: 
+                button = ToggleButton(text=f"NOT OWNED",
+                                disabled=True
                                 )
                 grid.add_widget(button)
 
@@ -73,8 +117,38 @@ class Projectile(Screen):
             if timestamp in all_data:
                 save_data = all_data[timestamp]
 
-            for projectile in save_data['projectiles']:
-                button = ToggleButton(text=f"{projectile}",
-                                on_press=lambda btn, pr=projectile: self.select_projectile(pr)
+            if save_data['bullet'] == True:
+                button = ToggleButton(text=f"bullet",
+                                background_normal='images\captain.png',
+                                on_press=lambda btn, dr='bullet': self.select_projectile(dr)
+                                )
+                grid.add_widget(button)
+            else: 
+                button = ToggleButton(text=f"NOT OWNED",
+                                disabled=True
+                                )
+                grid.add_widget(button)
+            
+            if save_data['bomb'] == True:
+                button = ToggleButton(text=f"bomb",
+                                background_normal='images\captain.png',
+                                on_press=lambda btn, dr='bomb': self.select_projectile(dr)
+                                )
+                grid.add_widget(button)
+            else: 
+                button = ToggleButton(text=f"NOT OWNED",
+                                disabled=True
+                                )
+                grid.add_widget(button)
+            
+            if save_data['laser'] == True:
+                button = ToggleButton(text=f"laser",
+                                background_normal='images\captain.png',
+                                on_press=lambda btn, dr='laser': self.select_projectile(dr)
+                                )
+                grid.add_widget(button)
+            else: 
+                button = ToggleButton(text=f"NOT OWNED",
+                                disabled=True
                                 )
                 grid.add_widget(button)

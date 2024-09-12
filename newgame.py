@@ -47,10 +47,15 @@ class NewGame(Screen):
             'tutorial': True,
             'levels' : 1,
             'coins' : 0,
-            'projectiles': ['classic'],
-            'dresses': ['red'],
+            'bullet': True,
+            'bomb': False,
+            'laser': False,
+            'red_dress': True,
+            'blu_dress': False,
+            'green_dress': False,
+            'yellow_dress': False,
             'selected_dress': 'red',
-            'selected_projectiles': ['classic']
+            'selected_projectiles': ['bullet']
         }
 
         filename = 'save_data.json'
