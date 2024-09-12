@@ -1,27 +1,8 @@
 #import Factory kivy.factory.Factory
 
-<Cap1@Popup>:
-    auto_dismiss: True
-    size_hint: (.5, .5)
-    title: ''
-    BoxLayout:
-        orientation: 'vertical'
-        
-        Label:
-            text: 'Vestito Blu'
-            size_hint_y: .4
-            height: '44dp'
-        
-        Label:
-            text: '50$'
-            size_hint_y: .4
-            height: '44dp'
+<BluDress>:
 
-        Button:
-            text: 'BUY'
-            size_hint_y: .2
-
-<Cap2@Popup>:
+<GreenDress>:
     auto_dismiss: True
     size_hint: (.5, .5)
     title: ''
@@ -42,7 +23,7 @@
             text: 'BUY'
             size_hint_y: .2
 
-<Cap3@Popup>:
+<YellowDress>:
     auto_dismiss: True
     size_hint: (.5, .5)
     title: ''
@@ -63,7 +44,7 @@
             text: 'BUY'
             size_hint_y: .2
 
-<P1@Popup>:
+<Bomb>:
     auto_dismiss: True
     size_hint: (.5, .5)
     title: ''
@@ -84,28 +65,7 @@
             text: 'BUY'
             size_hint_y: .2
 
-<P2@Popup>:
-    auto_dismiss: True
-    size_hint: (.5, .5)
-    title: ''
-    BoxLayout:
-        orientation: 'vertical'
-        
-        Label:
-            text: 'Bomb'
-            size_hint_y: .4
-            height: '44dp'
-        
-        Label:
-            text: '50$'
-            size_hint_y: .4
-            height: '44dp'
-
-        Button:
-            text: 'BUY'
-            size_hint_y: .2
-
-<P3@Popup>:
+<Laser>:
     auto_dismiss: True
     size_hint: (.5, .5)
     title: ''
@@ -152,12 +112,12 @@
                 Button:
                     text: 'Dressing room'
                     font_name: 'fonts/Caribbean.ttf'
-                    on_press: app.root.current = 'dressingRoom'
+                    on_press: root.goto_dressingRoom(root.timestamp)
                 
                 Button:
                     text: 'Projectile store'
                     font_name: 'fonts/Caribbean.ttf'
-                    on_press: app.root.current = 'projectileStore'
+                    on_press: root.goto_projectileStore(root.timestamp)
 
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
@@ -189,21 +149,10 @@
                 font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
             
             GridLayout:
+                id: dress_grid
                 cols: 3
                 spacing: '10dp'
                 padding: '10dp'
-                
-                Button:
-                    text: 'Cap1'
-                    on_press: Factory.Cap1().open()
-                
-                Button:
-                    text: 'Cap2'
-                    on_press: Factory.Cap2().open()
-                
-                Button:
-                    text: 'Cap3'
-                    on_press: Factory.Cap3().open()
 
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
@@ -236,21 +185,9 @@
                 font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
             
             GridLayout:
-                cols: 3
+                id: prj_grid
                 spacing: '10dp'
                 padding: '10dp'
-                
-                Button:
-                    text: 'P1'
-                    on_press: Factory.P1().open()
-                
-                Button:
-                    text: 'P2'
-                    on_press: Factory.P2().open()
-                
-                Button:
-                    text: 'P3'
-                    on_press: Factory.P3().open()
 
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}

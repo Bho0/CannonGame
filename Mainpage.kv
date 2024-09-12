@@ -161,7 +161,7 @@
             background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .3, 'center_y': .5}
             size_hint: (.1, .1)
-            on_press: app.root.current = 'market'
+            on_press: root.goto_market(root.timestamp)
             Image:
                 source: 'images/market-icon-23.png'
                 center_x: self.parent.center_x

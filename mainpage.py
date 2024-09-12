@@ -198,3 +198,9 @@ class MainPage(Screen):
         game_screen = self.manager.get_screen('ship')  # Ottieni il nuovo schermo
         game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
         self.manager.current = 'ship'  # Cambia schermo
+    
+    def goto_market(self, timestamp):
+        # Naviga verso il nuovo schermo
+        game_screen = self.manager.get_screen('market')  # Ottieni il nuovo schermo
+        game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
+        self.manager.current = 'market'  # Cambia schermo
