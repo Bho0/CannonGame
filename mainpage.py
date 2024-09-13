@@ -201,6 +201,8 @@ class MainPage(Screen):
     
     def goto_market(self, timestamp):
         # Naviga verso il nuovo schermo
+        app = App.get_running_app()
         game_screen = self.manager.get_screen('market')  # Ottieni il nuovo schermo
         game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
         self.manager.current = 'market'  # Cambia schermo
+        app.remove_mainpage()

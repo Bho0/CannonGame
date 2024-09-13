@@ -1,5 +1,6 @@
 from kivy.uix.screenmanager import Screen
 from kivy.uix.togglebutton import ToggleButton
+from kivy.uix.label import Label
 from kivy.properties import StringProperty
 
 import json
@@ -100,38 +101,44 @@ class Captain(Screen):
             if save_data['red_dress'] == True:
                 button = ToggleButton(text=f"red dress",
                                 group='C',
+                                font_name= 'fonts/Caribbean.ttf',
                                 background_normal='images\captain.png',
                                 on_press=lambda btn, dr='red', ts=timestamp: self.select_dress(dr,ts)
                                 )
                 grid.add_widget(button)
             else: 
-                button = ToggleButton(text=f"NOT OWNED",
+                button = ToggleButton(text=f"NOT  OWNED",
+                                font_name= 'fonts/Caribbean.ttf',
                                 disabled=True
                                 )
                 grid.add_widget(button)
             
             if save_data['blu_dress'] == True:
                 button = ToggleButton(text=f"blu dress",
+                                font_name= 'fonts/Caribbean.ttf',
                                 group='C',
                                 background_normal='images\captain.png',
                                 on_press=lambda btn, dr='blu', ts=timestamp: self.select_dress(dr,ts)
                                 )
                 grid.add_widget(button)
             else: 
-                button = ToggleButton(text=f"NOT OWNED",
+                button = ToggleButton(text=f"NOT  OWNED",
+                                font_name= 'fonts/Caribbean.ttf',
                                 disabled=True
                                 )
                 grid.add_widget(button)
             
             if save_data['green_dress'] == True:
                 button = ToggleButton(text=f"green dress",
+                                font_name= 'fonts/Caribbean.ttf',
                                 group='C',
                                 background_normal='images\captain.png',
                                 on_press=lambda btn, dr='green', ts=timestamp: self.select_dress(dr,ts)
                                 )
                 grid.add_widget(button)
             else: 
-                button = ToggleButton(text=f"NOT OWNED",
+                button = ToggleButton(text=f"NOT  OWNED",
+                                font_name= 'fonts/Caribbean.ttf',
                                 disabled=True
                                 )
                 grid.add_widget(button)
@@ -139,19 +146,55 @@ class Captain(Screen):
             if save_data['yellow_dress'] == True:
                 button = ToggleButton(text=f"yellow dress",
                                 group='C',
+                                font_name= 'fonts/Caribbean.ttf',
                                 background_normal='images\captain.png',
                                 on_press=lambda btn, dr='yellow', ts=timestamp: self.select_dress(dr,ts)
                                 )
                 grid.add_widget(button)
             else: 
-                button = ToggleButton(text=f"NOT OWNED",
+                button = ToggleButton(text=f"NOT  OWNED",
+                                font_name= 'fonts/Caribbean.ttf',
                                 disabled=True
                                 )
                 grid.add_widget(button)
 
 class Projectile(Screen):
     selected_projectile = StringProperty('')
+    
+    def load_screen(self, timestamp):
+        grid = self.ids.ammo_grid
+        grid.clear_widgets()  # Pulisci la lista prima di aggiungere nuovi elementi
 
+        filename = 'save_data.json'
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                all_data = json.load(f)
+
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
+
+            if save_data['bullet'] == True:
+                button = Label(text=f"bullet", font_name= 'fonts/Caribbean.ttf')
+                grid.add_widget(button)
+            else: 
+                button = Label(text=f"NOT  OWNED", font_name= 'fonts/Caribbean.ttf')
+                grid.add_widget(button)
+            
+            if save_data['bomb'] == True:
+                button = Label(text=f"bomb", font_name= 'fonts/Caribbean.ttf')
+                grid.add_widget(button)
+            else: 
+                button = Label(text=f"NOT  OWNED", font_name= 'fonts/Caribbean.ttf')
+                grid.add_widget(button)
+            
+            if save_data['laser'] == True:
+                button = Label(text=f"laser", font_name= 'fonts/Caribbean.ttf')
+                grid.add_widget(button)
+            else: 
+                button = Label(text=f"NOT  OWNED", font_name= 'fonts/Caribbean.ttf')
+                grid.add_widget(button)
+
+"""
     def select_projectile(self, projectile_type, timestamp):
         flag = True
         filename = 'save_data.json'
@@ -220,51 +263,4 @@ class Projectile(Screen):
             # Salva il dizionario aggiornato nel file JSON
             with open(filename, 'w') as f:
                 json.dump(all_data, f, indent=4)
-    
-    def load_screen(self, timestamp):
-        grid = self.ids.ammo_grid
-        grid.clear_widgets()  # Pulisci la lista prima di aggiungere nuovi elementi
-
-        filename = 'save_data.json'
-        if os.path.exists(filename):
-            with open(filename, 'r') as f:
-                all_data = json.load(f)
-
-            if timestamp in all_data:
-                save_data = all_data[timestamp]
-
-            if save_data['bullet'] == True:
-                button = ToggleButton(text=f"bullet",
-                                background_normal='images\captain.png',
-                                on_press=lambda btn, dr='bullet', ts=timestamp: self.select_projectile(dr, ts)
-                                )
-                grid.add_widget(button)
-            else: 
-                button = ToggleButton(text=f"NOT OWNED",
-                                disabled=True
-                                )
-                grid.add_widget(button)
-            
-            if save_data['bomb'] == True:
-                button = ToggleButton(text=f"bomb",
-                                background_normal='images\captain.png',
-                                on_press=lambda btn, dr='bomb', ts=timestamp: self.select_projectile(dr, ts)
-                                )
-                grid.add_widget(button)
-            else: 
-                button = ToggleButton(text=f"NOT OWNED",
-                                disabled=True
-                                )
-                grid.add_widget(button)
-            
-            if save_data['laser'] == True:
-                button = ToggleButton(text=f"laser",
-                                background_normal='images\captain.png',
-                                on_press=lambda btn, dr='laser', ts=timestamp: self.select_projectile(dr, ts)
-                                )
-                grid.add_widget(button)
-            else: 
-                button = ToggleButton(text=f"NOT OWNED",
-                                disabled=True
-                                )
-                grid.add_widget(button)
+"""

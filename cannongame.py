@@ -19,7 +19,6 @@ class Start(Screen):
 class CannonGame(App):
 
     def build(self):
-
         self.sound = SoundLoader.load('sounds/music.mp3')
         if self.sound:
             self.sound.loop = True

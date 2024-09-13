@@ -3,88 +3,12 @@
 <BluDress>:
 
 <GreenDress>:
-    auto_dismiss: True
-    size_hint: (.5, .5)
-    title: ''
-    BoxLayout:
-        orientation: 'vertical'
-        
-        Label:
-            text: 'Vestito Verde'
-            size_hint_y: .4
-            height: '44dp'
-        
-        Label:
-            text: '50$'
-            size_hint_y: .4
-            height: '44dp'
-
-        Button:
-            text: 'BUY'
-            size_hint_y: .2
 
 <YellowDress>:
-    auto_dismiss: True
-    size_hint: (.5, .5)
-    title: ''
-    BoxLayout:
-        orientation: 'vertical'
-        
-        Label:
-            text: 'Vestito Giallo'
-            size_hint_y: .4
-            height: '44dp'
-        
-        Label:
-            text: '50$'
-            size_hint_y: .4
-            height: '44dp'
-
-        Button:
-            text: 'BUY'
-            size_hint_y: .2
 
 <Bomb>:
-    auto_dismiss: True
-    size_hint: (.5, .5)
-    title: ''
-    BoxLayout:
-        orientation: 'vertical'
-        
-        Label:
-            text: 'Bomb'
-            size_hint_y: .4
-            height: '44dp'
-        
-        Label:
-            text: '50$'
-            size_hint_y: .4
-            height: '44dp'
-
-        Button:
-            text: 'BUY'
-            size_hint_y: .2
 
 <Laser>:
-    auto_dismiss: True
-    size_hint: (.5, .5)
-    title: ''
-    BoxLayout:
-        orientation: 'vertical'
-        
-        Label:
-            text: 'Bomb'
-            size_hint_y: .4
-            height: '44dp'
-        
-        Label:
-            text: '50$'
-            size_hint_y: .4
-            height: '44dp'
-
-        Button:
-            text: 'BUY'
-            size_hint_y: .2
 
 <Market>:
     name: 'market'
@@ -123,7 +47,8 @@
             pos_hint: {'center_x': .05, 'center_y': .91}
             size_hint: (.1, .1)
             background_color: 0, 0, 0, 0
-            on_press: app.root.current = 'mainpage'
+            on_press: 
+                root.goto_mainpage(root.timestamp)
             Image:
                 source: 'images/homeButton.png'
                 center_x: self.parent.center_x
@@ -165,7 +90,6 @@
                 center_y: self.parent.center_y
                 size: 50, 50
 
-
 <ProjectileStore>:
     name: 'projectileStore'
     FloatLayout:
@@ -186,6 +110,7 @@
             
             GridLayout:
                 id: prj_grid
+                cols: 2
                 spacing: '10dp'
                 padding: '10dp'
 
