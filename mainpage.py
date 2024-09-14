@@ -184,20 +184,22 @@ class MainPage(Screen):
             if timestamp in all_data:
                 save_data = all_data[timestamp]
                 result = str(save_data['selected_dress'])
-                if result == 'red':
+                if result == "red":
                     return 'images\captain.png'
-                if result == 'blu':
-                    return 'image\captain.png'
-                if result == 'grenn':
-                    return 'image\captain.png'
-                if result == 'yellow':
-                    return 'image\captain.png'
+                if result == "blu":
+                    return 'images/blue_dress.png'
+                if result == "green":
+                    return 'images\green_dress(1).png'
+                if result == "yellow":
+                    return 'images/yellow_dress.png'
     
     def goto_ship(self, timestamp):
         # Naviga verso il nuovo schermo
+        app = App.get_running_app()
         game_screen = self.manager.get_screen('ship')  # Ottieni il nuovo schermo
         game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
         self.manager.current = 'ship'  # Cambia schermo
+        app.remove_mainpage()
     
     def goto_market(self, timestamp):
         # Naviga verso il nuovo schermo

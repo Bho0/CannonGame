@@ -13,7 +13,7 @@
             size_hint: (.1, .1)
             background_color: 0, 0, 0, 0
             on_press:
-                app.root.current = 'mainpage'
+                root.goto_mainpage(root.timestamp)
             Image:
                 source: 'images/homeButton.png'
                 center_x: self.parent.center_x
@@ -64,7 +64,7 @@
             
             GridLayout:
                 id: cap_grid
-                cols: 3
+                cols: 4
                 spacing: '10dp'
                 padding: '10dp'
 

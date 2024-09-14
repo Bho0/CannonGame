@@ -30,14 +30,14 @@ class BluDress(Popup):
             if timestamp in all_data:
                 save_data = all_data[timestamp]
             
-        self.content.add_widget(Label(text="Blue Dress", height=44))
-        self.content.add_widget(Label(text="50$", height=44))
+        self.content.add_widget(Label(text="Blue Dress", font_name= 'fonts/Caribbean.ttf', height=44))
+        self.content.add_widget(Label(text="50$", font_name= 'fonts/Caribbean.ttf', height=44))
 
         if save_data['coins'] < 50:
-            self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", height=44))
-            buy_button = Button(text="BUY", disabled=True)
+            self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name= 'fonts/Caribbean.ttf', height=44))
+            buy_button = Button(text="BUY", font_name= 'fonts/Caribbean.ttf', disabled=True)
         else: 
-            buy_button = Button(text="BUY")
+            buy_button = Button(text="BUY", font_name= 'fonts/Caribbean.ttf',)
             buy_button.bind(on_press=self.on_buy)
         
         self.content.add_widget(buy_button)
@@ -68,14 +68,14 @@ class GreenDress(Popup):
             if timestamp in all_data:
                 save_data = all_data[timestamp]
             
-        self.content.add_widget(Label(text="Green Dress", height=44))
-        self.content.add_widget(Label(text="50$", height=44))
+        self.content.add_widget(Label(text="Green Dress", font_name= 'fonts/Caribbean.ttf', height=44))
+        self.content.add_widget(Label(text="50$", font_name= 'fonts/Caribbean.ttf', height=44))
 
         if save_data['coins'] < 50:
-            self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", height=44))
-            buy_button = Button(text="BUY", disabled=True)
+            self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name= 'fonts/Caribbean.ttf', height=44))
+            buy_button = Button(text="BUY", font_name= 'fonts/Caribbean.ttf', disabled=True)
         else: 
-            buy_button = Button(text="BUY")
+            buy_button = Button(text="BUY", font_name= 'fonts/Caribbean.ttf',)
             buy_button.bind(on_press=self.on_buy)
         
         self.content.add_widget(buy_button)
@@ -106,14 +106,14 @@ class YellowDress(Popup):
             if timestamp in all_data:
                 save_data = all_data[timestamp]
             
-        self.content.add_widget(Label(text="Yellow Dress", height=44))
-        self.content.add_widget(Label(text="50$", height=44))
+        self.content.add_widget(Label(text="Yellow Dress", font_name= 'fonts/Caribbean.ttf', height=44))
+        self.content.add_widget(Label(text="50$", font_name= 'fonts/Caribbean.ttf', height=44))
 
         if save_data['coins'] < 50:
-            self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", height=44))
-            buy_button = Button(text="BUY", disabled=True)
+            self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name= 'fonts/Caribbean.ttf', height=44))
+            buy_button = Button(text="BUY", font_name= 'fonts/Caribbean.ttf', disabled=True)
         else: 
-            buy_button = Button(text="BUY")
+            buy_button = Button(text="BUY", font_name= 'fonts/Caribbean.ttf',)
             buy_button.bind(on_press=self.on_buy)
         
         self.content.add_widget(buy_button)
@@ -144,14 +144,14 @@ class Bomb(Popup):
             if timestamp in all_data:
                 save_data = all_data[timestamp]
             
-        self.content.add_widget(Label(text="Bomb", height=44))
-        self.content.add_widget(Label(text="50$", height=44))
+        self.content.add_widget(Label(text="Bomb", font_name= 'fonts/Caribbean.ttf', height=44))
+        self.content.add_widget(Label(text="50$", font_name= 'fonts/Caribbean.ttf', height=44))
 
         if save_data['coins'] < 50:
-            self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", height=44))
-            buy_button = Button(text="BUY", disabled=True)
+            self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name= 'fonts/Caribbean.ttf', height=44))
+            buy_button = Button(text="BUY", font_name= 'fonts/Caribbean.ttf', disabled=True)
         else: 
-            buy_button = Button(text="BUY")
+            buy_button = Button(text="BUY", font_name= 'fonts/Caribbean.ttf',)
             buy_button.bind(on_press=self.on_buy)
         
         self.content.add_widget(buy_button)
@@ -182,14 +182,14 @@ class Laser(Popup):
             if timestamp in all_data:
                 save_data = all_data[timestamp]
             
-        self.content.add_widget(Label(text="Laser", height=44))
-        self.content.add_widget(Label(text="50$", height=44))
+        self.content.add_widget(Label(text="Laser", font_name= 'fonts/Caribbean.ttf', height=44))
+        self.content.add_widget(Label(text="50$", font_name= 'fonts/Caribbean.ttf', height=44))
 
         if save_data['coins'] < 50:
-            self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", height=44))
-            buy_button = Button(text="BUY", disabled=True)
+            self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name= 'fonts/Caribbean.ttf', height=44))
+            buy_button = Button(text="BUY", font_name= 'fonts/Caribbean.ttf', disabled=True)
         else: 
-            buy_button = Button(text="BUY")
+            buy_button = Button(text="BUY", font_name= 'fonts/Caribbean.ttf',)
             buy_button.bind(on_press=self.on_buy)
         
         self.content.add_widget(buy_button)
@@ -252,7 +252,7 @@ class DressingRoom(Screen):
 
                 if save_data['blu_dress'] == False:
                     button = Button(text=f"blu dress",
-                                    background_normal='images\captain.png',
+                                    background_normal='images/blue_dress.png',
                                     font_name= 'fonts/Caribbean.ttf',
                                     on_press=lambda btn, ts=timestamp: self.open_blu_dress_popup(ts)
                                     )
@@ -266,7 +266,7 @@ class DressingRoom(Screen):
                 
                 if save_data['green_dress'] == False:
                     button = Button(text=f"green dress",
-                                    background_normal='images\captain.png',
+                                    background_normal='images/green_dress(1).png',
                                     font_name= 'fonts/Caribbean.ttf',
                                     on_press=lambda btn, ts=timestamp: self.open_green_dress_popup(ts)
                                     )
@@ -280,7 +280,7 @@ class DressingRoom(Screen):
                 
                 if save_data['yellow_dress'] == False:
                     button = Button(text=f"yellow dress",
-                                    background_normal='images\captain.png',
+                                    background_normal='images/yellow_dress.png',
                                     font_name= 'fonts/Caribbean.ttf',
                                     on_press=lambda btn, ts=timestamp: self.open_yellow_dress_popup(ts)
                                     )

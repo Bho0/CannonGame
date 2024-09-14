@@ -2,6 +2,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.label import Label
 from kivy.properties import StringProperty
+from kivy.app import App
 
 import json
 import os
@@ -22,6 +23,20 @@ class Ship(Screen):
         game_screen = self.manager.get_screen('projectile')  # Ottieni il nuovo schermo
         game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
         self.manager.current = 'projectile'  # Cambia schermo
+    
+    def goto_mainpage(self, timestamp):
+        app = App.get_running_app()
+        app.add_mainpage()
+        filename = 'save_data.json'
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                all_data = json.load(f)
+            
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
+                game_screen = self.manager.get_screen('mainpage')  # Ottieni il nuovo schermo
+                game_screen.load_saved_game(save_data, timestamp)  # Passa i dati al nuovo schermo
+                self.manager.current = 'mainpage'  # Cambia schermo
 
 class Captain(Screen):
     selected_dress = StringProperty('')
@@ -117,7 +132,7 @@ class Captain(Screen):
                 button = ToggleButton(text=f"blu dress",
                                 font_name= 'fonts/Caribbean.ttf',
                                 group='C',
-                                background_normal='images\captain.png',
+                                background_normal='images/blue_dress.png',
                                 on_press=lambda btn, dr='blu', ts=timestamp: self.select_dress(dr,ts)
                                 )
                 grid.add_widget(button)
@@ -132,7 +147,7 @@ class Captain(Screen):
                 button = ToggleButton(text=f"green dress",
                                 font_name= 'fonts/Caribbean.ttf',
                                 group='C',
-                                background_normal='images\captain.png',
+                                background_normal='images/green_dress(1).png',
                                 on_press=lambda btn, dr='green', ts=timestamp: self.select_dress(dr,ts)
                                 )
                 grid.add_widget(button)
@@ -147,7 +162,7 @@ class Captain(Screen):
                 button = ToggleButton(text=f"yellow dress",
                                 group='C',
                                 font_name= 'fonts/Caribbean.ttf',
-                                background_normal='images\captain.png',
+                                background_normal='images/yellow_dress.png',
                                 on_press=lambda btn, dr='yellow', ts=timestamp: self.select_dress(dr,ts)
                                 )
                 grid.add_widget(button)
