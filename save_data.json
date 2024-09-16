@@ -1,25 +1,9 @@
 {
-    "2024-09-13 14:39:36": {
+    "2024-09-16 18:58:50": {
         "name": "prova1",
         "tutorial": false,
         "levels": 1,
-        "coins": 0,
-        "bullet": true,
-        "bomb": false,
-        "laser": false,
-        "red_dress": true,
-        "blu_dress": true,
-        "green_dress": true,
-        "yellow_dress": true,
-        "selected_dress": "green",
-        "selected_projectiles": [
-            "bullet"
-        ]
-    },
-    "2024-09-14 12:40:19": {
-        "name": "Prova2",
-        "tutorial": false,
-        "levels": 1,
+        "points": 0,
         "coins": 0,
         "bullet": true,
         "bomb": false,
@@ -28,9 +12,6 @@
         "blu_dress": false,
         "green_dress": false,
         "yellow_dress": false,
-        "selected_dress": "red",
-        "selected_projectiles": [
-            "bullet"
-        ]
+        "selected_dress": "red"
     }
 }

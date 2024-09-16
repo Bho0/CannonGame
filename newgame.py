@@ -46,6 +46,7 @@ class NewGame(Screen):
             'name': self.ids.text_input.text,
             'tutorial': True,
             'levels' : 1,
+            'points' : 0,
             'coins' : 0,
             'bullet': True,
             'bomb': False,
@@ -54,8 +55,7 @@ class NewGame(Screen):
             'blu_dress': False,
             'green_dress': False,
             'yellow_dress': False,
-            'selected_dress': 'red',
-            'selected_projectiles': ['bullet']
+            'selected_dress': 'red'
         }
 
         filename = 'save_data.json'

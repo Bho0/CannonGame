@@ -88,6 +88,11 @@
                     font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
                     color: 0, 0, 0, 1  # Testo nero
                 Label:
+                    text: 'Points: ' + root.get_json_value(root.timestamp, 'points')
+                    font_size: 12
+                    font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
+                    color: 0, 0, 0, 1  # Testo nero
+                Label:
                     text: 'Coins: ' + root.get_json_value(root.timestamp, 'coins')
                     font_size: 12
                     font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
@@ -130,7 +135,7 @@
             background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .9, 'center_y': .1}
             size_hint: (.1, .1)
-            on_press: app.root.current = 'levels'
+            on_press: root.goto_levels(root.timestamp)
             Image:
                 source: 'images/island.png'
                 center_x: self.parent.center_x

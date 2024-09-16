@@ -1,6 +1,7 @@
 from kivy.uix.screenmanager import Screen
 from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.label import Label
+from kivy.uix.popup import Popup
 from kivy.properties import StringProperty
 from kivy.app import App
 
@@ -11,6 +12,10 @@ class Ship(Screen):
     timestamp = StringProperty("")
     selected_projectile = StringProperty('')
 
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.projectile_popup = None
+
     def load_screen(self, timestamp):
         self.timestamp = timestamp
     
@@ -20,9 +25,10 @@ class Ship(Screen):
         self.manager.current = 'captain'  # Cambia schermo
     
     def goto_projectile(self, timestamp):
-        game_screen = self.manager.get_screen('projectile')  # Ottieni il nuovo schermo
-        game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
-        self.manager.current = 'projectile'  # Cambia schermo
+        if not self.projectile_popup:
+            self.projectile_popup = Projectile()
+        self.projectile_popup.load_popup(timestamp)
+        self.projectile_popup.open()
     
     def goto_mainpage(self, timestamp):
         app = App.get_running_app()
@@ -56,6 +62,7 @@ class Captain(Screen):
                 'name': save_data['name'],
                 'tutorial': save_data['tutorial'],
                 'levels' : save_data['levels'],
+                'points' : save_data['points'],
                 'coins' : save_data['coins'],
                 'bullet': save_data['bullet'],
                 'bomb': save_data['bomb'],
@@ -64,8 +71,7 @@ class Captain(Screen):
                 'blu_dress': save_data['blu_dress'],
                 'green_dress': save_data['green_dress'],
                 'yellow_dress': save_data['yellow_dress'],
-                'selected_dress': 'red',
-                'selected_projectiles': save_data['selected_projectiles']
+                'selected_dress': 'red'
             }
 
             # Aggiungi i nuovi dati al dizionario con timestamp come chiave
@@ -81,6 +87,7 @@ class Captain(Screen):
                 'name': save_data['name'],
                 'tutorial': save_data['tutorial'],
                 'levels' : save_data['levels'],
+                'points' : save_data['points'],
                 'coins' : save_data['coins'],
                 'bullet': save_data['bullet'],
                 'bomb': save_data['bomb'],
@@ -89,8 +96,7 @@ class Captain(Screen):
                 'blu_dress': save_data['blu_dress'],
                 'green_dress': save_data['green_dress'],
                 'yellow_dress': save_data['yellow_dress'],
-                'selected_dress': dress_type,
-                'selected_projectiles': save_data['selected_projectiles']
+                'selected_dress': dress_type
             }
 
             # Aggiungi i nuovi dati al dizionario con timestamp come chiave
@@ -173,10 +179,14 @@ class Captain(Screen):
                                 )
                 grid.add_widget(button)
 
-class Projectile(Screen):
-    selected_projectile = StringProperty('')
+class Projectile(Popup):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.title = ""
+        self.size_hint = (0.5, 0.5)
+        self.auto_dismiss = True
     
-    def load_screen(self, timestamp):
+    def load_popup(self, timestamp):
         grid = self.ids.ammo_grid
         grid.clear_widgets()  # Pulisci la lista prima di aggiungere nuovi elementi
 
@@ -189,24 +199,24 @@ class Projectile(Screen):
                 save_data = all_data[timestamp]
 
             if save_data['bullet'] == True:
-                button = Label(text=f"bullet", font_name= 'fonts/Caribbean.ttf')
+                button = Label(text=f"bullet", font_name= 'fonts/Caribbean.ttf', size_hint_y=.3)
                 grid.add_widget(button)
             else: 
-                button = Label(text=f"NOT  OWNED", font_name= 'fonts/Caribbean.ttf')
+                button = Label(text=f"NOT  OWNED", font_name= 'fonts/Caribbean.ttf', font_size=12, size_hint_y=.3)
                 grid.add_widget(button)
             
             if save_data['bomb'] == True:
-                button = Label(text=f"bomb", font_name= 'fonts/Caribbean.ttf')
+                button = Label(text=f"bomb", font_name= 'fonts/Caribbean.ttf', size_hint_y=.3)
                 grid.add_widget(button)
             else: 
-                button = Label(text=f"NOT  OWNED", font_name= 'fonts/Caribbean.ttf')
+                button = Label(text=f"NOT  OWNED", font_name= 'fonts/Caribbean.ttf', font_size=12, size_hint_y=.3)
                 grid.add_widget(button)
             
             if save_data['laser'] == True:
-                button = Label(text=f"laser", font_name= 'fonts/Caribbean.ttf')
+                button = Label(text=f"laser", font_name= 'fonts/Caribbean.ttf', size_hint_y=.3)
                 grid.add_widget(button)
             else: 
-                button = Label(text=f"NOT  OWNED", font_name= 'fonts/Caribbean.ttf')
+                button = Label(text=f"NOT  OWNED", font_name= 'fonts/Caribbean.ttf', font_size=12, size_hint_y=.3)
                 grid.add_widget(button)
 
 """

@@ -31,7 +31,7 @@ class BluDress(Popup):
                 save_data = all_data[timestamp]
             
         self.content.add_widget(Label(text="Blue Dress", font_name= 'fonts/Caribbean.ttf', height=44))
-        self.content.add_widget(Label(text="50$", font_name= 'fonts/Caribbean.ttf', height=44))
+        self.content.add_widget(Label(text="50S", font_name= 'fonts/Caribbean.ttf', height=44))
 
         if save_data['coins'] < 50:
             self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name= 'fonts/Caribbean.ttf', height=44))
@@ -69,7 +69,7 @@ class GreenDress(Popup):
                 save_data = all_data[timestamp]
             
         self.content.add_widget(Label(text="Green Dress", font_name= 'fonts/Caribbean.ttf', height=44))
-        self.content.add_widget(Label(text="50$", font_name= 'fonts/Caribbean.ttf', height=44))
+        self.content.add_widget(Label(text="50S", font_name= 'fonts/Caribbean.ttf', height=44))
 
         if save_data['coins'] < 50:
             self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name= 'fonts/Caribbean.ttf', height=44))
@@ -107,7 +107,7 @@ class YellowDress(Popup):
                 save_data = all_data[timestamp]
             
         self.content.add_widget(Label(text="Yellow Dress", font_name= 'fonts/Caribbean.ttf', height=44))
-        self.content.add_widget(Label(text="50$", font_name= 'fonts/Caribbean.ttf', height=44))
+        self.content.add_widget(Label(text="50S", font_name= 'fonts/Caribbean.ttf', height=44))
 
         if save_data['coins'] < 50:
             self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name= 'fonts/Caribbean.ttf', height=44))
@@ -145,7 +145,7 @@ class Bomb(Popup):
                 save_data = all_data[timestamp]
             
         self.content.add_widget(Label(text="Bomb", font_name= 'fonts/Caribbean.ttf', height=44))
-        self.content.add_widget(Label(text="50$", font_name= 'fonts/Caribbean.ttf', height=44))
+        self.content.add_widget(Label(text="50S", font_name= 'fonts/Caribbean.ttf', height=44))
 
         if save_data['coins'] < 50:
             self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name= 'fonts/Caribbean.ttf', height=44))
@@ -183,7 +183,7 @@ class Laser(Popup):
                 save_data = all_data[timestamp]
             
         self.content.add_widget(Label(text="Laser", font_name= 'fonts/Caribbean.ttf', height=44))
-        self.content.add_widget(Label(text="50$", font_name= 'fonts/Caribbean.ttf', height=44))
+        self.content.add_widget(Label(text="50S", font_name= 'fonts/Caribbean.ttf', height=44))
 
         if save_data['coins'] < 50:
             self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name= 'fonts/Caribbean.ttf', height=44))

@@ -10,7 +10,14 @@
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        
+
+        Button:
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            size_hint: (.1, .1)
+            text: 'LVL 1'
+            on_press:
+                root.open_start_popup(root.timestamp)
+
         Button:
             pos_hint: {'center_x': .2, 'center_y': .95}
             size_hint: (.05, .05)
@@ -25,7 +32,7 @@
             size_hint: (.1, .1)
             background_color: 0, 0, 0, 0
             on_press:
-                app.root.current = 'mainpage'
+                root.goto_mainpage(root.timestamp)
             Image:
                 source: 'images/homeButton.png'
                 center_x: self.parent.center_x
@@ -43,3 +50,29 @@
             on_press:
                 root.manager.transition = FadeTransition()
                 app.root.current = 'levels'
+
+<StartPopup>:
+    name: 'startPopup'
+    BoxLayout:
+        id: start_box
+        orientation: "vertical"
+        Label:
+            text: "Choose which projectile you want to use"
+            font_name: 'fonts/Caribbean.ttf'         
+        GridLayout:
+            id: ammo_grid
+            cols: 3
+            spacing: '10dp'
+            padding: '10dp'
+        Button:
+            id: start_button
+            background_color: 0, 0, 0, 0
+            on_press:
+                root.goto_level1(root.timestamp, root.selected_prj)
+            Image:
+                source: 'images/playButton.png'
+                allow_stretch: True
+                keep_ratio: False
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 50, 50

@@ -10,7 +10,7 @@ from loadgame import LoadGame
 from newgame import NewGame
 from mainpage import MainPage
 from levels import Levels, ComingSoon
-from ship import Ship, Captain, Projectile
+from ship import Ship, Captain
 from market import Market, DressingRoom, ProjectileStore
 
 class Start(Screen):
@@ -42,7 +42,6 @@ class CannonGame(App):
         sm.add_widget(Ship(name='ship'))
         sm.add_widget(Market(name='market'))
         sm.add_widget(Captain(name='captain'))
-        sm.add_widget(Projectile(name='projectile'))
         sm.add_widget(DressingRoom(name='dressingRoom'))
         sm.add_widget(ProjectileStore(name='projectileStore'))
         return sm 

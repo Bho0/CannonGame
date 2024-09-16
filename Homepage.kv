@@ -30,9 +30,6 @@
             value_track_color: [0, 0, 1, 1]
 
 <HoFPopup@Popup>:
-    auto_dismiss: True
-    size_hint: (.5, .5)
-    title: 'Hall Of Fame'
 
 <CredPopup@Popup>:
     auto_dismiss: True
@@ -95,7 +92,7 @@
 
             Button:
                 background_color: 0, 0, 0, 0
-                on_press: Factory.HoFPopup().open()
+                on_press: root.open_Hof_popup()
                 Image:
                     source: 'images/hofButton.webp'
                     center_x: self.parent.center_x

@@ -51,6 +51,7 @@ class MainPage(Screen):
                 'name': save_data['name'],
                 'tutorial': False,
                 'levels' : save_data['levels'],
+                'points' : save_data['points'],
                 'coins' : save_data['coins'],
                 'bullet': save_data['bullet'],
                 'bomb': save_data['bomb'],
@@ -59,8 +60,7 @@ class MainPage(Screen):
                 'blu_dress': save_data['blu_dress'],
                 'green_dress': save_data['green_dress'],
                 'yellow_dress': save_data['yellow_dress'],
-                'selected_dress': save_data['selected_dress'],
-                'selected_projectiles': save_data['selected_projectiles']
+                'selected_dress': save_data['selected_dress']
             }
             all_data[timestamp] = update_tutorial
             with open(filename, 'w') as f:
@@ -143,6 +143,7 @@ class MainPage(Screen):
             'name': save_data['name'],
             'tutorial': save_data['tutorial'],
             'levels' : save_data['levels'],
+            'points' : save_data['points'],
             'coins' : save_data['coins'],
             'bullet': save_data['bullet'],
             'bomb': save_data['bomb'],
@@ -151,8 +152,7 @@ class MainPage(Screen):
             'blu_dress': save_data['blu_dress'],
             'green_dress': save_data['green_dress'],
             'yellow_dress': save_data['yellow_dress'],
-            'selected_dress': save_data['selected_dress'],
-            'selected_projectiles': save_data['selected_projectiles']
+            'selected_dress': save_data['selected_dress']
         }
 
         # Aggiungi i nuovi dati al dizionario con timestamp come chiave
@@ -207,4 +207,12 @@ class MainPage(Screen):
         game_screen = self.manager.get_screen('market')  # Ottieni il nuovo schermo
         game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
         self.manager.current = 'market'  # Cambia schermo
+        app.remove_mainpage()
+    
+    def goto_levels(self, timestamp):
+        # Naviga verso il nuovo schermo
+        app = App.get_running_app()
+        game_screen = self.manager.get_screen('levels')  # Ottieni il nuovo schermo
+        game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
+        self.manager.current = 'levels'  # Cambia schermo
         app.remove_mainpage()
