@@ -48,6 +48,8 @@
             value_track: True
             value_track_color: [0, 0, 1, 1]
 
+<Hof>:
+
 <MainPage>:
     name: 'mainpage'
     FloatLayout:
@@ -186,4 +188,16 @@
                 source: 'images/options.webp'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
-                size: 75, 75
+                size: 60, 60
+        
+        Button:
+            id: Hof_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .9, 'center_y': .8}
+            size_hint: (.1, .1)
+            on_press: root.open_Hof_popup()
+            Image:
+                source: 'images/hofButton.webp'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
