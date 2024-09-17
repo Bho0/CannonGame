@@ -12,6 +12,7 @@ from mainpage import MainPage
 from levels import Levels, ComingSoon
 from ship import Ship, Captain
 from market import Market, DressingRoom, ProjectileStore
+from level1 import Level1
 
 class Start(Screen):
     pass
@@ -32,6 +33,7 @@ class CannonGame(App):
         Builder.load_file('Levels.kv')
         Builder.load_file('Ship.kv')
         Builder.load_file('Market.kv')
+        Builder.load_file('Level1.kv')
 
         sm = ScreenManager()
         sm.add_widget(Start(name='start'))
@@ -44,6 +46,7 @@ class CannonGame(App):
         sm.add_widget(Captain(name='captain'))
         sm.add_widget(DressingRoom(name='dressingRoom'))
         sm.add_widget(ProjectileStore(name='projectileStore'))
+        sm.add_widget(Level1(name='level1'))
         return sm 
 
     def change_volume(self, value):
