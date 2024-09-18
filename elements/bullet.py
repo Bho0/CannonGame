@@ -17,19 +17,11 @@ class CannonWidget(FloatLayout):
         self.bullet = None
         self.BULLET_MASS = 150
     
-    def add_bounding_box(self, widget):
-        with widget.canvas.after:
-            # Set the color for the bounding box (red in this case)
-            Color(1, 0, 0, 1)  # Red with full opacity
-            # Draw the bounding box using the widget's pos and size
-            Line(rectangle=(widget.x, widget.y, widget.width, widget.height), width=2)
-    
     def on_touch_down(self, touch):  #sistemare i casi limite dei conti aka se clicco due volte fuori e poi dentro
         if self.new_button.collide_point(*touch.pos):
             self.bulletloaded = True
-            pass
         else:
-            if self.bulletloaded == True:
+            if self.bulletloaded == True and self.bullet == None:
                 x, y = touch.pos
                 self.mouse_delta = (x - self.new_button.x, y - self.new_button.y)
                 self.create_bullet()
@@ -40,7 +32,7 @@ class CannonWidget(FloatLayout):
         initial_pos = self.new_button.center
         self.bullet = Bullet(pos = (initial_pos), size=(50, 50))
         self.add_widget(self.bullet)
-        self.add_bounding_box (self.bullet)
+        
         Clock.schedule_interval(self.move_bullet, 0.01)
         Clock.schedule_interval(self.timer, 0.01)
 
@@ -52,8 +44,8 @@ class CannonWidget(FloatLayout):
             self.delta_x = self.BULLET_MASS + 50
         if self.delta_y > self.BULLET_MASS + 50:
             self.delta_y = self.BULLET_MASS + 50
-        new_x = x -  (self.delta_x * 0.01)
-        new_y = y - (self.delta_y * 0.01) - (0.98 * self.time_passed)
+        new_x = x +  (self.delta_x * 0.01)
+        new_y = y + (self.delta_y * 0.01) - (0.98 * self.time_passed)
         self.bullet.pos = (new_x, new_y)
     def timer (self, dt):
         self.time_passed = self.time_passed + dt

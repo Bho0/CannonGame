@@ -19,9 +19,8 @@ class Bombshooter(FloatLayout):
     def on_touch_down(self, touch):  #sistemare i casi limite dei conti aka se clicco due volte fuori e poi dentro
         if self.new_button.collide_point(*touch.pos):
             self.bombloaded = True
-            pass
         else:
-            if self.bombloaded == True:
+            if self.bombloaded == True and self.bomb == None:
                 x, y = touch.pos
                 self.mouse_delta = (x - self.new_button.x, y - self.new_button.y)
                 self.create_bomb()
@@ -43,8 +42,8 @@ class Bombshooter(FloatLayout):
                 self.delta_x = self.BOMB_MASS
             if self.delta_y > self.BOMB_MASS:
                 self.delta_y = self.BOMB_MASS
-            new_x = x -  (self.delta_x * 0.01)
-            new_y = y - (self.delta_y * 0.01) - (0.98 * self.time_passed)
+            new_x = x +  (self.delta_x * 0.01)
+            new_y = y + (self.delta_y * 0.01) - (0.98 * self.time_passed)
             self.bomb.pos = (new_x, new_y)
 
     def timer (self, dt):

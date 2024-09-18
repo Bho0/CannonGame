@@ -1,3 +1,44 @@
+#:import Factory kivy.factory.Factory
+
+<OpPopup@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+    title: 'Options'
+    BoxLayout:
+        orientation: 'vertical'
+        
+        Button:
+            text: 'Exit'
+            color: 1, 1, 1, 1
+            font_size: 30
+            font_name: 'fonts/Caribbean.ttf'
+            background_color: 0, 0, 0, 0
+            on_press:
+                root.dismiss()
+                app.root.current = 'levels'
+
+        Label:
+            text: "Music"
+            font_name: 'fonts/Caribbean.ttf'
+
+        Slider:
+            id: slider
+            value_track: True
+            value_track_color: [0, 0, 1, 1]
+            min: 0
+            max: 1
+            value: 0.5
+            on_value: app.change_volume(self.value)
+
+        Label:
+            text: "Sounds"
+            font_name: 'fonts/Caribbean.ttf'
+
+        Slider:
+            id: slider
+            value_track: True
+            value_track_color: [0, 0, 1, 1]
+
 <Level1>:
     name: 'level1'
     FloatLayout:
@@ -7,3 +48,15 @@
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        Button:
+            id: option_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .9, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.OpPopup().open()
+            Image:
+                source: 'images/options.webp'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
