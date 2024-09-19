@@ -46,7 +46,6 @@ class CannonGame(App):
         sm.add_widget(Captain(name='captain'))
         sm.add_widget(DressingRoom(name='dressingRoom'))
         sm.add_widget(ProjectileStore(name='projectileStore'))
-        sm.add_widget(Level1(name='level1'))
         return sm 
 
     def change_volume(self, value):
@@ -59,6 +58,12 @@ class CannonGame(App):
     
     def remove_newgame(self):
         self.root.remove_widget(self.root.get_screen('newgame'))
+    
+    def remove_screen(self, name):
+        self.root.remove_widget(self.root.get_screen(name))
+    
+    def add_level1(self):
+        self.root.add_widget(Level1(name='level1'))
     
     def add_mainpage(self):
         self.root.add_widget(MainPage(name='mainpage'))

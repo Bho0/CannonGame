@@ -1,11 +1,15 @@
-#:import Factory kivy.factory.Factory
+#: import Factory kivy.factory.Factory
 
 <OpPopup@Popup>:
     auto_dismiss: True
     size_hint: (.5, .5)
-    title: 'Options'
-    BoxLayout:
+    title: ''
+
+    BoxLayout:  
         orientation: 'vertical'
+        spacing: '10dp'
+        padding: '10dp'
+
         Button:
             text: 'Save'
             color: 1, 1, 1, 1
@@ -13,7 +17,7 @@
             font_name: 'fonts/Caribbean.ttf'
             background_color: 0, 0, 0, 0
             on_press: app.root.get_screen('mainpage').save_game(app.root.get_screen('mainpage').timestamp)
-        
+
         Button:
             text: 'Exit'
             color: 1, 1, 1, 1
@@ -26,29 +30,32 @@
                 app.remove_newgame()
                 app.root.current = 'homepage'
 
-        Label:
-            text: "Music"
-            font_name: 'fonts/Caribbean.ttf'
+        BoxLayout:  
+            orientation: 'vertical'
+            Label:
+                text: "Music"
+                font_name: 'fonts/Caribbean.ttf'
+            Slider:
+                id: music_slider
+                value_track: True
+                value_track_color: [0, 0, 1, 1]
+                min: 0
+                max: 1
+                value: 0.5
+                on_value: app.change_volume(self.value)
 
-        Slider:
-            id: slider
-            value_track: True
-            value_track_color: [0, 0, 1, 1]
-            min: 0
-            max: 1
-            value: 0.5
-            on_value: app.change_volume(self.value)
-
-        Label:
-            text: "Sounds"
-            font_name: 'fonts/Caribbean.ttf'
-
-        Slider:
-            id: slider
-            value_track: True
-            value_track_color: [0, 0, 1, 1]
-
-<Hof>:
+        BoxLayout: 
+            orientation: 'vertical'
+            Label:
+                text: "Sounds"
+                font_name: 'fonts/Caribbean.ttf'
+            Slider:
+                id: sound_slider
+                value_track: True
+                value_track_color: [0, 0, 1, 1]
+                min: 0
+                max: 1
+                value: 0.5
 
 <MainPage>:
     name: 'mainpage'

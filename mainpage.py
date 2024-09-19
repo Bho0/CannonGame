@@ -119,6 +119,9 @@ class MainPage(Screen):
 
             self.ids.option_button.opacity = 1
             self.ids.option_button.disabled = False
+
+            self.ids.Hof_button.opacity = 1
+            self.ids.Hof_button.disabled = False
     
     def load_saved_game(self, save_data, timestamp):
         # Funzione per caricare i dati del gioco salvato e visualizzarli
@@ -140,6 +143,9 @@ class MainPage(Screen):
 
             self.ids.option_button.opacity = 0
             self.ids.option_button.disabled = True
+
+            self.ids.Hof_button.opacity = 0
+            self.ids.Hof_button.disabled = True
 
             self.change_text(timestamp)
         
@@ -163,6 +169,9 @@ class MainPage(Screen):
 
             self.ids.option_button.opacity = 1
             self.ids.option_button.disabled = False
+
+            self.ids.Hof_button.opacity = 1
+            self.ids.Hof_button.disabled = False
     
     def save_game(self, timestamp):
         filename = 'save_data.json'

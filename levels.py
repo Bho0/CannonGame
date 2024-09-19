@@ -66,11 +66,12 @@ class StartPopup(Popup):
             label = Label(text=f"Please select at least one type of ammo", font_name= 'fonts/Caribbean.ttf')
             self.ids.start_box.add_widget(label)
         else:
+            self.dismiss()
             app = App.get_running_app()
+            app.add_level1()
             game_screen = app.root.get_screen('level1')  # Ottieni il nuovo schermo
             game_screen.load_screen(selected_prj, timestamp)  # Passa i dati al nuovo schermo
             app.root.current = 'level1'
-            self.dismiss()
 
 
 class Levels(Screen):
