@@ -58,7 +58,7 @@ class Hof(Popup):
             index+=1
 
 class MainPage(Screen):
-    texts = ListProperty(["Tutorial1", "Tutorial2", "Tutorial3", "Tutorial4"])
+    texts = ListProperty(["Here you can find anything ye need:", "our ship with all our arsenal", "a market with some more gear", "and then the map of the treasures' island"])
     index = -1
     timestamp = StringProperty("")
 
@@ -242,7 +242,7 @@ class MainPage(Screen):
         game_screen = self.manager.get_screen('ship')  # Ottieni il nuovo schermo
         game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
         self.manager.current = 'ship'  # Cambia schermo
-        app.remove_mainpage()
+        app.remove_screen('mainpage')
     
     def goto_market(self, timestamp):
         # Naviga verso il nuovo schermo
@@ -250,7 +250,7 @@ class MainPage(Screen):
         game_screen = self.manager.get_screen('market')  # Ottieni il nuovo schermo
         game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
         self.manager.current = 'market'  # Cambia schermo
-        app.remove_mainpage()
+        app.remove_screen('mainpage')
     
     def goto_levels(self, timestamp):
         # Naviga verso il nuovo schermo
@@ -258,7 +258,7 @@ class MainPage(Screen):
         game_screen = self.manager.get_screen('levels')  # Ottieni il nuovo schermo
         game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
         self.manager.current = 'levels'  # Cambia schermo
-        app.remove_mainpage()
+        app.remove_screen('mainpage')
     
     def open_Hof_popup(self):
         if not self.Hof_popup:

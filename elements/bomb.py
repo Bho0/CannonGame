@@ -32,7 +32,7 @@ class Bombshooter(FloatLayout):
         self.bomb = bomb(pos = (initial_pos), size=(50, 50))
         self.add_widget(self.bomb)
         Clock.schedule_interval(self.move_bomb, 0.01)
-        Clock.schedule_interval(self.timer, 0.01)
+        Clock.schedule_interval(self.timer_bomb, 0.01)
 
     def move_bomb(self, dt):
         if self.bomb is not None:
@@ -46,7 +46,7 @@ class Bombshooter(FloatLayout):
             new_y = y + (self.delta_y * 0.01) - (0.98 * self.time_passed)
             self.bomb.pos = (new_x, new_y)
 
-    def timer (self, dt):
+    def timer_bomb (self, dt):
         self.time_passed = self.time_passed + dt
 
 class bomb (Widget):

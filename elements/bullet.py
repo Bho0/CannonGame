@@ -4,20 +4,25 @@ from kivy.uix.button import Button
 from kivy.uix.floatlayout import FloatLayout
 from kivy.clock import Clock
 
+bullet_shooted = 0  
 
-class CannonWidget(FloatLayout):   
+class CannonWidget(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        
         self.size_hint = (0.15 , 0.15)
-        self.new_button = Button(text='shoot', size_hint=(1, 1), pos_hint= {'x': 0.2, 'y': 0.5})
+        self.new_button = Button(text='shoot', size_hint=(1, 1), pos_hint= {'x': 0.1, 'y': 0.1})
         self.add_widget(self.new_button) 
         self.bulletloaded = False   
         self.time_passed = 0
         self.bullet = None
         self.BULLET_MASS = 150
+
+        global bullet_shooted
+        bullet_shooted = 0
     
-    def on_touch_down(self, touch):  #sistemare i casi limite dei conti aka se clicco due volte fuori e poi dentro
+    def on_touch_down(self, touch):
+        global bullet_shooted
+        #sistemare i casi limite dei conti aka se clicco due volte fuori e poi dentro
         if self.new_button.collide_point(*touch.pos):
             self.bulletloaded = True
         else:
@@ -26,6 +31,7 @@ class CannonWidget(FloatLayout):
                 self.mouse_delta = (x - self.new_button.x, y - self.new_button.y)
                 self.create_bullet()
                 self.bulletloaded = False
+                bullet_shooted += 1
 
     def create_bullet (self):
         self.time_passed = 0
@@ -34,7 +40,7 @@ class CannonWidget(FloatLayout):
         self.add_widget(self.bullet)
         
         Clock.schedule_interval(self.move_bullet, 0.01)
-        Clock.schedule_interval(self.timer, 0.01)
+        Clock.schedule_interval(self.timer_bullet, 0.01)
 
     def move_bullet(self, dt):
      if self.bullet is not None:
@@ -47,8 +53,9 @@ class CannonWidget(FloatLayout):
         new_x = x +  (self.delta_x * 0.01)
         new_y = y + (self.delta_y * 0.01) - (0.98 * self.time_passed)
         self.bullet.pos = (new_x, new_y)
-    def timer (self, dt):
-        self.time_passed = self.time_passed + dt
+    
+    def timer_bullet (self, dt):
+        self.time_passed += dt
        
 class Bullet (Widget):
     def __init__(self, **kwargs):

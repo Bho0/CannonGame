@@ -1,0 +1,8 @@
+Click one time on the ship to load the projectile,
+then click on the screen where you want to shoot.
+
+If you have selected more than one type of ammo,
+use the left and right arrow to switch type of cannon.
+
+To win the game you have to shoot at the treasure
+and to hit it using the less amount of shot possible 

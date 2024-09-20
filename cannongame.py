@@ -53,12 +53,6 @@ class CannonGame(App):
         if self.sound:
             self.sound.volume = value
     
-    def remove_mainpage(self):
-        self.root.remove_widget(self.root.get_screen('mainpage'))
-    
-    def remove_newgame(self):
-        self.root.remove_widget(self.root.get_screen('newgame'))
-    
     def remove_screen(self, name):
         self.root.remove_widget(self.root.get_screen(name))
     
@@ -70,6 +64,10 @@ class CannonGame(App):
     
     def add_newgame(self):
         self.root.add_widget(NewGame(name='newgame'))
+    
+    def get_file_content(self, rfile):
+        with open(rfile, 'r', encoding='utf-8') as file:
+            return file.read()
 
 if __name__ == '__main__':
     CannonGame().run()

@@ -14,7 +14,7 @@
             background_color: 0, 0, 0, 0
             on_press:
                 app.root.current = 'homepage'
-                app.remove_newgame()
+                app.remove_screen('newgame')
             Image:
                 source: 'images/undo.png'
                 center_x: self.parent.center_x
@@ -30,13 +30,13 @@
 
         CustomLabel:
             id: label
-            text: 'Testo stile professore pokemon che introduce al gioco'
+            text: app.get_file_content('Introduction.txt')
             font_size: 12
             font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
             color: 0, 0, 0, 1  # Testo nero
             size_hint: (None, None)
             size: self.texture_size
-            pos_hint: {'center_x': 0.6, 'center_y': 0.6}
+            pos_hint: {'center_x': 0.65, 'center_y': 0.6}
         
         TextInput:
             id: text_input

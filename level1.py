@@ -5,17 +5,32 @@ from kivy.app import App
 from kivy.uix.popup import Popup
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
+from kivy.properties import NumericProperty, StringProperty
 
 from levels import StartPopup
+
+import os
+import json
 
 from elements import bullet, bomb, laser, obstacles
 
 class EndLevel(Popup):
+    points = 1000
+    tot_points = StringProperty('')
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = ""
         self.size_hint = (0.5, 0.5)
-        self.auto_dismiss = True
+        self.auto_dismiss = False
+        self.update_tot_points()
+    
+    def update_tot_points(self, *args):
+        print(bullet.bullet_shooted)
+        if bullet.bullet_shooted <= 2:
+            self.tot_points = f"You have earned {self.points} points"
+        else:
+            self.points = (1000 - 50*(bullet.bullet_shooted-2))
+            self.tot_points = f"You have earned {self.points} points"
 
 class Level1(Screen):
     def __init__(self, **kwargs):
@@ -28,9 +43,12 @@ class Level1(Screen):
         self.rocklist = []
         self.obstacles_placer()
         self.endLevel_popup = None
+        self.counter_shot = 0
 
     def load_screen(self, selected_prj, timestamp):
         self.keyboard = Window.request_keyboard(self._keyboard_closed, self)
+        if self.keyboard:
+            self.keyboard.bind(on_key_down=self._on_keyboard_down)
         self.selected_prj = selected_prj
         self.timestamp = timestamp
         
@@ -71,41 +89,83 @@ class Level1(Screen):
                 if self.basic_cannon :
                     if self.basic_cannon.bullet and self.collisions(self.rock, self.basic_cannon.bullet):
                         self.remove_widget(self.rock)
+                        self.remove_widget(self.basic_cannon.bullet)
+                        self.basic_cannon.bullet.canvas.remove(self.basic_cannon.bullet.rect)
+                        self.basic_cannon.bullet = None
+                        self.rocklist.remove(self.rock)
+                        Clock.unschedule(self.basic_cannon.move_bullet)
+                        Clock.unschedule(self.basic_cannon.timer_bullet)
+
                 if self.basic_bomber :
                     if self.basic_bomber.bomb and self.collisions(self.rock, self.basic_bomber.bomb):
                         self.remove_widget(self.rock)
+                        self.remove_widget(self.basic_bomber.bomb)
+                        self.basic_bomber.bomb.canvas.remove(self.basic_bomber.bomb.rect)
+                        self.basic_bomber.bomb = None
+                        self.rocklist.remove(self.rock)
+                        Clock.unschedule(self.basic_bomber.move_bomb)
+                        Clock.unschedule(self.basic_bomber.timer_bomb)
+
                 if self.basic_laser :
                     if self.basic_laser.laser and self.collisions(self.rock, self.basic_laser.laser):
                         self.remove_widget(self.rock)
+                        self.basic_laser.laser = None
         
         if hasattr(self, 'treasure'):
             if self.basic_cannon :
                 if self.basic_cannon.bullet and self.collisions(self.treasure, self.basic_cannon.bullet):
-                    self.remove_widget(self.treasure)
                     if not self.endLevel_popup:
                         self.endLevel_popup = EndLevel()
                     self.endLevel_popup.open()
+                    self.remove_widget(self.treasure)
+                    self.remove_widget(self.basic_cannon.bullet)
+                    self.basic_cannon.bullet.canvas.remove(self.basic_cannon.bullet.rect)
+                    self.basic_cannon.bullet = None
+                    Clock.unschedule(self.basic_cannon.move_bullet)
+                    Clock.unschedule(self.basic_cannon.timer_bullet)
+
+                    self.update_data()
+
             if self.basic_bomber :
                 if self.basic_bomber.bomb and self.collisions(self.treasure, self.basic_bomber.bomb):
-                    self.remove_widget(self.treasure)
                     if not self.endLevel_popup:
                         self.endLevel_popup = EndLevel()
                     self.endLevel_popup.open()
+                    self.remove_widget(self.treasure)
+                    self.remove_widget(self.basic_bomber.bomb)
+                    self.basic_bomber.bomb.canvas.remove(self.basic_bomber.bomb.rect)
+                    self.basic_bomber.bomb = None
+                    Clock.unschedule(self.basic_bomber.move_bomb)
+                    Clock.unschedule(self.basic_bomber.timer_bomb)
+
+                    self.update_data()
+
             if self.basic_laser :
                 if self.basic_laser.laser and self.collisions(self.treasure, self.basic_laser.laser):
                     self.remove_widget(self.treasure)
+                    self.basic_laser.laser = None
                     if not self.endLevel_popup:
                         self.endLevel_popup = EndLevel()
                     self.endLevel_popup.open()
+
+                    self.update_data()
 
         self.update_projectiles()
         self.keyboard_Handler
 
     def keyboard_Handler(self, dt):
-        if (self.basic_bomber is None or self.basic_bomber.bomb is None) and (self.basic_cannon is None or self.basic_cannon.bullet is  None) and  (self.basic_laser is None  or self.basic_laser.laser is  None):
-            self.keyboard.bind(on_key_down=self._on_keyboard_down)
-        if (self.basic_bomber and self.basic_bomber.bomb) or (self.basic_cannon and self.basic_cannon.bullet) or (self.basic_laser and self.basic_laser.laser):
-           self.keyboard.unbind(on_key_down=self._on_keyboard_down)
+        if self.keyboard:
+            if (self.basic_bomber is None or self.basic_bomber.bomb is None) and \
+               (self.basic_cannon is None or self.basic_cannon.bullet is None) and \
+               (self.basic_laser is None or self.basic_laser.laser is None):
+                self.keyboard.bind(on_key_down=self._on_keyboard_down)
+            else:
+                self.keyboard.unbind(on_key_down=self._on_keyboard_down)
+        else:
+            # If keyboard is None, try to request it again
+            self.keyboard = Window.request_keyboard(self._keyboard_closed, self)
+            if self.keyboard:
+                self.keyboard.bind(on_key_down=self._on_keyboard_down)
     
     def update_projectiles(self):
     # Check for boundary conditions of projectiles and remove them if they leave the screen
@@ -114,12 +174,16 @@ class Level1(Screen):
                 if (self.basic_bomber.bomb.pos[0] < 0 - self.basic_bomber.bomb.size [0] or self.basic_bomber.bomb.pos[0] > 1000 + self.basic_bomber.bomb.size[0] or 
                     self.basic_bomber.bomb.pos[1] < 0 - self.basic_bomber.bomb.size[1] or self.basic_bomber.bomb.pos[1] > 750 + self.basic_bomber.bomb.size[1]):
                     self.basic_bomber.bomb = None
+                    Clock.unschedule(self.basic_bomber.move_bomb)
+                    Clock.unschedule(self.basic_bomber.timer_bomb)
         
         if self.basic_cannon:
             if self.basic_cannon.bullet:
                 if (self.basic_cannon.bullet.pos[0] < 0 - self.basic_cannon.bullet.size[0] or self.basic_cannon.bullet.pos[0] > 1000 + self.basic_cannon.bullet.size[0] or 
                     self.basic_cannon.bullet.pos[1] < 0 - self.basic_cannon.bullet.size[1] or self.basic_cannon.bullet.pos[1] > 750 + self.basic_cannon.bullet.size[1]):
                     self.basic_cannon.bullet = None 
+                    Clock.unschedule(self.basic_cannon.move_bullet)
+                    Clock.unschedule(self.basic_cannon.timer_bullet)
 
     def _keyboard_closed(self):
         if self.keyboard:
@@ -182,11 +246,22 @@ class Level1(Screen):
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
+        self.rock = obstacles.rocks(size = (50, 50), pos=(300, 175))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (50, 50), pos=(681, 225))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
         self.treasure = obstacles.treasure(size = (50, 50), pos=(800, 100))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
 
     def return_to_levels(self):
+        self.on_leave()
         for element in self.selected_prj:
                 self.selected_prj.pop()
         app = App.get_running_app()
@@ -194,6 +269,29 @@ class Level1(Screen):
         app.root.current = 'levels'
     
     def refresh_screen(self):
+        self.on_leave()
         app = App.get_running_app()
         app.remove_screen('level1')
         StartPopup.goto_level1(StartPopup(), self.timestamp, self.selected_prj)
+    
+    def on_leave(self):
+        # Make sure to clean up the keyboard when leaving the screen
+        if self.keyboard:
+            self.keyboard.unbind(on_key_down=self._on_keyboard_down)
+        self.keyboard = None
+        Clock.unschedule(self.keyboard_Handler)
+    
+    def update_data(self):
+        filename = 'save_data.json'
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                all_data = json.load(f)
+            
+            if self.timestamp in all_data:
+                save_data = all_data[self.timestamp]
+        
+        save_data['coins'] += 50
+        save_data['points'] += (1000 - 50*(bullet.bullet_shooted-2))
+
+        with open(filename, 'w') as f:
+            json.dump(all_data, f, indent=4)

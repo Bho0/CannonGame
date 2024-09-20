@@ -26,8 +26,8 @@
             background_color: 0, 0, 0, 0
             on_press:
                 root.dismiss()
-                app.remove_mainpage()
-                app.remove_newgame()
+                app.remove_screen('mainpage')
+                app.remove_screen('newgame')
                 app.root.current = 'homepage'
 
         BoxLayout:  
@@ -125,7 +125,7 @@
             color: 0, 0, 0, 1  # Testo nero
             size_hint: (None, None)
             size: self.texture_size
-            pos_hint: {'center_x': 0.4, 'center_y': 0.6}
+            pos_hint: {'center_x': 0.5, 'center_y': 0.6}
         
         Button:
             id: tutorial_button
