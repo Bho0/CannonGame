@@ -1,7 +1,7 @@
 from kivy.uix.widget import Widget
-from kivy.graphics import Rectangle, Color, Line
 from kivy.uix.button import Button
 from kivy.uix.floatlayout import FloatLayout
+from kivy.graphics import Ellipse, Color, Line
 from kivy.clock import Clock
 
 bullet_shooted = 0  
@@ -36,7 +36,7 @@ class CannonWidget(FloatLayout):
     def create_bullet (self):
         self.time_passed = 0
         initial_pos = self.new_button.center
-        self.bullet = Bullet(pos = (initial_pos), size=(50, 50))
+        self.bullet = Bullet(pos = (initial_pos), size=(50,50))
         self.add_widget(self.bullet)
         
         Clock.schedule_interval(self.move_bullet, 0.01)
@@ -56,19 +56,25 @@ class CannonWidget(FloatLayout):
     
     def timer_bullet (self, dt):
         self.time_passed += dt
-       
+   
 class Bullet (Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.key = 'bullet'
-        self.size = (50, 50)
-        self.size_hint = (None, None)
+
         with self.canvas:
-            Color(1, 0, 1, 1)  # Red color
-            self.rect = Rectangle(size=(50, 50), pos=(self.pos)) 
+            self.bullet_rect = Ellipse(source='images/R.png', pos=self.pos, size=self.size)
+            self.bind(pos=self.update_rect, size=self.update_rect)
+        
+        self.add_bb(self)
+    
+    def add_bb (self, widget):
+        with widget.canvas.after:
+            Color(1, 0, 0, 1)
+            Line(rectangle = (widget.x, widget.y, widget.width, widget.height), width = 2)
+         
 
-        self.bind(pos=self.update_graphics)
-
-    def update_graphics(self, *args):
+    def update_rect(self, *args):
         # Update the rectangle's position to match the bomb's position
-        self.rect.pos = self.pos
+        self.bullet_rect.size = self.size
+        self.bullet_rect.pos = self.pos

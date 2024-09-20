@@ -1,59 +1,56 @@
 from kivy.uix.widget import Widget
-from kivy.graphics import Rectangle, Color , Ellipse
+from kivy.graphics import Rectangle, Color, Line
 
 class rocks(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.key = 'rocks'
-        with self.canvas:
-            Color(1, 0, 1, 1)  # White color for rock
-            self.circle = Ellipse(size=(50, 50), pos=self.pos)  # Set initial size and position
 
-        # Bind to update the Ellipse when the widget size or position changes
-        self.bind(pos=self.update_shape, size=self.update_shape)
-     
-        # Debug: track changes to size
-        self.bind(size=self.on_size_change)
+        with self.canvas.before:
+             self.rect = Rectangle(source='images/Default_rock_3_2d019bb5-fdea-4fbb-9776-7b6f9ba6e114_0.png', pos=self.pos, size=self.size)
+             self.bind(size=self.update_rect)
+        
+        self.add_bb(self)
+    
+    def add_bb (self, widget):
+        with widget.canvas.after:
+            Color(1, 0, 0, 1)
+            Line(rectangle = (widget.x, widget.y, widget.width, widget.height), width = 2)
+         
 
-    def on_size_change(self, instance, value):
-        print(f"Size changed: {value}")
-    def update_shape(self, *args):
-        # Update the position and size of the ellipse to match the widget
-        self.circle.pos = self.pos
+    def update_rect(self, *args):
+        # Update the rectangle's position to match the bomb's position
+        self.rect.size = self.size
+        self.rect.pos = self.pos
        
 class treasure(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.key = 'treasure'
-        with self.canvas:
-            Color(1, 1, 1, 1)  # White color for rock
-            self.circle = Ellipse(size=(50, 50), pos=self.pos)  # Set initial size and position
 
-        # Bind to update the Ellipse when the widget size or position changes
-        self.bind(pos=self.update_shape, size=self.update_shape)
-     
-        # Debug: track changes to size
-        self.bind(size=self.on_size_change)
+        with self.canvas.before:
+             self.rect = Rectangle(source='images/Default_treasure_3_7c767107-12f9-43e5-a19b-b7361e4a4b48_0.png', pos=self.pos, size=(100, 100))
+             self.bind(pos=self.update_rect, size=self.update_rect)
 
-    def on_size_change(self, instance, value):
-        print(f"Size changed: {value}")
-    def update_shape(self, *args):
-        # Update the position and size of the ellipse to match the widget
-        self.circle.pos = self.pos
+         
+
+    def update_rect(self, *args):
+        # Update the rectangle's position to match the bomb's position
+        self.rect.pos = self.pos
+        self.rect.size = self.size
 
 class perpetios(Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.key = 'perpetios'
-        self.size = (50, 50)
-        self.size_hint = (None, None)
-        with self.canvas:
-            Color(1, 1, 1, 1)  # Purple color for perpetio
-            self.circle = Ellipse(size=(50, 50), pos=self.pos)  # Set initial size and position
 
-        # Bind to update the Ellipse when the widget size or position changes
-        self.bind(pos=self.update_shape)
+        with self.canvas.before:
+             self.rect = Rectangle(source='Cannon_project\Rock.png', pos=self.pos, size=(50, 50))
+             self.bind(pos=self.update_rect, size=self.update_rect)
 
-    def update_shape(self, *args):
-        # Update the position and size of the ellipse to match the widget
-        self.circle.pos = self.pos
+         
+
+    def update_rect(self, *args):
+        # Update the rectangle's position to match the bomb's position
+        self.rect.pos = self.pos
+        self.rect.size = self.size

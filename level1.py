@@ -17,6 +17,7 @@ from elements import bullet, bomb, laser, obstacles
 class EndLevel(Popup):
     points = 1000
     tot_points = StringProperty('')
+    tot_shooted = 0
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = ""
@@ -25,11 +26,11 @@ class EndLevel(Popup):
         self.update_tot_points()
     
     def update_tot_points(self, *args):
-        print(bullet.bullet_shooted)
-        if bullet.bullet_shooted <= 2:
+        self.tot_shooted = bullet.bullet_shooted + bomb.bomb_shooted + laser.laser_shooted
+        if self.tot_shooted <= 2:
             self.tot_points = f"You have earned {self.points} points"
         else:
-            self.points = (1000 - 50*(bullet.bullet_shooted-2))
+            self.points = (1000 - 50*(self.tot_shooted-2))
             self.tot_points = f"You have earned {self.points} points"
 
 class Level1(Screen):
@@ -75,11 +76,15 @@ class Level1(Screen):
             x12, y12 = x11 + w1.size[0], y11 + w1.size[1]  # top-right corner of w1
             x21, y21 = w2.pos  # bottom-left corner of w2
             x22, y22 = x21 + w2.size[0], y21 + w2.size[1]  # top-right corner of w2
-            x11, y11 = self.to_window(*w1.pos)
+
+            x1f = (x11 + x12)/2
+            y1f = (y11 + y12)/2
+
+            x1f, y1f = self.to_window(*w1.pos)
             x21, y21 = self.to_window(*w2.pos)
 
             # Check if there's any overlap between the bounding boxes
-            if (x11 < x22 and x12 > x21) and (y11 < y22 and y12 > y21):
+            if (x1f < x22 and x1f > x21) and (y1f < y22 and y1f > y21):
                 return True
         return False
 
@@ -88,9 +93,10 @@ class Level1(Screen):
             for self.rock in self.rocklist[:]:
                 if self.basic_cannon :
                     if self.basic_cannon.bullet and self.collisions(self.rock, self.basic_cannon.bullet):
+                        print(self.basic_cannon.bullet.size, self.rock.size)
                         self.remove_widget(self.rock)
+                        self.basic_cannon.bullet.canvas.remove(self.basic_cannon.bullet.bullet_rect)
                         self.remove_widget(self.basic_cannon.bullet)
-                        self.basic_cannon.bullet.canvas.remove(self.basic_cannon.bullet.rect)
                         self.basic_cannon.bullet = None
                         self.rocklist.remove(self.rock)
                         Clock.unschedule(self.basic_cannon.move_bullet)
@@ -100,7 +106,7 @@ class Level1(Screen):
                     if self.basic_bomber.bomb and self.collisions(self.rock, self.basic_bomber.bomb):
                         self.remove_widget(self.rock)
                         self.remove_widget(self.basic_bomber.bomb)
-                        self.basic_bomber.bomb.canvas.remove(self.basic_bomber.bomb.rect)
+                        #self.basic_bomber.bomb.canvas.remove(self.basic_bomber.bomb.image)
                         self.basic_bomber.bomb = None
                         self.rocklist.remove(self.rock)
                         Clock.unschedule(self.basic_bomber.move_bomb)
@@ -110,10 +116,12 @@ class Level1(Screen):
                     if self.basic_laser.laser and self.collisions(self.rock, self.basic_laser.laser):
                         self.remove_widget(self.rock)
                         self.basic_laser.laser = None
+                        self.rocklist.remove(self.rock)
         
         if hasattr(self, 'treasure'):
             if self.basic_cannon :
                 if self.basic_cannon.bullet and self.collisions(self.treasure, self.basic_cannon.bullet):
+                    print(self.basic_cannon.bullet.size, self.treasure.size)
                     if not self.endLevel_popup:
                         self.endLevel_popup = EndLevel()
                     self.endLevel_popup.open()
@@ -133,7 +141,7 @@ class Level1(Screen):
                     self.endLevel_popup.open()
                     self.remove_widget(self.treasure)
                     self.remove_widget(self.basic_bomber.bomb)
-                    self.basic_bomber.bomb.canvas.remove(self.basic_bomber.bomb.rect)
+                    #self.basic_bomber.bomb.canvas.remove(self.basic_bomber.bomb.image)
                     self.basic_bomber.bomb = None
                     Clock.unschedule(self.basic_bomber.move_bomb)
                     Clock.unschedule(self.basic_bomber.timer_bomb)
@@ -241,17 +249,17 @@ class Level1(Screen):
                 self.add_widget(self.basic_laser)
     
     def obstacles_placer(self):
-        self.rock = obstacles.rocks(size = (50, 50), pos=(472, 400))
+        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (50, 50), pos=(300, 175))
+        self.rock = obstacles.rocks(size = (500, 500), pos=(0, 0))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (50, 50), pos=(681, 225))
+        self.rock = obstacles.rocks(size = (100, 100), pos=(681, 225))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
@@ -291,7 +299,7 @@ class Level1(Screen):
                 save_data = all_data[self.timestamp]
         
         save_data['coins'] += 50
-        save_data['points'] += (1000 - 50*(bullet.bullet_shooted-2))
+        save_data['points'] += (1000 - 50*(EndLevel.tot_shooted-2))
 
         with open(filename, 'w') as f:
             json.dump(all_data, f, indent=4)

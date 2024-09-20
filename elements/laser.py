@@ -6,6 +6,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.clock import Clock
 from kivy.core.window import Window
 
+laser_shooted = 0
 
 class Lasergun(FloatLayout):
     def __init__(self, **kwargs):
@@ -13,24 +14,28 @@ class Lasergun(FloatLayout):
         self.size_hint = (0.15 , 0.15)
         self.new_button = Button(text='shoot a laser', size_hint=(1, 1), pos_hint= {'x': 0.2, 'y': 0.5})
         self.add_widget(self.new_button) 
-        self.laserloaded = False
-        self.click_counter = 0  
+        self.laserloaded = False 
         self.time_passed = 0
         self.laser = None
         self.laser_MASS = 150
         self.eraser = None
         self.lines = []
+
+        global laser_shooted
+        laser_shooted = 0
     
-    def on_touch_down(self, touch):  #sistemare i casi limite dei conti aka se clicco due volte fuori e poi dentro
-        self.click_counter+=1
+    def on_touch_down(self, touch):
+        global laser_shooted
+        #sistemare i casi limite dei conti aka se clicco due volte fuori e poi dentro
         if self.new_button.collide_point(*touch.pos):
             self.laserloaded = True
             pass
-        if self.laserloaded == True and self.click_counter % 2 == 0 and self.laser == None:
+        elif self.laserloaded == True and self.laser == None:
             x, y = touch.pos
             self.mouse_delta = (x - self.new_button.x, y - self.new_button.y)
             self.create_laser()
             self.laserloaded = False
+            laser_shooted += 1
         
     def create_laser (self):            
         self.time_passed = 0
@@ -42,7 +47,7 @@ class Lasergun(FloatLayout):
             self.remove_widget(self.eraser)
             self.eraser = None
         self.add_widget(self.laser)
-        Clock.schedule_interval(self.timer, 0.01)    
+        Clock.schedule_interval(self.timer_laser, 0.01)    
 
     def move_laser(self):
         if self.laser is not None:
@@ -95,7 +100,7 @@ class Lasergun(FloatLayout):
         return (min(x1, x2) < ex + ew and max(x1, x2) > ex and 
                 min(y1, y2) < ey + eh and max(y1, y2) > ey)
 
-    def timer (self, dt):
+    def timer_laser (self, dt):
         if self.laser is not None and self.time_passed <= 3:
          self.move_laser()
         self.time_passed = self.time_passed + dt

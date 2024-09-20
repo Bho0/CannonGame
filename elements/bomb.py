@@ -4,6 +4,7 @@ from kivy.uix.button import Button
 from kivy.uix.floatlayout import FloatLayout
 from kivy.clock import Clock
 
+bomb_shooted = 0
 
 class Bombshooter(FloatLayout):   
     def __init__(self, **kwargs):
@@ -15,8 +16,13 @@ class Bombshooter(FloatLayout):
         self.time_passed = 0
         self.bomb = None
         self.BOMB_MASS = 150
+
+        global bomb_shooted
+        bomb_shooted = 0
     
-    def on_touch_down(self, touch):  #sistemare i casi limite dei conti aka se clicco due volte fuori e poi dentro
+    def on_touch_down(self, touch):
+        global bomb_shooted
+        #sistemare i casi limite dei conti aka se clicco due volte fuori e poi dentro
         if self.new_button.collide_point(*touch.pos):
             self.bombloaded = True
         else:
@@ -25,6 +31,7 @@ class Bombshooter(FloatLayout):
                 self.mouse_delta = (x - self.new_button.x, y - self.new_button.y)
                 self.create_bomb()
                 self.bombloaded = False
+                bomb_shooted += 1
 
     def create_bomb (self):
         self.time_passed = 0
