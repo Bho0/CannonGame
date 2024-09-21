@@ -228,11 +228,11 @@ class MainPage(Screen):
                 save_data = all_data[timestamp]
                 result = str(save_data['selected_dress'])
                 if result == "red":
-                    return 'images\captain.png'
+                    return 'images/captain.png'
                 if result == "blu":
                     return 'images/blue_dress.png'
                 if result == "green":
-                    return 'images\green_dress(1).png'
+                    return 'images/green_dress(1).png'
                 if result == "yellow":
                     return 'images/yellow_dress.png'
     

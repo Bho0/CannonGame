@@ -55,7 +55,7 @@
     name: 'level1'
     FloatLayout:
         Image:
-            source: 'images\level01.jpg'
+            source: 'images/level01.jpg'
             allow_stretch: True
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout
@@ -80,7 +80,7 @@
             size_hint: (.1, .1)
             on_press: Factory.HelpL1().open()
             Image:
-                source: 'images\help-icon-png-16.jpg'
+                source: 'images/help-icon-png-16.jpg'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 60, 60
@@ -135,7 +135,7 @@
                     root.dismiss()
                     app.root.get_screen('level1').return_to_levels()
                 Image:
-                    source: 'images\playButton.png'
+                    source: 'images/playButton.png'
                     allow_stretch: True
                     keep_ratio: False
                     center_x: self.parent.center_x

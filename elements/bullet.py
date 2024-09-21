@@ -1,16 +1,20 @@
 from kivy.uix.widget import Widget
-from kivy.uix.button import Button
+from kivy.uix.button import ButtonBehavior
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.image import Image
 from kivy.graphics import Ellipse, Color, Line
 from kivy.clock import Clock
 
-bullet_shooted = 0  
+bullet_shooted = 0
+
+class ImageButton(ButtonBehavior, Image):
+    pass
 
 class CannonWidget(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.size_hint = (0.15 , 0.15)
-        self.new_button = Button(text='shoot', size_hint=(1, 1), pos_hint= {'x': 0.1, 'y': 0.1})
+        self.size_hint = (0.3 , 0.3)
+        self.new_button = ImageButton(source = "images/ship.png", size_hint=(1, 1), pos_hint= {'x': 0.1, 'y': 0.1})
         self.add_widget(self.new_button) 
         self.bulletloaded = False   
         self.time_passed = 0
@@ -61,20 +65,17 @@ class Bullet (Widget):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.key = 'bullet'
+        self.size_hint=(None, None)
 
         with self.canvas:
-            self.bullet_rect = Ellipse(source='images/R.png', pos=self.pos, size=self.size)
-            self.bind(pos=self.update_rect, size=self.update_rect)
-        
-        self.add_bb(self)
-    
-    def add_bb (self, widget):
-        with widget.canvas.after:
-            Color(1, 0, 0, 1)
-            Line(rectangle = (widget.x, widget.y, widget.width, widget.height), width = 2)
+            Color(0, 0, 0, 1)  # Colore rosso
+            self.circle = Ellipse(pos=self.pos, size=(self.width, self.height))  # Dimensioni iniziali
+            self.bind(pos=self.update_circle, size=self.update_circle)
          
 
-    def update_rect(self, *args):
-        # Update the rectangle's position to match the bomb's position
-        self.bullet_rect.size = self.size
-        self.bullet_rect.pos = self.pos
+    def update_circle(self, *args):
+        # Aggiorna la posizione e le dimensioni del cerchio
+        self.circle.pos = self.pos
+        # Imposta le dimensioni del cerchio in modo che sia un cerchio perfetto
+        diameter = min(self.width, self.height)  # Usa il valore min per mantenere la forma circolare
+        self.circle.size = (diameter, diameter)

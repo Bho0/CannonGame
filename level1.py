@@ -70,21 +70,17 @@ class Level1(Screen):
         Clock.schedule_interval(self.keyboard_Handler, 0.01)
     
     def collisions(self, w1, w2):
-        if w1 and w2:
+        if w1 is not None and w2 is not None:
             # Get positions and sizes of both widgets
             x11, y11 = w1.pos  # bottom-left corner of w1
             x12, y12 = x11 + w1.size[0], y11 + w1.size[1]  # top-right corner of w1
             x21, y21 = w2.pos  # bottom-left corner of w2
             x22, y22 = x21 + w2.size[0], y21 + w2.size[1]  # top-right corner of w2
-
-            x1f = (x11 + x12)/2
-            y1f = (y11 + y12)/2
-
-            x1f, y1f = self.to_window(*w1.pos)
+            x11, y11 = self.to_window(*w1.pos)
             x21, y21 = self.to_window(*w2.pos)
 
             # Check if there's any overlap between the bounding boxes
-            if (x1f < x22 and x1f > x21) and (y1f < y22 and y1f > y21):
+            if (x11 < x22 and x12 > x21) and (y11 < y22 and y12 > y21):
                 return True
         return False
 
@@ -93,9 +89,8 @@ class Level1(Screen):
             for self.rock in self.rocklist[:]:
                 if self.basic_cannon :
                     if self.basic_cannon.bullet and self.collisions(self.rock, self.basic_cannon.bullet):
-                        print(self.basic_cannon.bullet.size, self.rock.size)
                         self.remove_widget(self.rock)
-                        self.basic_cannon.bullet.canvas.remove(self.basic_cannon.bullet.bullet_rect)
+                        self.basic_cannon.bullet.canvas.remove(self.basic_cannon.bullet.circle)
                         self.remove_widget(self.basic_cannon.bullet)
                         self.basic_cannon.bullet = None
                         self.rocklist.remove(self.rock)
@@ -127,7 +122,7 @@ class Level1(Screen):
                     self.endLevel_popup.open()
                     self.remove_widget(self.treasure)
                     self.remove_widget(self.basic_cannon.bullet)
-                    self.basic_cannon.bullet.canvas.remove(self.basic_cannon.bullet.rect)
+                    self.basic_cannon.bullet.canvas.remove(self.basic_cannon.bullet.circle)
                     self.basic_cannon.bullet = None
                     Clock.unschedule(self.basic_cannon.move_bullet)
                     Clock.unschedule(self.basic_cannon.timer_bullet)
@@ -254,7 +249,7 @@ class Level1(Screen):
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (500, 500), pos=(0, 0))
+        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)

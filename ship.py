@@ -123,7 +123,7 @@ class Captain(Screen):
                 button = ToggleButton(text=f"red dress",
                                 group='C',
                                 font_name= 'fonts/Caribbean.ttf',
-                                background_normal='images\captain.png',
+                                background_normal='images/captain.png',
                                 on_press=lambda btn, dr='red', ts=timestamp: self.select_dress(dr,ts)
                                 )
                 grid.add_widget(button)
