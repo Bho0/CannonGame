@@ -1,6 +1,7 @@
 from kivy.uix.screenmanager import Screen
 from kivy.core.window import Window
 from kivy.clock import Clock
+from kivy.lang import Builder
 from kivy.app import App
 from kivy.uix.popup import Popup
 from kivy.properties import StringProperty
@@ -242,18 +243,29 @@ class Level(Screen):
         for element in self.selected_prj:
                 self.selected_prj.pop()
         app = App.get_running_app()
-        app.root.remove_widget(app.root.get_screen('level1'))
+        app.root.remove_widget(app.root.current_screen)
         app.root.current = 'levelSelection'
     
     def refresh_screen(self):
-        self.on_leave()
+        self.on_leave()  # Aggiungi controlli se necessario
         app = App.get_running_app()
+
+        # Rimuovere il widget corrente
         self.clear_widgets()
-        app.remove_screen('level1')
-        refreshed_screen = Level1
-        app.add_screen(refreshed_screen, 'level1')
-        app.root.current = 'level1'
-        refreshed_screen.load_screen(Level1(), self.selected_prj, self.timestamp)
+
+        # Ricaricare il file .kv e la schermata
+        Builder.unload_file('Level.kv')  # Unload the current .kv file
+        Builder.load_file('Level.kv')  # Reload the .kv file
+
+        # Ripristina la schermata (se necessario)
+        reload_screen = app.root.current_screen
+        app.root.remove_widget(app.root.current_screen)
+        app.root.add_widget(reload_screen)
+
+        self.load_screen(self.selected_prj, self.timestamp)
+        
+        # Cambia schermata, se necessario
+        app.root.current = reload_screen.name
     
     def on_leave(self):
         # Make sure to clean up the keyboard when leaving the screen

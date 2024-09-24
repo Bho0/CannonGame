@@ -1,25 +1,10 @@
 {
-    "2024-09-20 10:05:44": {
+    "2024-09-24 16:43:38": {
         "name": "prova1",
         "tutorial": false,
         "levels": 1,
-        "points": 68200,
-        "coins": 3050,
-        "bullet": true,
-        "bomb": true,
-        "laser": true,
-        "red_dress": true,
-        "blu_dress": false,
-        "green_dress": false,
-        "yellow_dress": false,
-        "selected_dress": "red"
-    },
-    "2024-09-23 12:25:38": {
-        "name": "prova2",
-        "tutorial": false,
-        "levels": 1,
-        "points": 0,
-        "coins": 0,
+        "points": 15400,
+        "coins": 700,
         "bullet": true,
         "bomb": false,
         "laser": false,

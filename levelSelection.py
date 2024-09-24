@@ -5,8 +5,6 @@ from kivy.uix.popup import Popup
 from kivy.properties import StringProperty
 from kivy.app import App
 
-from level import Level1
-
 from mainpage import MainPage
 
 import json
