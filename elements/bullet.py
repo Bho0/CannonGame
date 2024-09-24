@@ -1,6 +1,7 @@
 from kivy.uix.widget import Widget
 from kivy.uix.button import ButtonBehavior
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.label import Label
 from kivy.uix.image import Image
 from kivy.graphics import Ellipse, Color, Line
 from kivy.clock import Clock
@@ -15,7 +16,9 @@ class CannonWidget(FloatLayout):
         super().__init__(**kwargs)
         self.size_hint = (0.3 , 0.3)
         self.new_button = ImageButton(source = "images/ship.png", size_hint=(1, 1), pos_hint= {'x': 0.1, 'y': 0.1})
-        self.add_widget(self.new_button) 
+        self.new_label = Label(text = "Bullet selected", font_name = 'fonts/Caribbean.ttf', color = (0, 0, 0, 1), pos_hint = {'x': 0.1, 'y': 0.3})
+        self.add_widget(self.new_button)
+        self.add_widget(self.new_label) 
         self.bulletloaded = False   
         self.time_passed = 0
         self.bullet = None

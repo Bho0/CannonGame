@@ -1,19 +1,26 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.graphics import Rectangle, Color, Line
-from kivy.uix.button import Button
+from kivy.uix.button import ButtonBehavior
+from kivy.uix.label import Label
+from kivy.uix.image import Image
 from kivy.uix.floatlayout import FloatLayout
 from kivy.clock import Clock
 from kivy.core.window import Window
 
 laser_shooted = 0
 
+class ImageButton(ButtonBehavior, Image):
+    pass
+
 class Lasergun(FloatLayout):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.size_hint = (0.15 , 0.15)
-        self.new_button = Button(text='shoot a laser', size_hint=(1, 1), pos_hint= {'x': 0.2, 'y': 0.5})
-        self.add_widget(self.new_button) 
+        self.size_hint = (0.3, 0.3)
+        self.new_button = ImageButton(source = "images/ship.png", size_hint=(1, 1), pos_hint= {'x': 0.1, 'y': 0.1})
+        self.new_label = Label(text = "Laser selected", font_name = 'fonts/Caribbean.ttf', color = (0, 0, 0, 1), pos_hint = {'x': 0.1, 'y': 0.3})
+        self.add_widget(self.new_button)
+        self.add_widget(self.new_label)  
         self.laserloaded = False 
         self.time_passed = 0
         self.laser = None

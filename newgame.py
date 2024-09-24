@@ -4,6 +4,8 @@ from kivy.app import App
 from kivy.graphics import Color, Rectangle
 from kivy.properties import ListProperty, NumericProperty
 
+from mainpage import MainPage
+
 import json
 import os
 from datetime import datetime
@@ -87,7 +89,7 @@ class NewGame(Screen):
                 save_data = all_data[timestamp]
 
                 # Naviga verso il nuovo schermo
-                app.add_mainpage()
+                app.add_screen(MainPage, 'mainpage')
                 game_screen = self.manager.get_screen('mainpage')  # Ottieni il nuovo schermo
                 game_screen.load_saved_game(save_data, timestamp)  # Passa i dati al nuovo schermo
                 self.manager.current = 'mainpage'  # Cambia schermo

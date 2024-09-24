@@ -7,12 +7,9 @@ from kivy.properties import ObjectProperty
 
 from homepage import HomePage
 from loadgame import LoadGame
-from newgame import NewGame
-from mainpage import MainPage
-from levels import Levels, ComingSoon
+from levelSelection import LevelSelection, ComingSoon
 from ship import Ship, Captain
 from market import Market, DressingRoom, ProjectileStore
-from level1 import Level1
 
 class Start(Screen):
     pass
@@ -30,16 +27,16 @@ class CannonGame(App):
         Builder.load_file('LoadGame.kv')
         Builder.load_file('NewGame.kv')
         Builder.load_file('MainPage.kv')
-        Builder.load_file('Levels.kv')
+        Builder.load_file('LevelSelection.kv')
         Builder.load_file('Ship.kv')
         Builder.load_file('Market.kv')
-        Builder.load_file('Level1.kv')
+        Builder.load_file('Level.kv')
 
         sm = ScreenManager()
         sm.add_widget(Start(name='start'))
         sm.add_widget(HomePage(name='homepage'))
         sm.add_widget(LoadGame(name='loadgame'))
-        sm.add_widget(Levels(name='levels'))
+        sm.add_widget(LevelSelection(name='levelSelection'))
         sm.add_widget(ComingSoon(name='comingsoon'))
         sm.add_widget(Ship(name='ship'))
         sm.add_widget(Market(name='market'))
@@ -56,14 +53,8 @@ class CannonGame(App):
     def remove_screen(self, name):
         self.root.remove_widget(self.root.get_screen(name))
     
-    def add_level1(self):
-        self.root.add_widget(Level1(name='level1'))
-    
-    def add_mainpage(self):
-        self.root.add_widget(MainPage(name='mainpage'))
-    
-    def add_newgame(self):
-        self.root.add_widget(NewGame(name='newgame'))
+    def add_screen(self, screen_class, name):
+        self.root.add_widget(screen_class(name = name))
     
     def get_file_content(self, rfile):
         with open(rfile, 'r', encoding='utf-8') as file:

@@ -1,0 +1,373 @@
+#:import Factory kivy.factory.Factory
+
+<Option@Popup>:
+    auto_dismiss: True
+    size_hint: (.5, .5)
+    title: ''
+    BoxLayout:
+        orientation: 'vertical'
+        
+        Button:
+            text: 'Exit'
+            color: 1, 1, 1, 1
+            font_size: 30
+            font_name: 'fonts/Caribbean.ttf'
+            background_color: 0, 0, 0, 0
+            on_press:
+                root.dismiss()
+
+        Label:
+            text: "Music"
+            font_name: 'fonts/Caribbean.ttf'
+
+        Slider:
+            id: slider
+            value_track: True
+            value_track_color: [0, 0, 1, 1]
+            min: 0
+            max: 1
+            value: 0.5
+            on_value: app.change_volume(self.value)
+
+        Label:
+            text: "Sounds"
+            font_name: 'fonts/Caribbean.ttf'
+
+        Slider:
+            id: slider
+            value_track: True
+            value_track_color: [0, 0, 1, 1]
+
+<Help@Popup>:
+    auto_dismiss: True
+    size_hint: (.8, .8)
+    title: ''
+    BoxLayout:
+        orientation: 'vertical'
+
+        Label:
+            text: app.get_file_content('Help.txt')
+            font_name: 'fonts/Caribbean.ttf'
+
+<EndLevel>:
+    BoxLayout:
+        orientation: 'vertical'
+        Label:
+            text: "Congratulation you have found the treasure"
+            font_name: 'fonts/Caribbean.ttf'
+
+        Label:
+            text: "You have earned 50 coins"
+            font_name: 'fonts/Caribbean.ttf'
+        
+        Label:
+            text: root.tot_points
+            font_name: 'fonts/Caribbean.ttf'
+        
+        BoxLayout:
+            orientation: 'horizontal'
+
+            Button:
+                background_color: 0, 0, 0, 0
+                on_press:
+                    root.dismiss()
+                    app.root.get_screen('level1').refresh_screen()
+                Image:
+                    source: 'images/refresh-icon-png-transparent-1.jpg'
+                    allow_stretch: True
+                    keep_ratio: False
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+                    size: 50, 50
+            
+            Button:
+                background_color: 0, 0, 0, 0
+                on_press:
+                    root.dismiss()
+                    app.root.get_screen('level1').return_to_levels()
+                Image:
+                    source: 'images/playButton.png'
+                    allow_stretch: True
+                    keep_ratio: False
+                    center_x: self.parent.center_x
+                    center_y: self.parent.center_y
+                    size: 50, 50
+
+<Level>:
+    name:"level"
+
+<Level1>:
+    FloatLayout:
+        Image:
+            source: 'images/level01.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        Button:
+            id: option_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .9, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Option().open()
+            Image:
+                source: 'images/options.webp'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+        
+        Button:
+            id: help_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .8, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Help().open()
+            Image:
+                source: 'images/help-icon-png-16.jpg'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+        
+        Label:
+            text: "Click here to know the rules of the game"
+            pos_hint: {'center_x': .45, 'center_y': .9}
+            color: (0, 0, 0, 1)
+            size_hint: (.05, .05)
+            font_name: 'fonts/Caribbean.ttf'
+        
+        Image:
+            source: 'images/right-arrow-icon-free-png.webp'
+            pos_hint: {'center_x': .7, 'center_y': .9}
+            size_hint: (.1, .1)
+
+<Level2>:
+    FloatLayout:
+        Image:
+            source: 'images/level01.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        Button:
+            id: option_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .9, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Option().open()
+            Image:
+                source: 'images/options.webp'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+        
+        Button:
+            id: help_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .8, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Help().open()
+            Image:
+                source: 'images/help-icon-png-16.jpg'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+    
+<Level3>:
+    FloatLayout:
+        Image:
+            source: 'images/level01.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        Button:
+            id: option_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .9, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Option().open()
+            Image:
+                source: 'images/options.webp'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+        
+        Button:
+            id: help_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .8, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Help().open()
+            Image:
+                source: 'images/help-icon-png-16.jpg'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+
+<Level4>:
+    FloatLayout:
+        Image:
+            source: 'images/level01.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        Button:
+            id: option_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .9, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Option().open()
+            Image:
+                source: 'images/options.webp'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+        
+        Button:
+            id: help_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .8, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Help().open()
+            Image:
+                source: 'images/help-icon-png-16.jpg'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+
+<Level5>:
+    FloatLayout:
+        Image:
+            source: 'images/level01.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        Button:
+            id: option_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .9, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Option().open()
+            Image:
+                source: 'images/options.webp'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+        
+        Button:
+            id: help_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .8, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Help().open()
+            Image:
+                source: 'images/help-icon-png-16.jpg'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+
+<Level6>:
+    FloatLayout:
+        Image:
+            source: 'images/level01.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        Button:
+            id: option_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .9, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Option().open()
+            Image:
+                source: 'images/options.webp'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+        
+        Button:
+            id: help_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .8, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Help().open()
+            Image:
+                source: 'images/help-icon-png-16.jpg'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+
+<Level7>:
+    FloatLayout:
+        Image:
+            source: 'images/level01.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        Button:
+            id: option_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .9, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Option().open()
+            Image:
+                source: 'images/options.webp'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+        
+        Button:
+            id: help_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .8, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Help().open()
+            Image:
+                source: 'images/help-icon-png-16.jpg'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+
+<Level8>:
+    FloatLayout:
+        Image:
+            source: 'images/level01.jpg'
+            allow_stretch: True
+            keep_ratio: False
+            size_hint: (1, 1)  # Copre l'intero layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
+
+        Button:
+            id: option_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .9, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Option().open()
+            Image:
+                source: 'images/options.webp'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60
+        
+        Button:
+            id: help_button
+            background_color: 0, 0, 0, 0
+            pos_hint: {'center_x': .8, 'center_y': .9}
+            size_hint: (.1, .1)
+            on_press: Factory.Help().open()
+            Image:
+                source: 'images/help-icon-png-16.jpg'
+                center_x: self.parent.center_x
+                center_y: self.parent.center_y
+                size: 60, 60

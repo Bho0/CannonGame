@@ -3,11 +3,7 @@ from kivy.core.window import Window
 from kivy.clock import Clock
 from kivy.app import App
 from kivy.uix.popup import Popup
-from kivy.uix.boxlayout import BoxLayout
-from kivy.uix.label import Label
-from kivy.properties import NumericProperty, StringProperty
-
-from levels import StartPopup
+from kivy.properties import StringProperty
 
 import os
 import json
@@ -33,7 +29,7 @@ class EndLevel(Popup):
             self.points = (1000 - 50*(self.tot_shooted-2))
             self.tot_points = f"You have earned {self.points} points"
 
-class Level1(Screen):
+class Level(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.basic_bomber = None
@@ -42,7 +38,6 @@ class Level1(Screen):
         self.weaponcounter = 0
         self.keyboard = None
         self.rocklist = []
-        self.obstacles_placer()
         self.endLevel_popup = None
         self.counter_shot = 0
 
@@ -101,7 +96,7 @@ class Level1(Screen):
                     if self.basic_bomber.bomb and self.collisions(self.rock, self.basic_bomber.bomb):
                         self.remove_widget(self.rock)
                         self.remove_widget(self.basic_bomber.bomb)
-                        #self.basic_bomber.bomb.canvas.remove(self.basic_bomber.bomb.image)
+                        self.basic_bomber.bomb.canvas.remove(self.basic_bomber.bomb.circle)
                         self.basic_bomber.bomb = None
                         self.rocklist.remove(self.rock)
                         Clock.unschedule(self.basic_bomber.move_bomb)
@@ -116,7 +111,6 @@ class Level1(Screen):
         if hasattr(self, 'treasure'):
             if self.basic_cannon :
                 if self.basic_cannon.bullet and self.collisions(self.treasure, self.basic_cannon.bullet):
-                    print(self.basic_cannon.bullet.size, self.treasure.size)
                     if not self.endLevel_popup:
                         self.endLevel_popup = EndLevel()
                     self.endLevel_popup.open()
@@ -136,7 +130,7 @@ class Level1(Screen):
                     self.endLevel_popup.open()
                     self.remove_widget(self.treasure)
                     self.remove_widget(self.basic_bomber.bomb)
-                    #self.basic_bomber.bomb.canvas.remove(self.basic_bomber.bomb.image)
+                    self.basic_bomber.bomb.canvas.remove(self.basic_bomber.bomb.circle)
                     self.basic_bomber.bomb = None
                     Clock.unschedule(self.basic_bomber.move_bomb)
                     Clock.unschedule(self.basic_bomber.timer_bomb)
@@ -242,26 +236,6 @@ class Level1(Screen):
             
             if 'laser' == selected_prj[self.weaponcounter]:
                 self.add_widget(self.basic_laser)
-    
-    def obstacles_placer(self):
-        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
-
-        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
-
-        self.rock = obstacles.rocks(size = (100, 100), pos=(681, 225))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
-
-        self.treasure = obstacles.treasure(size = (50, 50), pos=(800, 100))
-        self.treasure.size_hint = (None, None)
-        self.add_widget(self.treasure)
 
     def return_to_levels(self):
         self.on_leave()
@@ -269,13 +243,17 @@ class Level1(Screen):
                 self.selected_prj.pop()
         app = App.get_running_app()
         app.root.remove_widget(app.root.get_screen('level1'))
-        app.root.current = 'levels'
+        app.root.current = 'levelSelection'
     
     def refresh_screen(self):
         self.on_leave()
         app = App.get_running_app()
+        self.clear_widgets()
         app.remove_screen('level1')
-        StartPopup.goto_level1(StartPopup(), self.timestamp, self.selected_prj)
+        refreshed_screen = Level1
+        app.add_screen(refreshed_screen, 'level1')
+        app.root.current = 'level1'
+        refreshed_screen.load_screen(Level1(), self.selected_prj, self.timestamp)
     
     def on_leave(self):
         # Make sure to clean up the keyboard when leaving the screen
@@ -298,3 +276,203 @@ class Level1(Screen):
 
         with open(filename, 'w') as f:
             json.dump(all_data, f, indent=4)
+
+class Level1(Level):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.obstacles_placer()
+    
+    def obstacles_placer(self):
+        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure.size_hint = (None, None)
+        self.add_widget(self.treasure)
+
+class Level2(Level):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.obstacles_placer()
+    
+    def obstacles_placer(self):
+        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure.size_hint = (None, None)
+        self.add_widget(self.treasure)
+
+class Level3(Level):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.obstacles_placer()
+    
+    def obstacles_placer(self):
+        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure.size_hint = (None, None)
+        self.add_widget(self.treasure)
+
+class Level4(Level):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.obstacles_placer()
+    
+    def obstacles_placer(self):
+        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure.size_hint = (None, None)
+        self.add_widget(self.treasure)
+
+class Level5(Level):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.obstacles_placer()
+    
+    def obstacles_placer(self):
+        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure.size_hint = (None, None)
+        self.add_widget(self.treasure)
+
+class Level6(Level):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.obstacles_placer()
+    
+    def obstacles_placer(self):
+        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure.size_hint = (None, None)
+        self.add_widget(self.treasure)
+
+class Level7(Level):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.obstacles_placer()
+    
+    def obstacles_placer(self):
+        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure.size_hint = (None, None)
+        self.add_widget(self.treasure)
+
+class Level8(Level):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.obstacles_placer()
+    
+    def obstacles_placer(self):
+        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure.size_hint = (None, None)
+        self.add_widget(self.treasure)

@@ -1,5 +1,7 @@
 #:import Factory kivy.factory.Factory
 
+#:import NewGame newgame.NewGame
+
 <VolPopup@Popup>:
     auto_dismiss: True
     size_hint: (.5, .3)
@@ -57,7 +59,7 @@
                 font_name: 'fonts/Caribbean.ttf'
                 background_color: 0, 0, 0, 0 
                 on_press:
-                    app.add_newgame()
+                    app.add_screen(NewGame, 'newgame')
                     app.root.current = 'newgame'
             Button:
                 text: 'Load Game'

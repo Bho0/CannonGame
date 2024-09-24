@@ -5,6 +5,8 @@ from kivy.uix.popup import Popup
 from kivy.properties import StringProperty
 from kivy.app import App
 
+from mainpage import MainPage
+
 import json
 import os
 
@@ -32,7 +34,7 @@ class Ship(Screen):
     
     def goto_mainpage(self, timestamp):
         app = App.get_running_app()
-        app.add_mainpage()
+        app.add_screen(MainPage, 'mainpage')
         filename = 'save_data.json'
         if os.path.exists(filename):
             with open(filename, 'r') as f:

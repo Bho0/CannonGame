@@ -3,6 +3,9 @@ from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.app import App
 
+from mainpage import MainPage
+from newgame import NewGame
+
 import json
 import os
 
@@ -38,8 +41,8 @@ class LoadGame(Screen):
                 save_data = all_data[timestamp]
 
                 # Naviga verso il nuovo schermo
-                app.add_mainpage()
-                app.add_newgame()
+                app.add_screen(MainPage, 'mainpage')
+                app.add_screen(NewGame, 'newgame')
                 game_screen = self.manager.get_screen('mainpage')  # Ottieni il nuovo schermo
                 game_screen.load_saved_game(save_data, timestamp)  # Passa i dati al nuovo schermo
                 self.manager.current = 'mainpage'  # Cambia schermo

@@ -1,8 +1,17 @@
 #:import FadeTransition kivy.uix.screenmanager.FadeTransition
 #:import SlideTransition kivy.uix.screenmanager.SlideTransition
 
-<Levels>:
-    name: 'levels'
+#:import level1 level.Level1
+#:import level2 level.Level2
+#:import level3 level.Level3
+#:import level4 level.Level4
+#:import level5 level.Level5
+#:import level6 level.Level6
+#:import level7 level.Level7
+#:import level8 level.Level8
+
+<LevelSelection>:
+    name: 'levelSelection'
     FloatLayout:
         Image:
             source: 'images/levels (3).jpg'
@@ -12,11 +21,60 @@
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
         Button:
-            pos_hint: {'center_x': .5, 'center_y': .5}
+            pos_hint: {'center_x': .1, 'center_y': .5}
             size_hint: (.1, .1)
             text: 'LVL 1'
             on_press:
-                root.open_start_popup(root.timestamp)
+                root.open_start_popup(root.timestamp, level1, 'level1')
+        
+        Button:
+            pos_hint: {'center_x': .2, 'center_y': .5}
+            size_hint: (.1, .1)
+            text: 'LVL 2'
+            on_press:
+                root.open_start_popup(root.timestamp, level2, 'level2')
+        
+        Button:
+            pos_hint: {'center_x': .3, 'center_y': .5}
+            size_hint: (.1, .1)
+            text: 'LVL 3'
+            on_press:
+                root.open_start_popup(root.timestamp, level3, 'level3')
+        
+        Button:
+            pos_hint: {'center_x': .4, 'center_y': .5}
+            size_hint: (.1, .1)
+            text: 'LVL 4'
+            on_press:
+                root.open_start_popup(root.timestamp, level4, 'level4')
+        
+        Button:
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            size_hint: (.1, .1)
+            text: 'LVL 5'
+            on_press:
+                root.open_start_popup(root.timestamp, level5, 'level5')
+        
+        Button:
+            pos_hint: {'center_x': .6, 'center_y': .5}
+            size_hint: (.1, .1)
+            text: 'LVL 6'
+            on_press:
+                root.open_start_popup(root.timestamp, level6, 'level6')
+
+        Button:
+            pos_hint: {'center_x': .7, 'center_y': .5}
+            size_hint: (.1, .1)
+            text: 'LVL 7'
+            on_press:
+                root.open_start_popup(root.timestamp, level7, 'level7')
+
+        Button:
+            pos_hint: {'center_x': .8, 'center_y': .5}
+            size_hint: (.1, .1)
+            text: 'LVL 8'
+            on_press:
+                root.open_start_popup(root.timestamp, level8, 'level8')
 
         Button:
             pos_hint: {'center_x': .2, 'center_y': .95}
@@ -49,7 +107,7 @@
             font_size: 52
             on_press:
                 root.manager.transition = FadeTransition()
-                app.root.current = 'levels'
+                app.root.current = 'levelSelection'
 
 <StartPopup>:
     name: 'startPopup'
@@ -68,7 +126,7 @@
             id: start_button
             background_color: 0, 0, 0, 0
             on_press:
-                root.goto_level1(root.timestamp, root.selected_prj)
+                root.goto_level(root.timestamp, root.selected_prj, root.screen_name, root.name)
             Image:
                 source: 'images/playButton.png'
                 allow_stretch: True

@@ -5,6 +5,10 @@ from kivy.uix.popup import Popup
 from kivy.properties import StringProperty
 from kivy.app import App
 
+from level import Level1
+
+from mainpage import MainPage
+
 import json
 import os
 
@@ -18,8 +22,10 @@ class StartPopup(Popup):
         self.size_hint = (0.5, 0.5)
         self.auto_dismiss = True
     
-    def load_popup(self, timestamp):
+    def load_popup(self, timestamp, screen_name, name):
         self.timestamp = timestamp
+        self.screen_name = screen_name
+        self.name = name
         grid = self.ids.ammo_grid
         grid.clear_widgets()  # Pulisci la lista prima di aggiungere nuovi elementi
 
@@ -61,20 +67,20 @@ class StartPopup(Popup):
         else:
             self.selected_prj.append(type_of_prj)
     
-    def goto_level1(self, timestamp, selected_prj):
+    def goto_level(self, timestamp, selected_prj, screen_class, name):
         if selected_prj == []:
             label = Label(text=f"Please select at least one type of ammo", font_name= 'fonts/Caribbean.ttf')
             self.ids.start_box.add_widget(label)
         else:
             self.dismiss()
             app = App.get_running_app()
-            app.add_level1()
-            game_screen = app.root.get_screen('level1')  # Ottieni il nuovo schermo
+            app.add_screen(screen_class, name)
+            game_screen = app.root.get_screen(name)  # Ottieni il nuovo schermo
             game_screen.load_screen(selected_prj, timestamp)  # Passa i dati al nuovo schermo
-            app.root.current = 'level1'
+            app.root.current = name
 
 
-class Levels(Screen):
+class LevelSelection(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.start_popup = None
@@ -82,15 +88,15 @@ class Levels(Screen):
     def load_screen(self, timestamp):
         self.timestamp = timestamp
     
-    def open_start_popup(self, timestamp):
+    def open_start_popup(self, timestamp, screen_name, name):
         if not self.start_popup:
             self.start_popup = StartPopup()
-        self.start_popup.load_popup(timestamp)
+        self.start_popup.load_popup(timestamp, screen_name, name)
         self.start_popup.open()
     
     def goto_mainpage(self, timestamp):
         app = App.get_running_app()
-        app.add_mainpage()
+        app.add_screen(MainPage, 'mainpage')
         filename = 'save_data.json'
         if os.path.exists(filename):
             with open(filename, 'r') as f:

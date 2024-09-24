@@ -255,9 +255,9 @@ class MainPage(Screen):
     def goto_levels(self, timestamp):
         # Naviga verso il nuovo schermo
         app = App.get_running_app()
-        game_screen = self.manager.get_screen('levels')  # Ottieni il nuovo schermo
+        game_screen = self.manager.get_screen('levelSelection')  # Ottieni il nuovo schermo
         game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
-        self.manager.current = 'levels'  # Cambia schermo
+        self.manager.current = 'levelSelection'  # Cambia schermo
         app.remove_screen('mainpage')
     
     def open_Hof_popup(self):
