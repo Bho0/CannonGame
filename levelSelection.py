@@ -7,6 +7,8 @@ from kivy.app import App
 
 from mainpage import MainPage
 
+from level import Level1, Level2, Level3, Level4, Level5, Level6, Level7, Level8
+
 import json
 import os
 
@@ -85,6 +87,29 @@ class LevelSelection(Screen):
 
     def load_screen(self, timestamp):
         self.timestamp = timestamp
+        
+        filename = 'save_data.json'
+        if os.path.exists(filename):
+            with open(filename, 'r') as f:
+                all_data = json.load(f)
+
+            if self.timestamp in all_data:
+                save_data = all_data[self.timestamp]
+        
+        for element in range(1, 8):
+            element_id = f'LVL{element}'
+            if save_data['levels'] >= element:
+                self.ids[element_id].disabled = False
+            else:
+                self.ids[element_id].disabled = True
+        
+        if save_data['levels'] == 8 and  save_data['secret'] == False:
+            self.ids['LVL8'].disabled = False
+            self.ids['LVL8'].opacity = 1
+        else:
+            self.ids['LVL8'].disabled = True
+            self.ids['LVL8'].opacity = 0
+            
     
     def open_start_popup(self, timestamp, screen_name, name):
         if not self.start_popup:

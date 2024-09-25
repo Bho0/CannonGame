@@ -94,7 +94,8 @@ class MainPage(Screen):
                 'blu_dress': save_data['blu_dress'],
                 'green_dress': save_data['green_dress'],
                 'yellow_dress': save_data['yellow_dress'],
-                'selected_dress': save_data['selected_dress']
+                'selected_dress': save_data['selected_dress'],
+                'secret': save_data['secret']
             }
             all_data[timestamp] = update_tutorial
             with open(filename, 'w') as f:
@@ -195,7 +196,8 @@ class MainPage(Screen):
             'blu_dress': save_data['blu_dress'],
             'green_dress': save_data['green_dress'],
             'yellow_dress': save_data['yellow_dress'],
-            'selected_dress': save_data['selected_dress']
+            'selected_dress': save_data['selected_dress'],
+            'secret': save_data['secret']
         }
 
         # Aggiungi i nuovi dati al dizionario con timestamp come chiave

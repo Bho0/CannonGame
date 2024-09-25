@@ -57,7 +57,8 @@ class NewGame(Screen):
             'blu_dress': False,
             'green_dress': False,
             'yellow_dress': False,
-            'selected_dress': 'red'
+            'selected_dress': 'red',
+            'secret': True
         }
 
         filename = 'save_data.json'

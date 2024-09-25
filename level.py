@@ -9,7 +9,7 @@ from kivy.properties import StringProperty
 import os
 import json
 
-from elements import bullet, bomb, laser, obstacles
+from elements import cannon, obstacles
 
 class EndLevel(Popup):
     points = 1000
@@ -23,7 +23,7 @@ class EndLevel(Popup):
         self.update_tot_points()
     
     def update_tot_points(self, *args):
-        self.tot_shooted = bullet.bullet_shooted + bomb.bomb_shooted + laser.laser_shooted
+        self.tot_shooted = cannon.shoot_count
         if self.tot_shooted <= 2:
             self.tot_points = f"You have earned {self.points} points"
         else:
@@ -50,15 +50,15 @@ class Level(Screen):
         self.timestamp = timestamp
         
         if 'bullet' in selected_prj:
-            self.basic_cannon = bullet.CannonWidget(pos_hint={'x': 0.1, 'y': 0.2})
+            self.basic_cannon = cannon.CannonWidget(pos_hint={'x': 0.1, 'y': 0.2})
             if 'bullet' == selected_prj[0]:
                 self.add_widget(self.basic_cannon)
         if 'bomb' in selected_prj:
-            self.basic_bomber = bomb.Bombshooter(pos_hint={'x': 0.1, 'y': 0.2})
+            self.basic_bomber = cannon.BomberWidget(pos_hint={'x': 0.1, 'y': 0.2})
             if 'bomb' == selected_prj[0]:
                 self.add_widget(self.basic_bomber)
         if 'laser' in selected_prj:
-            self.basic_laser = laser.Lasergun(pos_hint={'x': 0.1, 'y': 0.2})
+            self.basic_laser = cannon.LasergunWidget(pos_hint={'x': 0.1, 'y': 0.2})
             if 'laser' == selected_prj[0]:
                 self.add_widget(self.basic_laser)
         
@@ -283,6 +283,15 @@ class Level(Screen):
             if self.timestamp in all_data:
                 save_data = all_data[self.timestamp]
         
+        app = App.get_running_app()
+        reload_screen = app.root.current_screen
+        reload_screen = str(reload_screen)
+        if str(save_data['levels']) == reload_screen[19]:
+            save_data['levels']+=1
+        
+        if save_data['levels'] == 8:
+            save_data['secret'] = False
+
         save_data['coins'] += 50
         save_data['points'] += (1000 - 50*(EndLevel.tot_shooted-2))
 
