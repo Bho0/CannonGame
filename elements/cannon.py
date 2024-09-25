@@ -5,7 +5,7 @@ from kivy.uix.label import Label
 from kivy.graphics import Color, Line
 from kivy.clock import Clock
 
-from projectile import Bullet, Bomb, Laser, Eraser
+from elements.projectile import Bullet, Bomb, Laser, Eraser
 
 shoot_count = 0
 
