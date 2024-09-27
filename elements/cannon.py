@@ -43,7 +43,7 @@ class Shooter(FloatLayout):
     def create_projectile(self):
         self.time_passed = 0
         initial_pos = self.new_button.center
-        self.projectile = self.create_specific_projectile(pos=(initial_pos), size=(50, 50))
+        self.projectile = self.create_specific_projectile(pos=(initial_pos))
         self.add_widget(self.projectile)
         Clock.schedule_interval(self.move_projectile, 0.01)
         Clock.schedule_interval(self.timer_projectile, 0.01)
@@ -63,7 +63,7 @@ class Shooter(FloatLayout):
     def timer_projectile(self, dt):
         self.time_passed += dt
 
-    def create_specific_projectile(self, pos, size):
+    def create_specific_projectile(self, pos):
         raise NotImplementedError("This method should be implemented by subclasses.")
 
 
@@ -71,15 +71,15 @@ class BomberWidget(Shooter):
     def __init__(self, **kwargs):
         super().__init__("images/ship.png", "Bomb selected", **kwargs)
 
-    def create_specific_projectile(self, pos, size):
-        return Bomb(pos=pos, size=size)  # Restituisci un'istanza di Bomb
+    def create_specific_projectile(self, pos):
+        return Bomb(pos=pos)  # Restituisci un'istanza di Bomb
 
 class CannonWidget(Shooter):
     def __init__(self, **kwargs):
         super().__init__("images/ship.png", "Bullet selected", **kwargs)
 
-    def create_specific_projectile(self, pos, size):
-        return Bullet(pos=pos, size=size)  # Restituisci un'istanza di Bullet
+    def create_specific_projectile(self, pos):
+        return Bullet(pos=pos)  # Restituisci un'istanza di Bullet
 
 class LasergunWidget(Shooter):
     def __init__(self, **kwargs):
@@ -88,9 +88,9 @@ class LasergunWidget(Shooter):
         self.eraser = None
         self.lines = []
 
-    def create_specific_projectile(self, pos, size):
+    def create_specific_projectile(self, pos):
         # Qui creiamo un laser specifico per la Lasergun
-        laser = Laser(pos=pos, size=(0.5, 0.5))  # Puoi usare la dimensione desiderata
+        laser = Laser(pos=pos)  # Puoi usare la dimensione desiderata
         laser.size_hint = (None, None)
         return laser
 
@@ -109,7 +109,7 @@ class LasergunWidget(Shooter):
 
     def timer_projectile(self, dt):
         super().timer_projectile(dt)
-        if self.time_passed >= 3 and not self.eraser:
+        if self.time_passed >= 1 and not self.eraser:
             self.create_eraser()
 
     def create_eraser(self):

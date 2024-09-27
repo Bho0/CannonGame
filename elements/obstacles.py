@@ -1,48 +1,35 @@
 from kivy.uix.widget import Widget
-from kivy.graphics import Rectangle, Color, Line
+from kivy.graphics import Rectangle
 
-class rocks(Widget):
-    def __init__(self, **kwargs):
+class Obstacle(Widget):
+    def __init__(self, source, **kwargs):
         super().__init__(**kwargs)
+        self.key = None  # Placeholder, da specificare nelle classi figlio
+
+        # Configurazione del rettangolo grafico
+        with self.canvas.before:
+            self.rect = Rectangle(source=source, pos=self.pos, size=self.size)
+            self.bind(pos=self.update_rect, size=self.update_rect)
+
+    def update_rect(self, *args):
+        # Aggiorna la posizione e la dimensione del rettangolo
+        self.rect.pos = self.pos
+        self.rect.size = self.size
+
+# Classe rocks che eredita da Obstacle
+class Rocks(Obstacle):
+    def __init__(self, **kwargs):
+        super().__init__(source='images/Rock.png', **kwargs)
         self.key = 'rocks'
 
-        with self.canvas.before:
-             self.rect = Rectangle(source='images/Rock.png', pos=self.pos, size=self.size)
-             self.bind(size=self.update_rect)
-         
-
-    def update_rect(self, *args):
-        # Update the rectangle's position to match the bomb's position
-        self.rect.size = self.size
-        self.rect.pos = self.pos
-       
-class treasure(Widget):
+# Classe treasure che eredita da Obstacle
+class Treasure(Obstacle):
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__(source='images/treasure.png', **kwargs)
         self.key = 'treasure'
 
-        with self.canvas.before:
-             self.rect = Rectangle(source='images/treasure.png', pos=self.pos, size=self.size)
-             self.bind(size=self.update_rect)
-         
-
-    def update_rect(self, *args):
-        # Update the rectangle's position to match the bomb's position
-        self.rect.size = self.size
-        self.rect.pos = self.pos
-
-class perpetios(Widget):
+# Classe perpetios che eredita da Obstacle
+class Perpetios(Obstacle):
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)
+        super().__init__(source='Cannon_project/Rock.png', **kwargs)
         self.key = 'perpetios'
-
-        with self.canvas.before:
-             self.rect = Rectangle(source='Cannon_project/Rock.png', pos=self.pos, size=(50, 50))
-             self.bind(pos=self.update_rect, size=self.update_rect)
-
-         
-
-    def update_rect(self, *args):
-        # Update the rectangle's position to match the bomb's position
-        self.rect.pos = self.pos
-        self.rect.size = self.size

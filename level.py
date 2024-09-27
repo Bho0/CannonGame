@@ -90,8 +90,8 @@ class Level(Screen):
                         self.remove_widget(self.basic_cannon.projectile)
                         self.basic_cannon.projectile = None
                         self.rocklist.remove(self.rock)
-                        Clock.unschedule(self.basic_cannon.move_bullet)
-                        Clock.unschedule(self.basic_cannon.timer_bullet)
+                        Clock.unschedule(self.basic_cannon.move_projectile)
+                        Clock.unschedule(self.basic_cannon.timer_projectile)
 
                 if self.basic_bomber :
                     if self.basic_bomber.projectile and self.collisions(self.rock, self.basic_bomber.projectile):
@@ -100,8 +100,8 @@ class Level(Screen):
                         self.basic_bomber.projectile.canvas.remove(self.basic_bomber.projectile.shape)
                         self.basic_bomber.projectile = None
                         self.rocklist.remove(self.rock)
-                        Clock.unschedule(self.basic_bomber.move_bomb)
-                        Clock.unschedule(self.basic_bomber.timer_bomb)
+                        Clock.unschedule(self.basic_bomber.move_projectile)
+                        Clock.unschedule(self.basic_bomber.timer_projectile)
 
                 if self.basic_laser :
                     if self.basic_laser.projectile and self.collisions(self.rock, self.basic_laser.projectile):
@@ -119,8 +119,8 @@ class Level(Screen):
                     self.remove_widget(self.basic_cannon.projectile)
                     self.basic_cannon.projectile.canvas.remove(self.basic_cannon.projectile.shape)
                     self.basic_cannon.projectile = None
-                    Clock.unschedule(self.basic_cannon.move_bullet)
-                    Clock.unschedule(self.basic_cannon.timer_bullet)
+                    Clock.unschedule(self.basic_cannon.move_projectile)
+                    Clock.unschedule(self.basic_cannon.timer_projectile)
 
                     self.update_data()
 
@@ -133,8 +133,8 @@ class Level(Screen):
                     self.remove_widget(self.basic_bomber.projectile)
                     self.basic_bomber.projectile.canvas.remove(self.basic_bomber.projectile.shape)
                     self.basic_bomber.projectile = None
-                    Clock.unschedule(self.basic_bomber.move_bomb)
-                    Clock.unschedule(self.basic_bomber.timer_bomb)
+                    Clock.unschedule(self.basic_bomber.move_projectile)
+                    Clock.unschedule(self.basic_bomber.timer_projectile)
 
                     self.update_data()
 
@@ -172,16 +172,24 @@ class Level(Screen):
                 if (self.basic_bomber.projectile.pos[0] < 0 - self.basic_bomber.projectile.size [0] or self.basic_bomber.projectile.pos[0] > 1000 + self.basic_bomber.projectile.size[0] or 
                     self.basic_bomber.projectile.pos[1] < 0 - self.basic_bomber.projectile.size[1] or self.basic_bomber.projectile.pos[1] > 750 + self.basic_bomber.projectile.size[1]):
                     self.basic_bomber.projectile = None
-                    Clock.unschedule(self.basic_bomber.move_bomb)
-                    Clock.unschedule(self.basic_bomber.timer_bomb)
+                    Clock.unschedule(self.basic_bomber.move_projectile)
+                    Clock.unschedule(self.basic_bomber.timer_projectile)
         
         if self.basic_cannon:
             if self.basic_cannon.projectile:
                 if (self.basic_cannon.projectile.pos[0] < 0 - self.basic_cannon.projectile.size[0] or self.basic_cannon.projectile.pos[0] > 1000 + self.basic_cannon.projectile.size[0] or 
                     self.basic_cannon.projectile.pos[1] < 0 - self.basic_cannon.projectile.size[1] or self.basic_cannon.projectile.pos[1] > 750 + self.basic_cannon.projectile.size[1]):
                     self.basic_cannon.projectile = None 
-                    Clock.unschedule(self.basic_cannon.move_bullet)
-                    Clock.unschedule(self.basic_cannon.timer_bullet)
+                    Clock.unschedule(self.basic_cannon.move_projectile)
+                    Clock.unschedule(self.basic_cannon.timer_projectile)
+        
+        if self.basic_laser:
+            if self.basic_laser.projectile:
+                if (self.basic_laser.projectile.pos[0] < 0 - self.basic_laser.projectile.size[0] or self.basic_laser.projectile.pos[0] > 1000 + self.basic_laser.projectile.size[0] or 
+                    self.basic_laser.projectile.pos[1] < 0 - self.basic_laser.projectile.size[1] or self.basic_laser.projectile.pos[1] > 750 + self.basic_laser.projectile.size[1]):
+                    self.basic_laser.projectile = None 
+                    Clock.unschedule(self.basic_laser.move_projectile)
+                    Clock.unschedule(self.basic_laser.timer_projectile)
 
     def _keyboard_closed(self):
         if self.keyboard:
@@ -304,22 +312,22 @@ class Level1(Level, Screen):
         self.obstacles_placer()
     
     def obstacles_placer(self):
-        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
 
@@ -329,22 +337,22 @@ class Level2(Level, Screen):
         self.obstacles_placer()
     
     def obstacles_placer(self):
-        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
 
@@ -354,22 +362,22 @@ class Level3(Level, Screen):
         self.obstacles_placer()
     
     def obstacles_placer(self):
-        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
 
@@ -379,22 +387,22 @@ class Level4(Level, Screen):
         self.obstacles_placer()
     
     def obstacles_placer(self):
-        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
 
@@ -404,22 +412,22 @@ class Level5(Level, Screen):
         self.obstacles_placer()
     
     def obstacles_placer(self):
-        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
 
@@ -429,22 +437,22 @@ class Level6(Level, Screen):
         self.obstacles_placer()
     
     def obstacles_placer(self):
-        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
 
@@ -454,22 +462,22 @@ class Level7(Level, Screen):
         self.obstacles_placer()
     
     def obstacles_placer(self):
-        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
 
@@ -479,21 +487,21 @@ class Level8(Level, Screen):
         self.obstacles_placer()
     
     def obstacles_placer(self):
-        self.rock = obstacles.rocks(size = (100, 100), pos=(472, 400))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(100, 100))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.rocks(size = (100, 100), pos=(765, 225))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.treasure = obstacles.treasure(size = (70, 70), pos=(800, 100))
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)

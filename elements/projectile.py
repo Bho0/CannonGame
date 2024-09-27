@@ -27,23 +27,23 @@ class Projectile(Widget):
 class Bomb(Projectile):
     def __init__(self, **kwargs):
         self.key = 'bomb'
-        super().__init__(color=(0, 0, 0, 1), size=self.size, **kwargs)  # Colore e dimensioni specifiche
+        super().__init__(color=(0, 0, 0, 1), size=(50, 50), **kwargs)  # Colore e dimensioni specifiche
 
 class Bullet(Projectile):
     def __init__(self, **kwargs):
         self.key = 'bullet'
-        super().__init__(color=(0, 0, 0, 1), size=self.size, **kwargs)  # Colore e dimensioni specifiche
+        super().__init__(color=(0, 0, 0, 1), size=(50, 50), **kwargs)  # Colore e dimensioni specifiche
 
 class Laser(Projectile):
     def __init__(self, **kwargs):
         self.key = 'laser'
-        super().__init__(color=(1, 0, 0, 1), size=self.size, **kwargs)  # Colore e dimensioni specifiche
+        super().__init__(color=(1, 0, 0, 1), size=(.5,.5), **kwargs)  # Colore e dimensioni specifiche
 
 class Eraser(Projectile):
     def __init__(self, size=(30, 30), **kwargs):
         # Chiamata al costruttore della classe padre Projectile con il colore specifico per l'eraser
-        super().__init__(color=(1, 1, 1, 1), size=size, **kwargs)  # Bianco come colore dell'eraser
         self.key = 'eraser'
+        super().__init__(color=(1, 1, 1, 1), size=size, **kwargs)  # Bianco come colore dell'eraser
 
     def update_shape(self, *args):
         # Aggiorna la forma dell'eraser (può essere rettangolare o circolare come per il bomb)
