@@ -2,6 +2,7 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.button import ButtonBehavior
 from kivy.uix.image import Image
 from kivy.uix.label import Label
+from kivy.core.audio import SoundLoader
 from kivy.graphics import Color, Line
 from kivy.clock import Clock
 
@@ -24,6 +25,7 @@ class Shooter(FloatLayout):
         self.time_passed = 0
         self.projectile = None
         self.MASS = 150
+        self.sound = None
 
         global shoot_count
         shoot_count = 0
@@ -37,6 +39,10 @@ class Shooter(FloatLayout):
                 x, y = touch.pos
                 self.mouse_delta = (x - self.new_button.x, y - self.new_button.y)
                 self.create_projectile()
+                sound = self.use_specific_sound()
+                self.sound = SoundLoader.load(sound)
+                if self.sound:
+                    self.sound.play()
                 self.loaded = False
                 shoot_count += 1
 
@@ -65,6 +71,9 @@ class Shooter(FloatLayout):
 
     def create_specific_projectile(self, pos):
         raise NotImplementedError("This method should be implemented by subclasses.")
+    
+    def use_specific_sound(self):
+        raise NotImplementedError("This method should be implemented by subclasses.")
 
 
 class BomberWidget(Shooter):
@@ -73,6 +82,9 @@ class BomberWidget(Shooter):
 
     def create_specific_projectile(self, pos):
         return Bomb(pos=pos)  # Restituisci un'istanza di Bomb
+    
+    def use_specific_sound(self):
+        return "sounds/cannon-fire-161072.mp3"
 
 class CannonWidget(Shooter):
     def __init__(self, **kwargs):
@@ -80,6 +92,9 @@ class CannonWidget(Shooter):
 
     def create_specific_projectile(self, pos):
         return Bullet(pos=pos)  # Restituisci un'istanza di Bullet
+    
+    def use_specific_sound(self):
+        return "sounds/bomb.mp3"
 
 class LasergunWidget(Shooter):
     def __init__(self, **kwargs):
@@ -144,3 +159,6 @@ class LasergunWidget(Shooter):
     def eraser_collides_with_line(self, ex, ey, ew, eh, x1, y1, x2, y2):
         return (min(x1, x2) < ex + ew and max(x1, x2) > ex and 
                 min(y1, y2) < ey + eh and max(y1, y2) > ey)
+    
+    def use_specific_sound(self):
+        return "sounds/laser.mp3"

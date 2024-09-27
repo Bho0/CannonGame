@@ -6,6 +6,8 @@ from kivy.app import App
 from kivy.uix.popup import Popup
 from kivy.properties import StringProperty
 
+from math import sqrt
+
 import os
 import json
 
@@ -80,6 +82,9 @@ class Level(Screen):
                 return True
         return False
 
+    def distance(self, pos1, pos2):
+        return sqrt((pos1[0] - pos2[0]) ** 2 + (pos1[1] - pos2[1]) ** 2)
+
     def game_update(self, dt):
         if hasattr(self, 'rock'):     
             for self.rock in self.rocklist[:]:
@@ -96,10 +101,22 @@ class Level(Screen):
                 if self.basic_bomber :
                     if self.basic_bomber.projectile and self.collisions(self.rock, self.basic_bomber.projectile):
                         self.remove_widget(self.rock)
+                        self.rocklist.remove(self.rock)
+                        # Raggio di esplosione di 15 pixel
+                        explosion_radius = 100
+                        
+                        # Posizione della bomba
+                        bomb_pos = self.basic_bomber.projectile.pos
+                        
+                        # Controlla le rocce nel raggio dell'esplosione
+                        for element in self.rocklist[:]:
+                            if self.distance(bomb_pos, element.pos) <= explosion_radius:
+                                self.remove_widget(element)
+                                self.rocklist.remove(element)
+                        
                         self.remove_widget(self.basic_bomber.projectile)
                         self.basic_bomber.projectile.canvas.remove(self.basic_bomber.projectile.shape)
                         self.basic_bomber.projectile = None
-                        self.rocklist.remove(self.rock)
                         Clock.unschedule(self.basic_bomber.move_projectile)
                         Clock.unschedule(self.basic_bomber.timer_projectile)
 
