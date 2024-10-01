@@ -206,7 +206,17 @@ class Level(Screen):
                     self.basic_laser.projectile.pos[1] < 0 - self.basic_laser.projectile.size[1] or self.basic_laser.projectile.pos[1] > 750 + self.basic_laser.projectile.size[1]):
                     self.basic_laser.projectile = None 
                     Clock.unschedule(self.basic_laser.move_projectile)
+                    
+        
+        if self.basic_laser:
+            if self.basic_laser.eraser:
+                if (self.basic_laser.eraser.pos[0] < 0 - self.basic_laser.eraser.size[0] or self.basic_laser.eraser.pos[0] > 1000 + self.basic_laser.eraser.size[0] or 
+                    self.basic_laser.eraser.pos[1] < 0 - self.basic_laser.eraser.size[1] or self.basic_laser.eraser.pos[1] > 750 + self.basic_laser.eraser.size[1]):
+                    self.basic_laser.eraser = None 
+                    Clock.unschedule(self.basic_laser.move_eraser)
                     Clock.unschedule(self.basic_laser.timer_projectile)
+        
+        
 
     def _keyboard_closed(self):
         if self.keyboard:

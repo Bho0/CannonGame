@@ -132,6 +132,13 @@ class LasergunWidget(Shooter):
         self.eraser.center = self.new_button.center
         self.add_widget(self.eraser)
         Clock.schedule_interval(self.move_eraser, 0.01)
+   
+    def collsion_eraser_laser(self):
+        if self.projectile and self.eraser.collide_widget(self.projectile):
+            self.eraser = None
+            self.projectile = None
+            Clock.unschedule(self.move_eraser)
+            Clock.unschedule(self.move_projectile)
 
     def move_eraser(self, dt):
         if self.eraser:
@@ -143,6 +150,7 @@ class LasergunWidget(Shooter):
             if self.projectile and self.eraser.collide_widget(self.projectile):
                 self.remove_widget(self.projectile)
                 self.projectile = None
+            self.collsion_eraser_laser()
 
     def check_collision_with_line(self):
         eraser_x, eraser_y = self.eraser.pos
