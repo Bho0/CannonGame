@@ -68,6 +68,13 @@
                 font_name: 'fonts/Caribbean.ttf'
                 background_color: 0, 0, 0, 0 
                 on_press: app.root.current = 'loadgame'
+            Button:
+                text: 'Quit'
+                color: 0, 0, 0, 1
+                font_size: 34
+                font_name: 'fonts/Caribbean.ttf'
+                background_color: 0, 0, 0, 0 
+                on_press: app.stop()
 
         BoxLayout:
             orientation: 'horizontal'
