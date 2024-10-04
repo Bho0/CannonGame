@@ -315,8 +315,7 @@ class Level(Screen):
 
     def return_to_levels(self):
         self.on_leave()
-        for element in self.selected_prj:
-                self.selected_prj.pop()
+        self.selected_prj.clear()
         app = App.get_running_app()
         app.root.remove_widget(app.root.current_screen)
         app.root.current = 'levelSelection'
