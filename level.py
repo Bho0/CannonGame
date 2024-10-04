@@ -165,9 +165,9 @@ class Level(Screen):
 
                     self.update_data()
         
-        if hasattr(self, 'perpetios'):
+        if hasattr(self, 'perpetio'):
             if self.basic_cannon :
-                if self.basic_cannon.projectile and self.collisions(self.perpetios, self.basic_cannon.projectile):
+                if self.basic_cannon.projectile and self.collisions(self.perpetio, self.basic_cannon.projectile):
                     self.remove_widget(self.basic_cannon.projectile)
                     self.basic_cannon.projectile.canvas.remove(self.basic_cannon.projectile.shape)
                     self.basic_cannon.projectile = None
@@ -175,7 +175,19 @@ class Level(Screen):
                     Clock.unschedule(self.basic_cannon.timer_projectile)
 
             if self.basic_bomber :
-                if self.basic_bomber.projectile and self.collisions(self.treasure, self.basic_bomber.projectile):
+                if self.basic_bomber.projectile and self.collisions(self.perpetio, self.basic_bomber.projectile):
+                    # Raggio di esplosione di 15 pixel
+                    explosion_radius = 100
+                    
+                    # Posizione della bomba
+                    bomb_pos = self.basic_bomber.projectile.pos
+                    
+                    # Controlla le rocce nel raggio dell'esplosione
+                    for element in self.rocklist[:]:
+                        if self.distance(bomb_pos, element.pos) <= explosion_radius:
+                            self.remove_widget(element)
+                            self.rocklist.remove(element)
+           
                     self.remove_widget(self.basic_bomber.projectile)
                     self.basic_bomber.projectile.canvas.remove(self.basic_bomber.projectile.shape)
                     self.basic_bomber.projectile = None
@@ -183,7 +195,7 @@ class Level(Screen):
                     Clock.unschedule(self.basic_bomber.timer_projectile)
 
             if self.basic_laser :
-                if self.basic_laser.projectile and self.collisions(self.treasure, self.basic_laser.projectile):
+                if self.basic_laser.projectile and self.collisions(self.perpetio, self.basic_laser.projectile):
                     self.basic_laser.projectile = None
         
         if hasattr(self, 'mirror'):
@@ -205,7 +217,7 @@ class Level(Screen):
 
             if self.basic_laser :
                 if self.basic_laser.projectile and self.collisions(self.mirror, self.basic_laser.projectile):
-                    self.basic_laser.reflect_laser()
+                    self.basic_laser.check_reflection()
 
         self.update_projectiles()
         self.keyboard_Handler

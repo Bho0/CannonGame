@@ -5,6 +5,7 @@ from kivy.uix.label import Label
 from kivy.core.audio import SoundLoader
 from kivy.graphics import Color, Line
 from kivy.clock import Clock
+import math
 
 from elements.projectile import Bullet, Bomb, Laser, Eraser
 
@@ -102,11 +103,13 @@ class LasergunWidget(Shooter):
         super().__init__(button_image="images/ship.png", label_text="Laser selected", **kwargs)
         self.eraser = None
         self.lines = []
+        self.reflected = False
 
     def create_specific_projectile(self, pos):
         # Qui creiamo un laser specifico per la Lasergun
         laser = Laser(pos=pos)  # Puoi usare la dimensione desiderata
         laser.size_hint = (None, None)
+        self.reflected = False
         return laser
 
     def move_projectile(self, dt):
@@ -168,8 +171,30 @@ class LasergunWidget(Shooter):
         return (min(x1, x2) < ex + ew and max(x1, x2) > ex and 
                 min(y1, y2) < ey + eh and max(y1, y2) > ey)
     
+    def check_reflection(self):
+        if self.reflected == False:
+            self.reflect_laser()
+            self.reflected = True
+    
     def reflect_laser(self):
-        self.delta_x = -self.delta_x
+        # Puoi cambiare questo per angoli diversi o orientamenti specifici
+        mirror_angle = (math.pi)/2  # Angolo dello specchio in radianti (0 per specchio verticale, pi/2 per orizzontale)
+        normal_vector = (math.cos(mirror_angle), math.sin(mirror_angle))
+
+        # Vettore direzione del laser
+        laser_direction = (self.delta_x, self.delta_y)
+
+        # Calcola il prodotto scalare tra il vettore laser e la normale
+        dot_product = (laser_direction[0] * normal_vector[0] + laser_direction[1] * normal_vector[1])
+
+        # Calcola il vettore riflesso: R = D - 2 * (D · N) * N
+        reflected_direction = (
+            laser_direction[0] - 2 * dot_product * normal_vector[0],
+            laser_direction[1] - 2 * dot_product * normal_vector[1]
+        )
+
+        # Aggiorna la direzione del laser con il vettore riflesso
+        self.delta_x, self.delta_y = reflected_direction
     
     def use_specific_sound(self):
         return "sounds/laser.mp3"
