@@ -31,5 +31,11 @@ class Treasure(Obstacle):
 # Classe perpetios che eredita da Obstacle
 class Perpetios(Obstacle):
     def __init__(self, **kwargs):
-        super().__init__(source='Cannon_project/Rock.png', **kwargs)
+        super().__init__(source='image/perpetio.png', **kwargs)
         self.key = 'perpetios'
+
+# Classe mirror che eredita da Obstacle
+class Mirror(Obstacle):
+    def __init__(self, **kwargs):
+        super().__init__(source='images/mirror.png', **kwargs)
+        self.key = 'mirror'

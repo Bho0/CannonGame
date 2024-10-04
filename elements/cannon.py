@@ -168,5 +168,8 @@ class LasergunWidget(Shooter):
         return (min(x1, x2) < ex + ew and max(x1, x2) > ex and 
                 min(y1, y2) < ey + eh and max(y1, y2) > ey)
     
+    def reflect_laser(self):
+        self.delta_x = -self.delta_x
+    
     def use_specific_sound(self):
         return "sounds/laser.mp3"

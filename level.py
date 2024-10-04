@@ -164,6 +164,48 @@ class Level(Screen):
                     self.endLevel_popup.open()
 
                     self.update_data()
+        
+        if hasattr(self, 'perpetios'):
+            if self.basic_cannon :
+                if self.basic_cannon.projectile and self.collisions(self.perpetios, self.basic_cannon.projectile):
+                    self.remove_widget(self.basic_cannon.projectile)
+                    self.basic_cannon.projectile.canvas.remove(self.basic_cannon.projectile.shape)
+                    self.basic_cannon.projectile = None
+                    Clock.unschedule(self.basic_cannon.move_projectile)
+                    Clock.unschedule(self.basic_cannon.timer_projectile)
+
+            if self.basic_bomber :
+                if self.basic_bomber.projectile and self.collisions(self.treasure, self.basic_bomber.projectile):
+                    self.remove_widget(self.basic_bomber.projectile)
+                    self.basic_bomber.projectile.canvas.remove(self.basic_bomber.projectile.shape)
+                    self.basic_bomber.projectile = None
+                    Clock.unschedule(self.basic_bomber.move_projectile)
+                    Clock.unschedule(self.basic_bomber.timer_projectile)
+
+            if self.basic_laser :
+                if self.basic_laser.projectile and self.collisions(self.treasure, self.basic_laser.projectile):
+                    self.basic_laser.projectile = None
+        
+        if hasattr(self, 'mirror'):
+            if self.basic_cannon :
+                if self.basic_cannon.projectile and self.collisions(self.mirror, self.basic_cannon.projectile):
+                    self.remove_widget(self.basic_cannon.projectile)
+                    self.basic_cannon.projectile.canvas.remove(self.basic_cannon.projectile.shape)
+                    self.basic_cannon.projectile = None
+                    Clock.unschedule(self.basic_cannon.move_projectile)
+                    Clock.unschedule(self.basic_cannon.timer_projectile)
+
+            if self.basic_bomber :
+                if self.basic_bomber.projectile and self.collisions(self.mirror, self.basic_bomber.projectile):
+                    self.remove_widget(self.basic_bomber.projectile)
+                    self.basic_bomber.projectile.canvas.remove(self.basic_bomber.projectile.shape)
+                    self.basic_bomber.projectile = None
+                    Clock.unschedule(self.basic_bomber.move_projectile)
+                    Clock.unschedule(self.basic_bomber.timer_projectile)
+
+            if self.basic_laser :
+                if self.basic_laser.projectile and self.collisions(self.mirror, self.basic_laser.projectile):
+                    self.basic_laser.reflect_laser()
 
         self.update_projectiles()
         self.keyboard_Handler
@@ -216,8 +258,6 @@ class Level(Screen):
                     Clock.unschedule(self.basic_laser.move_eraser)
                     Clock.unschedule(self.basic_laser.timer_projectile)
         
-        
-
     def _keyboard_closed(self):
         if self.keyboard:
             self.keyboard.unbind(on_key_down=self._on_keyboard_down)
@@ -339,20 +379,18 @@ class Level1(Level, Screen):
         self.obstacles_placer()
     
     def obstacles_placer(self):
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
+        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(472, 400))
+        self.perpetio.size_hint = (None, None)
+        self.add_widget(self.perpetio)
 
         self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
+        self.mirror = obstacles.Mirror(size = (100, 100), pos=(765, 225))
+        self.mirror.size_hint = (None, None)
+        self.add_widget(self.mirror)
 
         self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
         self.treasure.size_hint = (None, None)
