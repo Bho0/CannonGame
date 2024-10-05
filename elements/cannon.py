@@ -178,7 +178,7 @@ class LasergunWidget(Shooter):
     
     def reflect_laser(self):
         # Puoi cambiare questo per angoli diversi o orientamenti specifici
-        mirror_angle = (math.pi)/2  # Angolo dello specchio in radianti (0 per specchio verticale, pi/2 per orizzontale)
+        mirror_angle = 0  # Angolo dello specchio in radianti (0 per specchio verticale, pi/2 per orizzontale)
         normal_vector = (math.cos(mirror_angle), math.sin(mirror_angle))
 
         # Vettore direzione del laser
