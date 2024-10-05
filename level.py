@@ -390,29 +390,6 @@ class Level1(Level, Screen):
         self.obstacles_placer()
     
     def obstacles_placer(self):
-        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(472, 400))
-        self.perpetio.size_hint = (None, None)
-        self.add_widget(self.perpetio)
-
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
-
-        self.mirror = obstacles.Mirror(size = (100, 100), pos=(765, 225))
-        self.mirror.size_hint = (None, None)
-        self.add_widget(self.mirror)
-
-        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
-        self.treasure.size_hint = (None, None)
-        self.add_widget(self.treasure)
-
-class Level2(Level, Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.obstacles_placer()
-    
-    def obstacles_placer(self):
         self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
@@ -424,6 +401,41 @@ class Level2(Level, Screen):
         self.rocklist.append(self.rock)
 
         self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
+        self.treasure.size_hint = (None, None)
+        self.add_widget(self.treasure)
+
+class Level2(Level, Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+        self.obstacles_placer()
+    
+    def obstacles_placer(self):
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(500, 153))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(130, 100))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(715, 425))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(372, 344))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
@@ -438,20 +450,21 @@ class Level3(Level, Screen):
         self.obstacles_placer()
     
     def obstacles_placer(self):
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
+        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(472, 400))
+        self.perpetio.size_hint = (None, None)
+        self.add_widget(self.perpetio)
 
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
+        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(472, 400))
+        self.perpetio.size_hint = (None, None)
+        self.add_widget(self.perpetio)
 
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
+        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(472, 400))
+        self.perpetio.size_hint = (None, None)
+        self.add_widget(self.perpetio)
+
+        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(472, 400))
+        self.perpetio.size_hint = (None, None)
+        self.add_widget(self.perpetio)
 
         self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
         self.treasure.size_hint = (None, None)
