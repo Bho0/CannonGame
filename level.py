@@ -17,19 +17,19 @@ class EndLevel(Popup):
     points = 1000
     tot_points = StringProperty('')
     tot_shooted = 0
-    def __init__(self, **kwargs):
+    def __init__(self, par, **kwargs):
         super().__init__(**kwargs)
         self.title = ""
         self.size_hint = (0.5, 0.5)
         self.auto_dismiss = False
-        self.update_tot_points()
+        self.update_tot_points(par)
     
-    def update_tot_points(self, *args):
+    def update_tot_points(self, par, *args):
         self.tot_shooted = cannon.shoot_count
-        if self.tot_shooted <= 2:
+        if self.tot_shooted <= par:
             self.tot_points = f"You have earned {self.points} points"
         else:
-            self.points = (1000 - 50*(self.tot_shooted-2))
+            self.points = (1000 - 50*(self.tot_shooted-par))
             self.tot_points = f"You have earned {self.points} points"
 
 class Level(Screen):
@@ -43,6 +43,7 @@ class Level(Screen):
         self.rocklist = []
         self.perpetiolist = []
         self.endLevel_popup = None
+        self.par = None
         self.counter_shot = 0
 
     def load_screen(self, selected_prj, timestamp):
@@ -131,7 +132,7 @@ class Level(Screen):
             if self.basic_cannon :
                 if self.basic_cannon.projectile and self.collisions(self.treasure, self.basic_cannon.projectile):
                     if not self.endLevel_popup:
-                        self.endLevel_popup = EndLevel()
+                        self.endLevel_popup = EndLevel(par=self.par)
                     self.endLevel_popup.open()
                     self.remove_widget(self.treasure)
                     self.remove_widget(self.basic_cannon.projectile)
@@ -145,7 +146,7 @@ class Level(Screen):
             if self.basic_bomber :
                 if self.basic_bomber.projectile and self.collisions(self.treasure, self.basic_bomber.projectile):
                     if not self.endLevel_popup:
-                        self.endLevel_popup = EndLevel()
+                        self.endLevel_popup = EndLevel(par=self.par)
                     self.endLevel_popup.open()
                     self.remove_widget(self.treasure)
                     self.remove_widget(self.basic_bomber.projectile)
@@ -161,7 +162,7 @@ class Level(Screen):
                     self.remove_widget(self.treasure)
                     self.basic_laser.projectile = None
                     if not self.endLevel_popup:
-                        self.endLevel_popup = EndLevel()
+                        self.endLevel_popup = EndLevel(par=self.par)
                     self.endLevel_popup.open()
 
                     self.update_data()
@@ -390,6 +391,7 @@ class Level1(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.obstacles_placer()
+        self.par = 2
     
     def obstacles_placer(self):
         self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
@@ -415,6 +417,7 @@ class Level2(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.obstacles_placer()
+        self.par = 3
     
     def obstacles_placer(self):
         self.rock = obstacles.Rocks(size = (100, 100), pos=(500, 153))
@@ -450,6 +453,7 @@ class Level3(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.obstacles_placer()
+        self.par = 1
     
     def obstacles_placer(self):
         self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(394, 400))
@@ -480,6 +484,7 @@ class Level4(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.obstacles_placer()
+        self.par = 2
     
     def obstacles_placer(self):
         self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
@@ -505,6 +510,7 @@ class Level5(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.obstacles_placer()
+        self.par = 2
     
     def obstacles_placer(self):
         self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
@@ -530,6 +536,7 @@ class Level6(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.obstacles_placer()
+        self.par = 2
     
     def obstacles_placer(self):
         self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
@@ -555,6 +562,7 @@ class Level7(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.obstacles_placer()
+        self.par = 2
     
     def obstacles_placer(self):
         self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
@@ -580,6 +588,7 @@ class Level8(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.obstacles_placer()
+        self.par = 2
     
     def obstacles_placer(self):
         self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
