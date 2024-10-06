@@ -348,13 +348,14 @@ class Level(Screen):
 
         # Ripristina la schermata (se necessario)
         reload_screen = app.root.current_screen
-        app.root.remove_widget(app.root.current_screen)
-        app.root.add_widget(reload_screen)
-
-        self.load_screen(self.selected_prj, self.timestamp)
+        if reload_screen:
+            app.root.remove_widget(app.root.current_screen)
+            app.root.add_widget(reload_screen)
         
         # Cambia schermata, se necessario
         app.root.current = reload_screen.name
+
+        self.load_screen(self.selected_prj, self.timestamp)
     
     def on_leave(self):
         # Make sure to clean up the keyboard when leaving the screen
