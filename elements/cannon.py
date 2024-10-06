@@ -25,7 +25,7 @@ class Shooter(FloatLayout):
         self.loaded = False
         self.time_passed = 0
         self.projectile = None
-        self.MASS = 150
+        self.MASS = None
         self.sound = None
 
         global shoot_count
@@ -82,6 +82,7 @@ class BomberWidget(Shooter):
         super().__init__("images/ship.png", "Bomb selected", **kwargs)
 
     def create_specific_projectile(self, pos):
+        self.MASS = 150
         return Bomb(pos=pos)  # Restituisci un'istanza di Bomb
     
     def use_specific_sound(self):
@@ -92,6 +93,7 @@ class CannonWidget(Shooter):
         super().__init__("images/ship.png", "Bullet selected", **kwargs)
 
     def create_specific_projectile(self, pos):
+        self.MASS = 230
         return Bullet(pos=pos)  # Restituisci un'istanza di Bullet
     
     def use_specific_sound(self):
