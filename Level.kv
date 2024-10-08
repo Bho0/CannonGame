@@ -1,5 +1,4 @@
 #:import Factory kivy.factory.Factory
-#:import Clock kivy.clock
 
 <Option@Popup>:
     auto_dismiss: True
@@ -73,7 +72,7 @@
                 background_color: 0, 0, 0, 0
                 on_press:
                     root.dismiss()
-                    Clock.Clock.schedule_once(lambda dt: app.root.current_screen.refresh_screen(), 0)
+                    app.root.current_screen.refresh_screen()
                 Image:
                     source: 'images/refresh-icon-png-transparent-1.jpg'
                     allow_stretch: True
@@ -94,6 +93,9 @@
                     center_x: self.parent.center_x
                     center_y: self.parent.center_y
                     size: 50, 50
+
+<Transition>:
+    name: "transition"
 
 <Level>:
     name:"level"

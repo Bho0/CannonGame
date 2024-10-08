@@ -74,7 +74,7 @@ class StartPopup(Popup):
             app = App.get_running_app()
             app.add_screen(screen_class, name)
             game_screen = app.root.get_screen(name)  # Ottieni il nuovo schermo
-            game_screen.load_screen(selected_prj, timestamp)  # Passa i dati al nuovo schermo
+            game_screen.load_screen(selected_prj, timestamp, screen_class)  # Passa i dati al nuovo schermo
             app.root.current = name
 
 

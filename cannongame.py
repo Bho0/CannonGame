@@ -10,6 +10,7 @@ from loadgame import LoadGame
 from levelSelection import LevelSelection, ComingSoon
 from ship import Ship, Captain
 from market import Market, DressingRoom, ProjectileStore
+from level import Transition
 
 class Start(Screen):
     pass
@@ -43,6 +44,7 @@ class CannonGame(App):
         sm.add_widget(Captain(name='captain'))
         sm.add_widget(DressingRoom(name='dressingRoom'))
         sm.add_widget(ProjectileStore(name='projectileStore'))
+        sm.add_widget(Transition(name='transition'))
         return sm 
 
     def change_volume(self, value):

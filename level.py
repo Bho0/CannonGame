@@ -32,6 +32,15 @@ class EndLevel(Popup):
             self.points = (1000 - 50*(self.tot_shooted-par))
             self.tot_points = f"You have earned {self.points} points"
 
+class Transition(Screen):
+    def load_screen(self, selected_prj, timestamp, screen_class, name):
+        app = App.get_running_app()
+        app.add_screen(screen_class, name)
+        game_screen = app.root.get_screen(name)  # Ottieni il nuovo schermo
+        game_screen.load_screen(selected_prj, timestamp, screen_class)  # Passa i dati al nuovo schermo
+        app.root.current = name
+
+
 class Level(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -46,7 +55,8 @@ class Level(Screen):
         self.par = None
         self.counter_shot = 0
 
-    def load_screen(self, selected_prj, timestamp):
+    def load_screen(self, selected_prj, timestamp, screen_name):
+        self.screen_name = screen_name
         self.keyboard = Window.request_keyboard(self._keyboard_closed, self)
         if self.keyboard:
             self.keyboard.bind(on_key_down=self._on_keyboard_down)
@@ -338,26 +348,12 @@ class Level(Screen):
         app.root.current = 'levelSelection'
     
     def refresh_screen(self):
-        self.on_leave()  # Aggiungi controlli se necessario
+        self.on_leave()
         app = App.get_running_app()
-
-        # Rimuovere il widget corrente
-        self.clear_widgets()
-
-        # Ricaricare il file .kv e la schermata
-        Builder.unload_file('Level.kv')  # Unload the current .kv file
-        Builder.load_file('Level.kv')  # Reload the .kv file
-
-        # Ripristina la schermata (se necessario)
-        reload_screen = app.root.current_screen
-        if reload_screen:
-            app.root.remove_widget(app.root.current_screen)
-            app.root.add_widget(reload_screen)
-        
-        # Cambia schermata, se necessario
-        app.root.current = reload_screen.name
-
-        self.load_screen(self.selected_prj, self.timestamp)
+        app.root.remove_widget(app.root.current_screen)
+        game_screen = app.root.get_screen('transition')  # Ottieni il nuovo schermo
+        app.root.current = 'transition'
+        game_screen.load_screen(self.selected_prj, self.timestamp, self.screen_name, self.name)  # Passa i dati al nuovo schermo
     
     def on_leave(self):
         # Make sure to clean up the keyboard when leaving the screen
