@@ -19,6 +19,7 @@
 
         Label:
             text: "Music"
+            font_size: 30
             font_name: 'fonts/Caribbean.ttf'
 
         Slider:
@@ -29,15 +30,6 @@
             max: 1
             value: 0.5
             on_value: app.change_volume(self.value)
-
-        Label:
-            text: "Sounds"
-            font_name: 'fonts/Caribbean.ttf'
-
-        Slider:
-            id: slider
-            value_track: True
-            value_track_color: [0, 0, 1, 1]
 
 <Help@Popup>:
     auto_dismiss: True
@@ -280,7 +272,7 @@
 <Level6>:
     FloatLayout:
         Image:
-            source: 'images/level01.jpg'
+            source: 'images/level06.jpg'
             allow_stretch: True
             keep_ratio: False
             size_hint: (1, 1)  # Copre l'intero layout

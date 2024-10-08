@@ -344,8 +344,10 @@ class Level(Screen):
         self.on_leave()
         self.selected_prj.clear()
         app = App.get_running_app()
+        game_screen = app.root.get_screen('levelSelection')  # Ottieni il nuovo schermo
         app.root.remove_widget(app.root.current_screen)
         app.root.current = 'levelSelection'
+        game_screen.load_screen(self.timestamp)
     
     def refresh_screen(self):
         self.on_leave()
@@ -381,7 +383,7 @@ class Level(Screen):
             save_data['secret'] = False
 
         save_data['coins'] += 50
-        save_data['points'] += (1000 - 50*(EndLevel.tot_shooted-2))
+        save_data['points'] += (1000 - 50*(EndLevel.tot_shooted-self.par))
 
         with open(filename, 'w') as f:
             json.dump(all_data, f, indent=4)

@@ -44,19 +44,6 @@
                 value: 0.5
                 on_value: app.change_volume(self.value)
 
-        BoxLayout: 
-            orientation: 'vertical'
-            Label:
-                text: "Sounds"
-                font_name: 'fonts/Caribbean.ttf'
-            Slider:
-                id: sound_slider
-                value_track: True
-                value_track_color: [0, 0, 1, 1]
-                min: 0
-                max: 1
-                value: 0.5
-
 <MainPage>:
     name: 'mainpage'
     FloatLayout:
