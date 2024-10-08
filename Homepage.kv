@@ -35,8 +35,13 @@
 
 <CredPopup@Popup>:
     auto_dismiss: True
-    size_hint: (.5, .5)
+    size_hint: (.6, .6)
+
     title: 'Credits'
+
+    Label:
+        text: app.get_file_content('Credits.txt')
+        font_name: 'fonts/Caribbean.ttf'
 
 <HomePage>:
     name: 'homepage'
