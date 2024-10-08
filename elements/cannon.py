@@ -38,7 +38,10 @@ class Shooter(FloatLayout):
         else:
             if self.loaded and self.projectile is None:
                 x, y = touch.pos
-                self.mouse_delta = (x - self.new_button.x, y - self.new_button.y)
+                self.mouse_delta = (x - self.new_button.x, y - self.new_button.y)   
+                self.delta_x, self.delta_y = self.mouse_delta  
+                self.delta_x_eraser = self.delta_x
+                self.delta_y_eraser = self.delta_y          
                 self.create_projectile()
                 sound = self.use_specific_sound()
                 self.sound = SoundLoader.load(sound)
@@ -58,7 +61,6 @@ class Shooter(FloatLayout):
     def move_projectile(self, dt):
         if self.projectile is not None:
             x, y = self.projectile.pos
-            self.delta_x, self.delta_y = self.mouse_delta
             if self.delta_x > self.MASS:
                 self.delta_x = self.MASS
             if self.delta_y > self.MASS:
@@ -116,8 +118,7 @@ class LasergunWidget(Shooter):
 
     def move_projectile(self, dt):
         if self.projectile is not None:
-            x, y = self.projectile.pos
-            self.delta_x, self.delta_y = self.mouse_delta
+            x, y = self.projectile.pos           
             new_x = x + (self.delta_x * 0.01)
             new_y = y + (self.delta_y * 0.01)
             self.projectile.pos = (new_x, new_y)
@@ -148,8 +149,8 @@ class LasergunWidget(Shooter):
     def move_eraser(self, dt):
         if self.eraser:
             x, y = self.eraser.pos
-            new_x = x + (self.delta_x * 0.01)
-            new_y = y + (self.delta_y * 0.01)
+            new_x = x + (self.delta_x_eraser * 0.01)
+            new_y = y + (self.delta_y_eraser * 0.01)
             self.eraser.pos = (new_x, new_y)
             self.check_collision_with_line()
             if self.projectile and self.eraser.collide_widget(self.projectile):
@@ -174,9 +175,30 @@ class LasergunWidget(Shooter):
                 min(y1, y2) < ey + eh and max(y1, y2) > ey)
     
     def check_reflection(self):
-        if self.reflected == False:
             self.reflect_laser()
-            self.reflected = True
+
+    def  check_reflection_eraser(self):
+            self.reflect_eraser()
+    
+    def reflect_eraser(self):
+        # Puoi cambiare questo per angoli diversi o orientamenti specifici
+        mirror_angle = 0  # Angolo dello specchio in radianti (0 per specchio verticale, pi/2 per orizzontale)
+        normal_vector = (math.cos(mirror_angle), math.sin(mirror_angle))
+
+        # Vettore direzione del laser
+        eraser_direction = (self.delta_x_eraser, self.delta_y_eraser)
+
+        # Calcola il prodotto scalare tra il vettore laser e la normale
+        dot_product = (eraser_direction[0] * normal_vector[0] + eraser_direction[1] * normal_vector[1])
+
+        # Calcola il vettore riflesso: R = D - 2 * (D · N) * N
+        reflected_direction = (
+            eraser_direction[0] - 2 * dot_product * normal_vector[0],
+            eraser_direction[1] - 2 * dot_product * normal_vector[1]
+        )
+
+        # Aggiorna la direzione del laser con il vettore riflesso
+        self.delta_x_eraser, self.delta_y_eraser = reflected_direction
     
     def reflect_laser(self):
         # Puoi cambiare questo per angoli diversi o orientamenti specifici
@@ -197,6 +219,7 @@ class LasergunWidget(Shooter):
 
         # Aggiorna la direzione del laser con il vettore riflesso
         self.delta_x, self.delta_y = reflected_direction
+
     
     def use_specific_sound(self):
         return "sounds/laser.mp3"

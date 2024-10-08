@@ -221,7 +221,9 @@ class Level(Screen):
             if self.basic_laser :
                 if self.basic_laser.projectile and self.collisions(self.mirror, self.basic_laser.projectile):
                     self.basic_laser.check_reflection()
-
+            if self.basic_laser :
+                if self.basic_laser.eraser and self.collisions(self.mirror, self.basic_laser.eraser):
+                    self.basic_laser.check_reflection_eraser()
         self.update_projectiles()
         self.keyboard_Handler
 
@@ -528,6 +530,10 @@ class Level5(Level, Screen):
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
+
+        self.mirror = obstacles.Mirror(size = (100, 100), pos = (500, 500))
+        self.mirror.size_hint = (None, None)
+        self.add_widget(self.mirror)
 
         self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
         self.treasure.size_hint = (None, None)
