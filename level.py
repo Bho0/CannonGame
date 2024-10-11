@@ -115,7 +115,7 @@ class Level(Screen):
                         self.remove_widget(self.rock)
                         self.rocklist.remove(self.rock)
                         # Raggio di esplosione di 15 pixel
-                        explosion_radius = 100
+                        explosion_radius = 200
                         
                         # Posizione della bomba
                         bomb_pos = self.basic_bomber.projectile.pos
@@ -190,7 +190,7 @@ class Level(Screen):
                 if self.basic_bomber :
                     if self.basic_bomber.projectile and self.collisions(self.perpetio, self.basic_bomber.projectile):
                         # Raggio di esplosione di 15 pixel
-                        explosion_radius = 100
+                        explosion_radius = 200
                         
                         # Posizione della bomba
                         bomb_pos = self.basic_bomber.projectile.pos
@@ -488,11 +488,6 @@ class Level4(Level, Screen):
         self.par = 2
     
     def obstacles_placer(self):
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
-
         self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
@@ -503,7 +498,27 @@ class Level4(Level, Screen):
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(635, 525))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(635, 375))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(630, 210))
+        self.perpetio.size_hint = (None, None)
+        self.add_widget(self.perpetio)
+        self.perpetiolist.append(self.perpetio)
+
+        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(430, 495))
+        self.perpetio.size_hint = (None, None)
+        self.add_widget(self.perpetio)
+        self.perpetiolist.append(self.perpetio)
+
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(870, 460))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
 
@@ -511,7 +526,7 @@ class Level5(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.obstacles_placer()
-        self.par = 2
+        self.par = 1
     
     def obstacles_placer(self):
         self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
@@ -541,7 +556,7 @@ class Level6(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.obstacles_placer()
-        self.par = 2
+        self.par = 4
     
     def obstacles_placer(self):
         self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
@@ -567,7 +582,7 @@ class Level7(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.obstacles_placer()
-        self.par = 2
+        self.par = 3
     
     def obstacles_placer(self):
         self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
@@ -593,7 +608,7 @@ class Level8(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.obstacles_placer()
-        self.par = 2
+        self.par = 1
     
     def obstacles_placer(self):
         self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))

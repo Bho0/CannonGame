@@ -12,20 +12,20 @@ class Obstacle(Widget):
             self.bind(pos=self.update_rect, size=self.update_rect)
         
         # Disegna la hitbox
-        with self.canvas.after:
-            self.hitbox_color = Color(1, 0, 0, 0.5)  # Colore rosso trasparente
-            self.hitbox = Rectangle(pos=self.pos, size=self.size)
-            self.bind(pos=self.update_hitbox, size=self.update_hitbox)
+#        with self.canvas.after:
+#            self.hitbox_color = Color(1, 0, 0, 0.5)  # Colore rosso trasparente
+#            self.hitbox = Rectangle(pos=self.pos, size=self.size)
+#            self.bind(pos=self.update_hitbox, size=self.update_hitbox)
 
     def update_rect(self, *args):
         # Aggiorna la posizione e la dimensione del rettangolo
         self.rect.pos = self.pos
         self.rect.size = self.size
     
-    def update_hitbox(self, *args):
+#    def update_hitbox(self, *args):
         # Aggiorna la posizione e la dimensione della hitbox
-        self.hitbox.pos = self.pos
-        self.hitbox.size = self.size
+#        self.hitbox.pos = self.pos
+#        self.hitbox.size = self.size
 
 # Classe rocks che eredita da Obstacle
 class Rocks(Obstacle):

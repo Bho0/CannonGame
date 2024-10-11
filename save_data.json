@@ -2,9 +2,9 @@
     "2024-09-25 12:36:27": {
         "name": "prova1",
         "tutorial": false,
-        "levels": 6,
-        "points": 62700,
-        "coins": 2750,
+        "levels": 8,
+        "points": 74850,
+        "coins": 3300,
         "bullet": true,
         "bomb": true,
         "laser": true,
@@ -13,7 +13,7 @@
         "green_dress": false,
         "yellow_dress": false,
         "selected_dress": "red",
-        "secret": true
+        "secret": false
     },
     "2024-09-30 12:09:01": {
         "name": "lore",
