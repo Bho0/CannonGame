@@ -50,7 +50,7 @@ class Eraser(Projectile):
     def __init__(self, size=(30, 30), **kwargs):
         # Chiamata al costruttore della classe padre Projectile con il colore specifico per l'eraser
         self.key = 'eraser'
-        super().__init__(color=(1, 1, 1, 1), size=(50, 50), **kwargs)  # Bianco come colore dell'eraser
+        super().__init__(color=(1, 1, 1, 0), size=(50, 50), **kwargs)  # Bianco come colore dell'eraser
     
 
 

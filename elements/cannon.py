@@ -174,15 +174,17 @@ class LasergunWidget(Shooter):
         return (min(x1, x2) < ex + ew and max(x1, x2) > ex and 
                 min(y1, y2) < ey + eh and max(y1, y2) > ey)
     
-    def check_reflection(self):
-            self.reflect_laser()
+    def check_reflection(self, flag_collision):
+            self.reflect_laser(flag_collision)
 
-    def  check_reflection_eraser(self):
-            self.reflect_eraser()
+    def  check_reflection_eraser(self, flag_collision):
+            self.reflect_eraser(flag_collision)
     
-    def reflect_eraser(self):
+    def reflect_eraser(self, flag_collision):
         # Puoi cambiare questo per angoli diversi o orientamenti specifici
-        mirror_angle = 0  # Angolo dello specchio in radianti (0 per specchio verticale, pi/2 per orizzontale)
+        if not flag_collision:
+            mirror_angle = (math.pi)/2
+        else: mirror_angle = 0  # Angolo dello specchio in radianti (0 per specchio verticale, pi/2 per orizzontale)
         normal_vector = (math.cos(mirror_angle), math.sin(mirror_angle))
 
         # Vettore direzione del laser
@@ -200,9 +202,11 @@ class LasergunWidget(Shooter):
         # Aggiorna la direzione del laser con il vettore riflesso
         self.delta_x_eraser, self.delta_y_eraser = reflected_direction
     
-    def reflect_laser(self):
+    def reflect_laser(self, flag_collision):
         # Puoi cambiare questo per angoli diversi o orientamenti specifici
-        mirror_angle = 0  # Angolo dello specchio in radianti (0 per specchio verticale, pi/2 per orizzontale)
+        if not flag_collision:
+            mirror_angle = (math.pi)/2
+        else: mirror_angle = 0  # Angolo dello specchio in radianti (0 per specchio verticale, pi/2 per orizzontale)
         normal_vector = (math.cos(mirror_angle), math.sin(mirror_angle))
 
         # Vettore direzione del laser

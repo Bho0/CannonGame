@@ -6,7 +6,7 @@ from kivy.app import App
 from kivy.uix.popup import Popup
 from kivy.properties import StringProperty
 
-from math import sqrt
+from math import sqrt, ceil
 
 import os
 import json
@@ -51,9 +51,13 @@ class Level(Screen):
         self.keyboard = None
         self.rocklist = []
         self.perpetiolist = []
+        self.mirrorlist = []
         self.endLevel_popup = None
         self.par = None
         self.counter_shot = 0
+        self.flag_sergio = True
+        self.flag_GOAT = True
+        self.flag_collisionxy = True
 
     def load_screen(self, selected_prj, timestamp, screen_name):
         self.screen_name = screen_name
@@ -91,6 +95,9 @@ class Level(Screen):
 
             # Check if there's any overlap between the bounding boxes
             if (x11 < x22 and x12 > x21) and (y11 < y22 and y12 > y21):
+                if (abs(x11-x22)>abs(y11-y22)):
+                        self.flag_collisionxy = False
+                else: self.flag_collisionxy = True
                 return True
         return False
 
@@ -212,28 +219,39 @@ class Level(Screen):
                         self.basic_laser.projectile = None
         
         if hasattr(self, 'mirror'):
-            if self.basic_cannon :
-                if self.basic_cannon.projectile and self.collisions(self.mirror, self.basic_cannon.projectile):
-                    self.remove_widget(self.basic_cannon.projectile)
-                    self.basic_cannon.projectile.canvas.remove(self.basic_cannon.projectile.shape)
-                    self.basic_cannon.projectile = None
-                    Clock.unschedule(self.basic_cannon.move_projectile)
-                    Clock.unschedule(self.basic_cannon.timer_projectile)
+            for self.mirror in self.mirrorlist[:]:
+                if self.basic_cannon :
+                    if self.basic_cannon.projectile and self.collisions(self.mirror, self.basic_cannon.projectile):
+                        self.remove_widget(self.basic_cannon.projectile)
+                        self.basic_cannon.projectile.canvas.remove(self.basic_cannon.projectile.shape)
+                        self.basic_cannon.projectile = None
+                        Clock.unschedule(self.basic_cannon.move_projectile)
+                        Clock.unschedule(self.basic_cannon.timer_projectile)
 
-            if self.basic_bomber :
-                if self.basic_bomber.projectile and self.collisions(self.mirror, self.basic_bomber.projectile):
-                    self.remove_widget(self.basic_bomber.projectile)
-                    self.basic_bomber.projectile.canvas.remove(self.basic_bomber.projectile.shape)
-                    self.basic_bomber.projectile = None
-                    Clock.unschedule(self.basic_bomber.move_projectile)
-                    Clock.unschedule(self.basic_bomber.timer_projectile)
+                if self.basic_bomber :
+                    if self.basic_bomber.projectile and self.collisions(self.mirror, self.basic_bomber.projectile):
+                        self.remove_widget(self.basic_bomber.projectile)
+                        self.basic_bomber.projectile.canvas.remove(self.basic_bomber.projectile.shape)
+                        self.basic_bomber.projectile = None
+                        Clock.unschedule(self.basic_bomber.move_projectile)
+                        Clock.unschedule(self.basic_bomber.timer_projectile)
 
-            if self.basic_laser :
-                if self.basic_laser.projectile and self.collisions(self.mirror, self.basic_laser.projectile):
-                    self.basic_laser.check_reflection()
-            if self.basic_laser :
-                if self.basic_laser.eraser and self.collisions(self.mirror, self.basic_laser.eraser):
-                    self.basic_laser.check_reflection_eraser()
+                if self.basic_laser:
+                    if self.flag_sergio:
+                        if self.basic_laser.projectile and self.collisions(self.mirror, self.basic_laser.projectile):
+                            self.sergio = self.basic_laser.projectile.pos[:]
+                            self.flag_sergio = False
+                            self.flag_GOAT = True
+                            self.basic_laser.check_reflection(self.flag_collisionxy)
+
+                    if self.flag_GOAT and not self.flag_sergio:
+                        if self.basic_laser.eraser and self.collisions(self.mirror, self.basic_laser.eraser):
+                            self.basic_laser.eraser.pos[0] = self.sergio[0] -15
+                            self.basic_laser.eraser.pos[1] = self.sergio[1] -15
+                            self.flag_sergio = True
+                            self.flag_GOAT = False
+                            self.basic_laser.check_reflection_eraser(self.flag_collisionxy)
+
         self.update_projectiles()
         self.keyboard_Handler
 
@@ -529,26 +547,32 @@ class Level5(Level, Screen):
         self.par = 1
     
     def obstacles_placer(self):
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
+        self.mirror = obstacles.Mirror(size = (100, 100), pos = (50, 500))
+        self.mirror.size_hint = (None, None)
+        self.add_widget(self.mirror)
+        self.mirrorlist.append(self.mirror)
+
+        self.mirror = obstacles.Mirror(size = (100, 100), pos = (800, 350))
+        self.mirror.size_hint = (None, None)
+        self.add_widget(self.mirror)
+        self.mirrorlist.append(self.mirror)
+
+        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(400, 330))
+        self.perpetio.size_hint = (None, None)
+        self.add_widget(self.perpetio)
+        self.perpetiolist.append(self.perpetio)
 
         self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(800, 100))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.mirror = obstacles.Mirror(size = (100, 100), pos = (500, 500))
-        self.mirror.size_hint = (None, None)
-        self.add_widget(self.mirror)
-
-        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 600))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
 
@@ -559,7 +583,7 @@ class Level6(Level, Screen):
         self.par = 4
     
     def obstacles_placer(self):
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(400, 400))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
@@ -569,12 +593,17 @@ class Level6(Level, Screen):
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
+        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(730, 250))
+        self.perpetio.size_hint = (None, None)
+        self.add_widget(self.perpetio)
+        self.perpetiolist.append(self.perpetio)
 
-        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
+        self.mirror = obstacles.Mirror(size = (100, 100), pos = (50, 400))
+        self.mirror.size_hint = (None, None)
+        self.add_widget(self.mirror)
+        self.mirrorlist.append(self.mirror)
+
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(850, 330))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
 
@@ -585,7 +614,7 @@ class Level7(Level, Screen):
         self.par = 3
     
     def obstacles_placer(self):
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 380))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
@@ -595,12 +624,27 @@ class Level7(Level, Screen):
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 280))
         self.rock.size_hint = (None, None)
         self.add_widget(self.rock)
         self.rocklist.append(self.rock)
 
-        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
+        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 180))
+        self.rock.size_hint = (None, None)
+        self.add_widget(self.rock)
+        self.rocklist.append(self.rock)
+
+        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(632, 180))
+        self.perpetio.size_hint = (None, None)
+        self.add_widget(self.perpetio)
+        self.perpetiolist.append(self.perpetio)
+
+        self.mirror = obstacles.Mirror(size = (100, 100), pos = (550, 600))
+        self.mirror.size_hint = (None, None)
+        self.add_widget(self.mirror)
+        self.mirrorlist.append(self.mirror)
+
+        self.treasure = obstacles.Treasure(size = (70, 70), pos=(850, 180))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
 
