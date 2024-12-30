@@ -647,29 +647,3 @@ class Level7(Level, Screen):
         self.treasure = obstacles.Treasure(size = (70, 70), pos=(850, 180))
         self.treasure.size_hint = (None, None)
         self.add_widget(self.treasure)
-
-class Level8(Level, Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        self.obstacles_placer()
-        self.par = 1
-    
-    def obstacles_placer(self):
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(472, 400))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
-
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(100, 100))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
-
-        self.rock = obstacles.Rocks(size = (100, 100), pos=(765, 225))
-        self.rock.size_hint = (None, None)
-        self.add_widget(self.rock)
-        self.rocklist.append(self.rock)
-
-        self.treasure = obstacles.Treasure(size = (70, 70), pos=(800, 100))
-        self.treasure.size_hint = (None, None)
-        self.add_widget(self.treasure)

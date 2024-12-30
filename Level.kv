@@ -334,36 +334,3 @@
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 60, 60
-
-<Level8>:
-    FloatLayout:
-        Image:
-            source: 'images/level08.jpg'
-            allow_stretch: True
-            keep_ratio: False
-            size_hint: (1, 1)  # Copre l'intero layout
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-
-        Button:
-            id: option_button
-            background_color: 0, 0, 0, 0
-            pos_hint: {'center_x': .9, 'center_y': .9}
-            size_hint: (.1, .1)
-            on_press: Factory.Option().open()
-            Image:
-                source: 'images/options.webp'
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-                size: 60, 60
-        
-        Button:
-            id: help_button
-            background_color: 0, 0, 0, 0
-            pos_hint: {'center_x': .8, 'center_y': .9}
-            size_hint: (.1, .1)
-            on_press: Factory.Help().open()
-            Image:
-                source: 'images/help-icon-png-16.jpg'
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-                size: 60, 60

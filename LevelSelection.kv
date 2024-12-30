@@ -8,7 +8,6 @@
 #:import level5 level.Level5
 #:import level6 level.Level6
 #:import level7 level.Level7
-#:import level8 level.Level8
 
 <LevelSelection>:
     name: 'levelSelection'
@@ -75,14 +74,6 @@
             text: 'LVL 7'
             on_press:
                 root.open_start_popup(root.timestamp, level7, 'level7')
-
-        Button:
-            id: LVL8
-            pos_hint: {'center_x': .5, 'center_y': .4}
-            size_hint: (.1, .1)
-            text: 'LVL 8'
-            on_press:
-                root.open_start_popup(root.timestamp, level8, 'level8')
 
         Button:
             pos_hint: {'center_x': .2, 'center_y': .95}
