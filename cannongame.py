@@ -12,6 +12,8 @@ from ship import Ship, Captain
 from market import Market, DressingRoom, ProjectileStore
 from level import Transition
 
+import os
+
 class Start(Screen):
     pass
 
@@ -57,9 +59,15 @@ class CannonGame(App):
     
     def add_screen(self, screen_class, name):
         self.root.add_widget(screen_class(name = name))
-    
+
     def get_file_content(self, rfile):
-        with open(rfile, 'r', encoding='utf-8') as file:
+        
+        base_dir = os.path.dirname(os.path.abspath(__file__))  # Ottiene il percorso della cartella che contiene il file corrente
+        file_path = os.path.join(base_dir, rfile)
+
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"File '{rfile}' non trovato in {file_path}.")
+        with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
 
 if __name__ == '__main__':
