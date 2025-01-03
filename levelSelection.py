@@ -100,13 +100,6 @@ class LevelSelection(Screen):
                 self.ids[element_id].disabled = False
             else:
                 self.ids[element_id].disabled = True
-        
-        if save_data['levels'] == 8 and  save_data['secret'] == False:
-            self.ids['LVL8'].disabled = False
-            self.ids['LVL8'].opacity = 1
-        else:
-            self.ids['LVL8'].disabled = True
-            self.ids['LVL8'].opacity = 0
             
     
     def open_start_popup(self, timestamp, screen_name, name):
