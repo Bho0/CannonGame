@@ -62,7 +62,7 @@ class CannonGame(App):
 
     def get_file_content(self, rfile):
         
-        base_dir = os.path.dirname(os.path.abspath(__file__))  # Ottiene il percorso della cartella che contiene il file corrente
+        base_dir = os.path.dirname(os.path.abspath(__file__))
         file_path = os.path.join(base_dir, rfile)
 
         if not os.path.exists(file_path):
