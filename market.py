@@ -362,6 +362,7 @@ class ProjectileStore(Screen):
                 if save_data['bomb'] == False:
                     button = Button(text=f"bomb",
                                     font_name= 'fonts/Caribbean.ttf',
+                                    background_color=(0, 0, 0, 0.6),
                                     on_press=lambda btn, ts=timestamp: self.open_bomb_popup(ts)
                                     )
                     grid.add_widget(button)
@@ -375,6 +376,7 @@ class ProjectileStore(Screen):
                 if save_data['laser'] == False:
                     button = Button(text=f"laser",
                                     font_name= 'fonts/Caribbean.ttf',
+                                    background_color=(0, 0, 0, 0.6),
                                     on_press=lambda btn, ts=timestamp: self.open_laser_popup(ts)
                                     )
                     grid.add_widget(button)

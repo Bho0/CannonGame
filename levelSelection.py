@@ -36,24 +36,30 @@ class StartPopup(Popup):
                 save_data = all_data[timestamp]
 
             if save_data['bullet'] == True:
-                button = ToggleButton(text=f"bullet", font_name= 'fonts/Caribbean.ttf', size_hint_y=.3,
-                                      on_press=lambda btn, prj='bullet': self.select_projectiles(prj))
+                button = ToggleButton(text=f"bullet",
+                                    font_name= 'fonts/Caribbean.ttf',
+                                    size_hint_y=.3,
+                                    on_press=lambda btn, prj='bullet': self.select_projectiles(prj))
                 grid.add_widget(button)
             else: 
                 button = ToggleButton(text=f"NOT  OWNED", font_name= 'fonts/Caribbean.ttf', font_size=12, size_hint_y=.3, disabled=True)
                 grid.add_widget(button)
             
             if save_data['bomb'] == True:
-                button = ToggleButton(text=f"bomb", font_name= 'fonts/Caribbean.ttf', size_hint_y=.3,
-                                      on_press=lambda btn, prj='bomb': self.select_projectiles(prj))
+                button = ToggleButton(text=f"bomb",
+                                    font_name= 'fonts/Caribbean.ttf',
+                                    size_hint_y=.3,
+                                    on_press=lambda btn, prj='bomb': self.select_projectiles(prj))
                 grid.add_widget(button)
             else: 
                 button = ToggleButton(text=f"NOT  OWNED", font_name= 'fonts/Caribbean.ttf', font_size=12, size_hint_y=.3, disabled=True)
                 grid.add_widget(button)
             
             if save_data['laser'] == True:
-                button = ToggleButton(text=f"laser", font_name= 'fonts/Caribbean.ttf', size_hint_y=.3,
-                                      on_press=lambda btn, prj='laser': self.select_projectiles(prj))
+                button = ToggleButton(text=f"laser",
+                                    font_name= 'fonts/Caribbean.ttf',
+                                    size_hint_y=.3,
+                                    on_press=lambda btn, prj='laser': self.select_projectiles(prj))
                 grid.add_widget(button)
             else: 
                 button = ToggleButton(text=f"NOT  OWNED", font_name= 'fonts/Caribbean.ttf', font_size=12, size_hint_y=.3, disabled=True)
