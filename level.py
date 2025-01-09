@@ -95,9 +95,16 @@ class Level(Screen):
 
             # Check if there's any overlap between the bounding boxes
             if (x11 < x22 and x12 > x21) and (y11 < y22 and y12 > y21):
-                if (abs(x11-x22)>abs(y11-y22)):
-                        self.flag_collisionxy = False
-                else: self.flag_collisionxy = True
+                # Calculate the horizontal and vertical overlaps
+                horizontal_overlap = min(x12, x22) - max(x11, x21)
+                vertical_overlap = min(y12, y22) - max(y11, y21)
+
+# Determine the collision direction based on which overlap is greater
+                if horizontal_overlap > vertical_overlap:
+                     self.flag_collisionxy = False  # Horizontal collision
+                else:
+                    self.flag_collisionxy = True  # Vertical collision
+
                 return True
         return False
 
@@ -243,6 +250,7 @@ class Level(Screen):
                             self.flag_sergio = False
                             self.flag_GOAT = True
                             self.basic_laser.check_reflection(self.flag_collisionxy)
+                            
 
                     if self.flag_GOAT and not self.flag_sergio:
                         if self.basic_laser.eraser and self.collisions(self.mirror, self.basic_laser.eraser):
@@ -251,6 +259,7 @@ class Level(Screen):
                             self.flag_sergio = True
                             self.flag_GOAT = False
                             self.basic_laser.check_reflection_eraser(self.flag_collisionxy)
+                            
 
         self.update_projectiles()
         self.keyboard_Handler
