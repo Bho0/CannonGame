@@ -150,6 +150,8 @@ class Level(Screen):
                     if self.basic_laser.projectile and self.collisions(self.rock, self.basic_laser.projectile):
                         self.remove_widget(self.rock)
                         self.basic_laser.projectile = None
+                        Clock.unschedule(self.basic_laser.move_projectile)
+                        Clock.unschedule(self.basic_laser.timer_projectile)
                         self.rocklist.remove(self.rock)
         
         if hasattr(self, 'treasure'):
@@ -224,6 +226,8 @@ class Level(Screen):
                 if self.basic_laser :
                     if self.basic_laser.projectile and self.collisions(self.perpetio, self.basic_laser.projectile):
                         self.basic_laser.projectile = None
+                        Clock.unschedule(self.basic_laser.move_projectile)
+                        Clock.unschedule(self.basic_laser.timer_projectile)
         
         if hasattr(self, 'mirror'):
             for self.mirror in self.mirrorlist[:]:
