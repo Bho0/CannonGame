@@ -570,7 +570,7 @@ class Level5(Level, Screen):
         self.add_widget(self.mirror)
         self.mirrorlist.append(self.mirror)
 
-        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(400, 340))
+        self.perpetio = obstacles.Perpetios(size = (100, 100), pos=(440, 340))
         self.perpetio.size_hint = (None, None)
         self.add_widget(self.perpetio)
         self.perpetiolist.append(self.perpetio)

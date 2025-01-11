@@ -114,6 +114,8 @@ class LasergunWidget(Shooter):
         laser = Laser(pos=pos)  # Puoi usare la dimensione desiderata
         laser.size_hint = (None, None)
         self.reflected = False
+        if not self.eraser:
+            self.create_eraser()
         return laser
 
     def move_projectile(self, dt):
@@ -128,15 +130,17 @@ class LasergunWidget(Shooter):
                 self.line = Line(points=[x, y, new_x, new_y], width=2)
                 self.lines.append(self.line)
 
-    def timer_projectile(self, dt):
-        super().timer_projectile(dt)
-        if self.time_passed >= 1 and not self.eraser:
-            self.create_eraser()
+    def on_touch_down(self, touch):
+        if not self.eraser:
+            super().on_touch_down(touch)
 
     def create_eraser(self):
         self.eraser = Eraser()
         self.eraser.center = self.new_button.center
         self.add_widget(self.eraser)
+        Clock.schedule_once(self.start_moving_eraser, 1)
+    
+    def start_moving_eraser(self, dt):
         Clock.schedule_interval(self.move_eraser, 0.01)
    
     def collsion_eraser_laser(self):
