@@ -23,13 +23,27 @@
             font_name: 'fonts/Caribbean.ttf'
 
         Slider:
-            id: slider
+            id: slider_music
             value_track: True
             value_track_color: [0, 0, 1, 1]
             min: 0
             max: 1
             value: 0.5
             on_value: app.change_volume(self.value)
+        
+        Label:
+            text: "Sound"
+            font_size: 30
+            font_name: 'fonts/Caribbean.ttf'
+        
+        Slider:
+            id: slider_sound
+            value_track: True
+            value_track_color: [0, 0, 1, 1]
+            min: 0
+            max: 1
+            value: 0.5
+            on_value: app.root.current_screen.change_volume(self.value)
 
 <Help@Popup>:
     auto_dismiss: True

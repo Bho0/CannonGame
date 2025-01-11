@@ -58,6 +58,20 @@ class Level(Screen):
         self.flag_sergio = True
         self.flag_GOAT = True
         self.flag_collisionxy = True
+    
+    def change_volume(self, value):
+        # Cambia il volume della musica
+        if self.basic_cannon:
+            if self.basic_cannon.sound:
+                self.basic_cannon.sound.volume = value
+
+        if self.basic_bomber:
+            if self.basic_bomber.sound:
+                self.basic_bomber.sound.volume = value
+        
+        if self.basic_laser:
+            if self.basic_laser.sound:
+                self.basic_laser.sound.volume = value
 
     def load_screen(self, selected_prj, timestamp, screen_name):
         self.screen_name = screen_name

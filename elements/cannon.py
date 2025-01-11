@@ -26,7 +26,8 @@ class Shooter(FloatLayout):
         self.time_passed = 0
         self.projectile = None
         self.MASS = None
-        self.sound = None
+        sound = self.use_specific_sound()
+        self.sound = SoundLoader.load(sound)
 
         global shoot_count
         shoot_count = 0
@@ -43,8 +44,6 @@ class Shooter(FloatLayout):
                 self.delta_x_eraser = self.delta_x
                 self.delta_y_eraser = self.delta_y          
                 self.create_projectile()
-                sound = self.use_specific_sound()
-                self.sound = SoundLoader.load(sound)
                 if self.sound:
                     self.sound.play()
                 self.loaded = False
