@@ -2,9 +2,9 @@
     "2025-01-08 19:14:58": {
         "name": "prova1",
         "tutorial": false,
-        "levels": 6,
-        "points": 35950,
-        "coins": 1600,
+        "levels": 7,
+        "points": 37150,
+        "coins": 1650,
         "bullet": true,
         "bomb": true,
         "laser": true,

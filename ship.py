@@ -28,7 +28,7 @@ class Ship(Screen):
     
     def goto_projectile(self, timestamp):
         if not self.projectile_popup:
-            self.projectile_popup = Projectile()
+            self.projectile_popup = Projectile_Popup()
         self.projectile_popup.load_popup(timestamp)
         self.projectile_popup.open()
     
@@ -183,7 +183,7 @@ class Captain(Screen):
                                 )
                 grid.add_widget(button)
 
-class Projectile(Popup):
+class Projectile_Popup(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
         self.title = ""
