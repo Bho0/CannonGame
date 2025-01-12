@@ -44,7 +44,7 @@ class Bullet(Projectile):
 class Laser(Projectile):
     def __init__(self, **kwargs):
         self.key = 'laser'
-        super().__init__(color=(1, 0, 0, 1), size=(.5,.5), **kwargs)  # Colore e dimensioni specifiche
+        super().__init__(color=(1, 0, 0, 0), size=(10, 10), **kwargs)  # Colore e dimensioni specifiche
 
 class Eraser(Projectile):
     def __init__(self, size=(30, 30), **kwargs):
