@@ -272,8 +272,8 @@ class Level(Screen):
 
                     if self.flag_GOAT and not self.flag_sergio:
                         if self.basic_laser.eraser and self.collisions(self.mirror, self.basic_laser.eraser):
-                            self.basic_laser.eraser.pos[0] = self.sergio[0] -15
-                            self.basic_laser.eraser.pos[1] = self.sergio[1] -15
+                            self.basic_laser.eraser.pos[0] = self.sergio[0] -5
+                            self.basic_laser.eraser.pos[1] = self.sergio[1] -5
                             self.flag_sergio = True
                             self.flag_GOAT = False
                             self.basic_laser.check_reflection_eraser(self.flag_collisionxy)
