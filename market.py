@@ -198,6 +198,7 @@ class Laser(Popup):
         self.title = ""  # Set the title of the popup to an empty string
         self.size_hint = (0.8, 0.8)  # Set the size of the popup to 80% of the screen width and height
         self.auto_dismiss = True  # Automatically dismiss the popup when clicking outside of it
+        self.attention_popup = None
     
     def load_popup(self, timestamp):
         self.content = BoxLayout(orientation='vertical')  # Create a vertical layout for the content
@@ -219,7 +220,7 @@ class Laser(Popup):
             self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name='fonts/Caribbean.ttf', height=44))
             buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf', disabled=True)  # Disable the buy button if not enough coins
         else:
-            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf',)
+            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf')
             buy_button.bind(on_press=self.on_buy)  # Bind the buy action to the on_buy method
         
         # Add the buy button to the popup
@@ -227,9 +228,41 @@ class Laser(Popup):
 
     # Method called when the buy button is pressed
     def on_buy(self, instance):
+        instance.disabled = True
+        if not self.attention_popup:  # If the laser popup is not yet created
+            self.attention_popup = Attention(manager=self.manager)  # Create the popup
+        self.attention_popup.load_popup()  # Load the popup with the timestamp data
+        self.attention_popup.open()  # Open the popup
         if self.on_buy_callback:  # If a callback function is defined
             self.on_buy_callback()  # Execute the callback
-        self.dismiss()  # Close the popup
+        self.dismiss()
+
+class Attention(Popup):
+    manager = ObjectProperty(None)
+    on_buy_callback = ObjectProperty(None)  # Callback function for after the buy action
+
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)  # Call the constructor of the Popup class
+        self.title = ""  # Set the title of the popup to an empty string
+        self.size_hint = (0.8, 0.8)  # Set the size of the popup to 80% of the screen width and height
+        self.auto_dismiss = True  # Automatically dismiss the popup when clicking outside of it
+
+    def load_popup(self):
+        self.content = BoxLayout(orientation='vertical')  # Create a vertical layout for the content
+            
+        # Add the title and price labels to the popup
+        self.content.add_widget(Label(text="OH NO! This Merchant sold us a defected laser!", font_name='fonts/Caribbean.ttf', height=44))
+        self.content.add_widget(Label(text="Now the aim isn't precise as it should be!", font_name='fonts/Caribbean.ttf', height=44))
+        
+        close_button = Button(text="CLOSE", font_name='fonts/Caribbean.ttf')
+        close_button.bind(on_press=self.on_close)  # Bind the buy action to the on_buy method
+
+        self.content.add_widget(close_button)
+    
+    def on_close(self, instance):
+        self.dismiss()
+
+        
 # The Market class is a screen that allows users to navigate through different stores in the game.
 class Market(Screen):
     timestamp = StringProperty("")  # Stores the current timestamp for game save data

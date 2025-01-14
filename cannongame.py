@@ -4,6 +4,7 @@ from kivy.uix.screenmanager import Screen, ScreenManager, FadeTransition
 from kivy.lang import Builder
 from kivy.core.audio import SoundLoader
 from kivy.properties import ObjectProperty
+from kivy.core.window import Window
 from homepage import HomePage
 from loadgame import LoadGame
 from levelSelection import LevelSelection, ComingSoon
@@ -12,6 +13,11 @@ from market import Market, DressingRoom, ProjectileStore
 from level import Transition
 
 import os
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+Window.size = (SCREEN_WIDTH, SCREEN_HEIGHT)
 
 # Define the initial screen class
 class Start(Screen):
