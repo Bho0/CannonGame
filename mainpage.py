@@ -104,8 +104,7 @@ class MainPage(Screen):
                 'blu_dress': save_data['blu_dress'],
                 'green_dress': save_data['green_dress'],
                 'yellow_dress': save_data['yellow_dress'],
-                'selected_dress': save_data['selected_dress'],
-                'secret': save_data['secret']
+                'selected_dress': save_data['selected_dress']
             }
             # Update the saved game data with the completed tutorial
             all_data[timestamp] = update_tutorial
@@ -209,8 +208,7 @@ class MainPage(Screen):
             'blu_dress': save_data['blu_dress'],
             'green_dress': save_data['green_dress'],
             'yellow_dress': save_data['yellow_dress'],
-            'selected_dress': save_data['selected_dress'],
-            'secret': save_data['secret']
+            'selected_dress': save_data['selected_dress']
         }
 
         # Save the updated game data back to the file

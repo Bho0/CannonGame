@@ -76,7 +76,6 @@ class Captain(Screen):
                 'green_dress': save_data['green_dress'],
                 'yellow_dress': save_data['yellow_dress'],
                 'selected_dress': 'red',  # Set the selected dress to 'red' as an example
-                'secret': save_data['secret']
             }
 
             # Update the data with the new selection
@@ -102,7 +101,6 @@ class Captain(Screen):
                 'green_dress': save_data['green_dress'],
                 'yellow_dress': save_data['yellow_dress'],
                 'selected_dress': dress_type,  # Set the selected dress to the chosen one
-                'secret': save_data['secret']
             }
 
             # Update the data with the new selection

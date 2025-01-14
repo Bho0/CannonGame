@@ -66,7 +66,6 @@ class NewGame(Screen):
             'green_dress': False,  # Green dress is not bought yet
             'yellow_dress': False,  # Yellow dress is not bought yet
             'selected_dress': 'red',  # Red dress is selected by default
-            'secret': True  # Secret is unlocked at the beginning
         }
 
         filename = 'save_data.json'  # File where game data will be saved

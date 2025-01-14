@@ -425,7 +425,7 @@ class Level(Screen):
             save_data['levels']+=1
         
         if save_data['levels'] == 8:
-            save_data['secret'] = False
+            save_data['levels'] = 7
 
         save_data['coins'] += 50
         save_data['points'] += (1000 - 50*(EndLevel.tot_shooted-self.par))
