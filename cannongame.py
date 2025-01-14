@@ -4,7 +4,6 @@ from kivy.uix.screenmanager import Screen, ScreenManager, FadeTransition
 from kivy.lang import Builder
 from kivy.core.audio import SoundLoader
 from kivy.properties import ObjectProperty
-
 from homepage import HomePage
 from loadgame import LoadGame
 from levelSelection import LevelSelection, ComingSoon
@@ -14,17 +13,21 @@ from level import Transition
 
 import os
 
+# Define the initial screen class
 class Start(Screen):
     pass
 
+# Main application class
 class CannonGame(App):
 
     def build(self):
+        # Load background music
         self.sound = SoundLoader.load('sounds/music.mp3')
         if self.sound:
-            self.sound.loop = True
-            self.sound.play()
+            self.sound.loop = True  # Enable looping of the music
+            self.sound.play()       # Play the music
 
+        # Load multiple KV files which define the UI of different screens
         Builder.load_file('CannonGame.kv')
         Builder.load_file('Homepage.kv')
         Builder.load_file('LoadGame.kv')
@@ -35,7 +38,10 @@ class CannonGame(App):
         Builder.load_file('Market.kv')
         Builder.load_file('Level.kv')
 
+        # Create the screen manager to handle screen transitions
         sm = ScreenManager()
+
+        # Add various screens to the screen manager
         sm.add_widget(Start(name='start'))
         sm.add_widget(HomePage(name='homepage'))
         sm.add_widget(LoadGame(name='loadgame'))
@@ -47,28 +53,35 @@ class CannonGame(App):
         sm.add_widget(DressingRoom(name='dressingRoom'))
         sm.add_widget(ProjectileStore(name='projectileStore'))
         sm.add_widget(Transition(name='transition'))
-        return sm 
+        
+        return sm  # Return the screen manager as the root widget
 
     def change_volume(self, value):
-        # Cambia il volume della musica
+        # Change the volume of the background music
         if self.sound:
             self.sound.volume = value
-    
+
     def remove_screen(self, name):
+        # Remove a screen by its name from the screen manager
         self.root.remove_widget(self.root.get_screen(name))
-    
+
     def add_screen(self, screen_class, name):
-        self.root.add_widget(screen_class(name = name))
+        # Add a new screen to the screen manager
+        self.root.add_widget(screen_class(name=name))
 
     def get_file_content(self, rfile):
-        
-        base_dir = os.path.dirname(os.path.abspath(__file__))
-        file_path = os.path.join(base_dir, rfile)
+        # Get the content of a file
+        base_dir = os.path.dirname(os.path.abspath(__file__))  # Get the base directory of the current file
+        file_path = os.path.join(base_dir, rfile)  # Construct the full file path
 
         if not os.path.exists(file_path):
-            raise FileNotFoundError(f"File '{rfile}' non trovato in {file_path}.")
+            # Raise an error if the file doesn't exist
+            raise FileNotFoundError(f"File '{rfile}' not found in {file_path}.")
+        
+        # Open and read the file content
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
 
+# Run the application
 if __name__ == '__main__':
     CannonGame().run()

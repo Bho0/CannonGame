@@ -1,35 +1,43 @@
 #:import FadeTransition kivy.uix.screenmanager.FadeTransition
+# Importing FadeTransition for screen transition effects
 
 <Start>:
     name: 'start'    
+    # Defining the 'Start' screen and naming it 'start'
+    
     FloatLayout:
+        # Using FloatLayout to position widgets freely within the screen
+        
         Image:
             source: 'images/Default_pirate_ship_3.jpg'
             allow_stretch: True
             keep_ratio: False
-            size_hint: (1, 1)  # Copre l'intero layout
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        
+            size_hint: (1, 1)  # Makes the image cover the entire layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  # Center the image
+
         Label:
             text: 'PLAY'
             font_size: 52
-            font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
-            color: 0, 0, 0, 1  # Testo nero
-            size_hint: (None, None)
-            size: self.texture_size
-            pos_hint: {'center_x': 0.5, 'center_y': 0.7}
+            font_name: 'fonts/Caribbean.ttf'  # Use a custom font for the label
+            color: 0, 0, 0, 1  # Black text color
+            size_hint: (None, None)  # No size hint, use actual size
+            size: self.texture_size  # Set size to fit the text
+            pos_hint: {'center_x': 0.5, 'center_y': 0.7}  # Position label at the top center
 
         Button:
-            id: play_button
-            background_color: 0, 0, 0, 0
-            pos_hint: {'center_x': .5, 'center_y': .3}
+            id: play_button  # Assign an ID to the button for reference
+            background_color: 0, 0, 0, 0  # Transparent background for the button
+            pos_hint: {'center_x': .5, 'center_y': .3}  # Position button at the center bottom
             on_press:
                 root.manager.transition = FadeTransition(duration=0.5)
+                # Use a fade transition when switching screens
                 app.root.current = 'homepage'
+                # Switch to the 'homepage' screen when the button is pressed
+                
             Image:
-                source: 'images/playButton.png'
+                source: 'images/playButton.png'  # Image displayed on the button
                 allow_stretch: True
                 keep_ratio: False
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-                size: 200, 200
+                center_x: self.parent.center_x  # Center the image horizontally
+                center_y: self.parent.center_y  # Center the image vertically
+                size: 200, 200  # Set the size of the image to 200x200 pixels

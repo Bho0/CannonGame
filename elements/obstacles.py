@@ -1,52 +1,44 @@
+# Import necessary modules from Kivy
 from kivy.uix.widget import Widget
 from kivy.graphics import Rectangle, Color
 
+# Base class for obstacles
 class Obstacle(Widget):
     def __init__(self, source, **kwargs):
-        super().__init__(**kwargs)
-        self.key = None  # Placeholder, da specificare nelle classi figlio
+        super().__init__(**kwargs)  # Initialize the parent class Widget
+        self.key = None  # Placeholder for the key, which will be defined in subclasses
 
-        # Configurazione del rettangolo grafico
+        # Create a graphical rectangle to represent the obstacle
         with self.canvas.before:
             self.rect = Rectangle(source=source, pos=self.pos, size=self.size)
+            # Bind the rectangle's position and size to the widget's position and size
             self.bind(pos=self.update_rect, size=self.update_rect)
-        
-        # Disegna la hitbox
-#        with self.canvas.after:
-#            self.hitbox_color = Color(1, 0, 0, 0.5)  # Colore rosso trasparente
-#            self.hitbox = Rectangle(pos=self.pos, size=self.size)
-#            self.bind(pos=self.update_hitbox, size=self.update_hitbox)
 
+    # Method to update the position and size of the rectangle when the widget changes
     def update_rect(self, *args):
-        # Aggiorna la posizione e la dimensione del rettangolo
-        self.rect.pos = self.pos
-        self.rect.size = self.size
-    
-#    def update_hitbox(self, *args):
-        # Aggiorna la posizione e la dimensione della hitbox
-#        self.hitbox.pos = self.pos
-#        self.hitbox.size = self.size
+        self.rect.pos = self.pos  # Update the position
+        self.rect.size = self.size  # Update the size
 
-# Classe rocks che eredita da Obstacle
+# Class for rocks, inherits from Obstacle
 class Rocks(Obstacle):
     def __init__(self, **kwargs):
-        super().__init__(source='images/Rock.png', **kwargs)
-        self.key = 'rocks'
+        super().__init__(source='images/Rock.png', **kwargs)  # Pass the source image for the rock
+        self.key = 'rocks'  # Assign the key to 'rocks'
 
-# Classe treasure che eredita da Obstacle
+# Class for treasure, inherits from Obstacle
 class Treasure(Obstacle):
     def __init__(self, **kwargs):
-        super().__init__(source='images/treasure.png', **kwargs)
-        self.key = 'treasure'
+        super().__init__(source='images/treasure.png', **kwargs)  # Pass the source image for the treasure
+        self.key = 'treasure'  # Assign the key to 'treasure'
 
-# Classe perpetios che eredita da Obstacle
+# Class for perpetios, inherits from Obstacle
 class Perpetios(Obstacle):
     def __init__(self, **kwargs):
-        super().__init__(source='images/perpetio.png', **kwargs)
-        self.key = 'perpetio'
+        super().__init__(source='images/perpetio.png', **kwargs)  # Pass the source image for perpetios
+        self.key = 'perpetio'  # Assign the key to 'perpetio'
 
-# Classe mirror che eredita da Obstacle
+# Class for mirror, inherits from Obstacle
 class Mirror(Obstacle):
     def __init__(self, **kwargs):
-        super().__init__(source='images/mirror.png', **kwargs)
-        self.key = 'mirror'
+        super().__init__(source='images/mirror.png', **kwargs)  # Pass the source image for the mirror
+        self.key = 'mirror'  # Assign the key to 'mirror'

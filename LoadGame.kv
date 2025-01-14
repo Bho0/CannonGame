@@ -1,39 +1,46 @@
 <LoadGame>:
-    name: 'loadgame'
-    FloatLayout:
+    name: 'loadgame'  # Set the name of the screen for navigation within the screen manager
+    FloatLayout:  # A layout that allows placing widgets freely with respect to the layout's size
+        # Background image for the screen (captain's cabin inside a ship)
         Image:
-            source: 'images/Default_pirate_captain_cabin_in_the_ship_2.jpg'
-            allow_stretch: True
-            keep_ratio: False
-            size_hint: (1, 1)  # Copre l'intero layout
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-        
-        Label:
-            text: 'SELECT YOUR PIRATE'
-            font_size: 32
-            font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
-            color: 0, 0, 0, 1  # Testo nero
-            size_hint: (None, None)
-            size: self.texture_size
-            pos_hint: {'center_x': 0.5, 'center_y': 0.9}
-        
-        BoxLayout:
-            orientation: 'vertical'
+            source: 'images/Default_pirate_captain_cabin_in_the_ship_2.jpg'  # Image file for the background
+            allow_stretch: True  # Allow the image to stretch
+            keep_ratio: False  # Do not keep the image's aspect ratio
+            size_hint: (1, 1)  # Make the image fill the entire layout
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  # Center the image in the layout
 
+        # Label displaying "SELECT YOUR PIRATE"
+        Label:
+            text: 'SELECT YOUR PIRATE'  # Text shown in the label
+            font_size: 32  # Font size for the label
+            font_name: 'fonts/Caribbean.ttf'  # Use a custom font for the label
+            color: 0, 0, 0, 1  # Text color: black (RGBA format)
+            size_hint: (None, None)  # The size of the label is determined by its content
+            size: self.texture_size  # Set the label size to fit the text
+            pos_hint: {'center_x': 0.5, 'center_y': 0.9}  # Position the label near the top center of the screen
+
+        # BoxLayout to organize the widgets vertically (used for the scrollable grid)
+        BoxLayout:
+            orientation: 'vertical'  # Arrange children vertically
+
+            # ScrollView to make the grid scrollable if it contains more items than can be displayed
             ScrollView:
+                # GridLayout inside the scrollable area for displaying items (e.g., pirate characters)
                 GridLayout:
-                    id: load_grid
-                    cols: 1
-                    size_hint_y: None
-                    height: self.minimum_height
-        
+                    id: load_grid  # Set the ID of the GridLayout to manipulate it from Python
+                    cols: 1  # Only one column to display the pirate selection vertically
+                    size_hint_y: None  # Allow the height of the grid to be flexible
+                    height: self.minimum_height  # Set the height to match the height required to fit all the children
+
+        # Button to navigate back to the homepage (undo button)
         Button:
-            pos_hint: {'center_x': .05, 'center_y': .91}
-            size_hint: (.1, .1)
-            background_color: 0, 0, 0, 0
-            on_press: app.root.current = 'homepage'
+            pos_hint: {'center_x': .05, 'center_y': .91}  # Position the button near the top-left corner
+            size_hint: (.1, .1)  # Set the button size to be 10% of the width and height
+            background_color: 0, 0, 0, 0  # Make the button background transparent
+            on_press: app.root.current = 'homepage'  # When pressed, navigate back to the homepage screen
+            # Image on the button (undo icon)
             Image:
-                source: 'images/undo.png'
-                center_x: self.parent.center_x
-                center_y: self.parent.center_y
-                size: 50, 50
+                source: 'images/undo.png'  # Set the image for the button
+                center_x: self.parent.center_x  # Center the image within the button
+                center_y: self.parent.center_y  # Center the image vertically within the button
+                size: 50, 50  # Set the size of the image to 50x50 pixels

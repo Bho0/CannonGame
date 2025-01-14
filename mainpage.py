@@ -9,65 +9,74 @@ from kivy.app import App
 import json
 import os
 
+# CustomLabel is a subclass of Label that allows setting a background color
 class CustomLabel(Label):
-    # Create a property to dynamically store the background color
-    background_color = ListProperty([1, 1, 1, 1])  # White with full opacity
-    padding = NumericProperty(10)  # Padding around the text
+    background_color = ListProperty([1, 1, 1, 1])  # Property to store background color (default is white)
+    padding = NumericProperty(10)  # Padding around the label's text
 
     def __init__(self, **kwargs):
         super(CustomLabel, self).__init__(**kwargs)
+        # Draw a rectangle behind the label's text to simulate a background color
         with self.canvas.before:
-            self.bg_color = Color(*self.background_color)
-            self.bg_rect = Rectangle(size=self.size, pos=self.pos)
+            self.bg_color = Color(*self.background_color)  # Set the background color
+            self.bg_rect = Rectangle(size=self.size, pos=self.pos)  # Create a rectangle behind the label
 
-        # Bind size and pos updates to the update_canvas method
+        # Bind the size and position of the label to the rectangle's size and position
         self.bind(size=self.update_canvas, pos=self.update_canvas)
 
     def update_canvas(self, *args):
-        # Update the size and position of the rectangle
+        # Update the size and position of the rectangle whenever the label's size or position changes
         self.bg_rect.size = self.size
         self.bg_rect.pos = self.pos
 
+# Hof is a Popup window that displays a leaderboard
 class Hof(Popup):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.title = ""
-        self.size_hint = (0.5, 0.5)
-        self.auto_dismiss = True
+        self.title = ""  # Set the title of the popup to an empty string
+        self.size_hint = (0.5, 0.5)  # Set the size of the popup to 50% of the screen
+        self.auto_dismiss = True  # Automatically dismiss the popup when clicked outside
     
     def load_popup(self):
-        self.content = BoxLayout(orientation='vertical')
-        Hof = []
-        filename = 'save_data.json'
+        # Set up the layout and load the leaderboard data
+        self.content = BoxLayout(orientation='vertical')  # Use a vertical layout for the popup content
+        Hof = []  # List to store the leaderboard data
+        filename = 'save_data.json'  # The JSON file storing the save data
         if os.path.exists(filename):
+            # Open the file and load the saved game data
             with open(filename, 'r') as f:
                 all_data = json.load(f)
 
+            # Add name and points to the leaderboard
             for timestamp, data in all_data.items():
                 tuple_temp = (data['name'], data['points'])
                 Hof.append(tuple_temp)
         
-        Hof.sort(key=lambda points: points[1], reverse=True)
-        index = 1
+        Hof.sort(key=lambda points: points[1], reverse=True)  # Sort the leaderboard by points (descending order)
+        index = 1  # Initialize index for leaderboard entries
 
+        # Add each entry to the popup
         for element in Hof:
-            label = Label(text=f"N.{index} {element[0]} {element[1]}",
-                                size_hint_y=None, height=40,
-                                font_name= 'fonts/Caribbean.ttf')
-            self.content.add_widget(label)
-            index+=1
+            label = Label(text=f"N.{index} {element[0]} {element[1]}", 
+                          size_hint_y=None, height=40, font_name='fonts/Caribbean.ttf')
+            self.content.add_widget(label)  # Add the label to the popup content
+            index += 1  # Increment index for the next entry
 
+# MainPage is the screen representing the main game page
 class MainPage(Screen):
-    texts = ListProperty(["Here you can find anything ye need:", "our ship with all our arsenal", "a market with some more gear", "and then the map of the treasures' island"])
-    index = -1
-    timestamp = StringProperty("")
+    texts = ListProperty(["Here you can find anything ye need:", 
+                          "our ship with all our arsenal", 
+                          "a market with some more gear", 
+                          "and then the map of the treasures' island"])  # Texts for the tutorial
+    index = -1  # Keeps track of the current tutorial step
+    timestamp = StringProperty("")  # Store the timestamp of the saved game
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.Hof_popup = None
+        self.Hof_popup = None  # Initialize the leaderboard popup to None
 
     def change_text(self, timestamp):
-        # Incrementa l'indice
+        # Increment the tutorial step and update the tutorial text
         self.index += 1
         filename = 'save_data.json'
         if os.path.exists(filename):
@@ -75,12 +84,13 @@ class MainPage(Screen):
                 all_data = json.load(f)
             
             if timestamp in all_data:
-                save_data = all_data[timestamp]
+                save_data = all_data[timestamp]  # Get saved data for the current timestamp
 
-        # Controlla se siamo all'ultimo elemento
+        # If the tutorial is not complete, continue updating the text
         if self.index < len(self.texts):
             self.ids.tutorial_label.text = self.texts[self.index]
         else:
+            # Tutorial is finished; update the game state
             update_tutorial = {
                 'name': save_data['name'],
                 'tutorial': False,
@@ -97,12 +107,14 @@ class MainPage(Screen):
                 'selected_dress': save_data['selected_dress'],
                 'secret': save_data['secret']
             }
+            # Update the saved game data with the completed tutorial
             all_data[timestamp] = update_tutorial
             with open(filename, 'w') as f:
                 json.dump(all_data, f, indent=4)
-            # Nascondi il bottone quando si raggiunge l'ultimo elemento
-            self.ids.tutorial_button.opacity = 0  # Rende il bottone invisibile
-            self.ids.tutorial_button.disabled = True  # Disabilita il bottone
+            
+            # Hide tutorial-related elements and enable game-related buttons
+            self.ids.tutorial_button.opacity = 0
+            self.ids.tutorial_button.disabled = True
             self.ids.tutorial_label.opacity = 0
             self.ids.cap_img.opacity = 0
             
@@ -125,11 +137,10 @@ class MainPage(Screen):
             self.ids.Hof_button.disabled = False
     
     def load_saved_game(self, save_data, timestamp):
-        # Funzione per caricare i dati del gioco salvato e visualizzarli
-        # Qui puoi impostare i widget dello schermo con i dati caricati
-
+        # Load the saved game data and update the UI accordingly
         self.timestamp = timestamp
         if save_data['tutorial'] == True:
+            # Hide game buttons if tutorial is not completed
             self.ids.level_button.opacity = 0
             self.ids.level_button.disabled = True
             self.ids.level_label.opacity = 0
@@ -148,11 +159,11 @@ class MainPage(Screen):
             self.ids.Hof_button.opacity = 0
             self.ids.Hof_button.disabled = True
 
-            self.change_text(timestamp)
-        
+            self.change_text(timestamp)  # Continue the tutorial flow
         else:
-            self.ids.tutorial_button.opacity = 0  # Rende il bottone invisibile
-            self.ids.tutorial_button.disabled = True  # Disabilita il bottone
+            # Enable game-related buttons after the tutorial
+            self.ids.tutorial_button.opacity = 0
+            self.ids.tutorial_button.disabled = True
             self.ids.tutorial_label.opacity = 0
             self.ids.cap_img.opacity = 0
             
@@ -175,6 +186,7 @@ class MainPage(Screen):
             self.ids.Hof_button.disabled = False
     
     def save_game(self, timestamp):
+        # Save the current game data to the JSON file
         filename = 'save_data.json'
         if os.path.exists(filename):
             with open(filename, 'r') as f:
@@ -183,6 +195,7 @@ class MainPage(Screen):
             if timestamp in all_data:
                 save_data = all_data[timestamp]
         
+        # Update the game data
         updated_data = {
             'name': save_data['name'],
             'tutorial': save_data['tutorial'],
@@ -200,14 +213,13 @@ class MainPage(Screen):
             'secret': save_data['secret']
         }
 
-        # Aggiungi i nuovi dati al dizionario con timestamp come chiave
+        # Save the updated game data back to the file
         all_data[timestamp] = updated_data
-        
-        # Salva il dizionario aggiornato nel file JSON
         with open(filename, 'w') as f:
             json.dump(all_data, f, indent=4)
     
     def get_json_value(self, timestamp, data):
+        # Get a specific value from the saved game data
         filename = 'save_data.json'
         if os.path.exists(filename):
             with open(filename, 'r') as f:
@@ -221,6 +233,7 @@ class MainPage(Screen):
                 return 'ERROR!'
     
     def chosen_dress(self, timestamp):
+        # Retrieve the selected dress image based on the saved game data
         filename = 'save_data.json'
         if os.path.exists(filename):
             with open(filename, 'r') as f:
@@ -229,6 +242,7 @@ class MainPage(Screen):
             if timestamp in all_data:
                 save_data = all_data[timestamp]
                 result = str(save_data['selected_dress'])
+                # Return corresponding image based on selected dress
                 if result == "red":
                     return 'images/captain.png'
                 if result == "blu":
@@ -238,31 +252,30 @@ class MainPage(Screen):
                 if result == "yellow":
                     return 'images/yellow_dress.png'
     
+    # Navigation functions to switch between different screens
     def goto_ship(self, timestamp):
-        # Naviga verso il nuovo schermo
         app = App.get_running_app()
-        game_screen = self.manager.get_screen('ship')  # Ottieni il nuovo schermo
-        game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
-        self.manager.current = 'ship'  # Cambia schermo
+        game_screen = self.manager.get_screen('ship')
+        game_screen.load_screen(timestamp)
+        self.manager.current = 'ship'
         app.remove_screen('mainpage')
-    
+
     def goto_market(self, timestamp):
-        # Naviga verso il nuovo schermo
         app = App.get_running_app()
-        game_screen = self.manager.get_screen('market')  # Ottieni il nuovo schermo
-        game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
-        self.manager.current = 'market'  # Cambia schermo
+        game_screen = self.manager.get_screen('market')
+        game_screen.load_screen(timestamp)
+        self.manager.current = 'market'
         app.remove_screen('mainpage')
     
     def goto_levels(self, timestamp):
-        # Naviga verso il nuovo schermo
         app = App.get_running_app()
-        game_screen = self.manager.get_screen('levelSelection')  # Ottieni il nuovo schermo
-        game_screen.load_screen(timestamp)  # Passa i dati al nuovo schermo
-        self.manager.current = 'levelSelection'  # Cambia schermo
+        game_screen = self.manager.get_screen('levelSelection')
+        game_screen.load_screen(timestamp)
+        self.manager.current = 'levelSelection'
         app.remove_screen('mainpage')
-    
+
     def open_Hof_popup(self):
+        # Open the Hall of Fame popup window
         if not self.Hof_popup:
             self.Hof_popup = Hof()
         self.Hof_popup.load_popup()
