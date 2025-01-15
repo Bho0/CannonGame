@@ -2,7 +2,7 @@
 #:import FadeTransition kivy.uix.screenmanager.FadeTransition 
 #:import SlideTransition kivy.uix.screenmanager.SlideTransition
 
-# Import custom levels for the game
+
 #:import level1 level.Level1
 #:import level2 level.Level2
 #:import level3 level.Level3
@@ -11,29 +11,27 @@
 #:import level6 level.Level6
 #:import level7 level.Level7
 
-# Define the LevelSelection screen
 <LevelSelection>:
     name: 'levelSelection'
-    FloatLayout:  # Use FloatLayout for flexible positioning of elements
-        # Background image for the level selection screen
+    FloatLayout:
+        
         Image:
-            source: 'images/levels (3).jpg'  # Path to the background image
-            allow_stretch: True  # Allow the image to stretch to fit the layout
-            keep_ratio: False  # Do not maintain aspect ratio for the image
-            size_hint: (1, 1)  # Make the image fill the entire layout
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  # Position the image in the center
+            source: 'images/levels (3).jpg' 
+            allow_stretch: True 
+            keep_ratio: False  
+            size_hint: (1, 1)  
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  
 
-        # Button for Level 1
+       
         Button:
             id: LVL1
-            pos_hint: {'center_x': .1, 'center_y': .3}  # Position it on the screen
-            size_hint: (.1, .1)  # Size of the button
-            text: 'LVL 1'  # Text label for the button
-            background_color: 0, 0, 0, 0.6  # Semi-transparent black background
+            pos_hint: {'center_x': .1, 'center_y': .3} 
+            size_hint: (.1, .1) 
+            text: 'LVL 1' 
+            background_color: 0, 0, 0, 0.6  
             on_press:
-                root.open_start_popup(root.timestamp, level1, 'level1')  # Action when button is pressed
-        
-        # Button for Level 2
+                root.open_start_popup(root.timestamp, level1, 'level1') 
+       
         Button:
             id: LVL2
             pos_hint: {'center_x': .4, 'center_y': .2}
@@ -43,7 +41,7 @@
             on_press:
                 root.open_start_popup(root.timestamp, level2, 'level2')
         
-        # Button for Level 3
+       
         Button:
             id: LVL3
             pos_hint: {'center_x': .7, 'center_y': .2}
@@ -53,7 +51,7 @@
             on_press:
                 root.open_start_popup(root.timestamp, level3, 'level3')
         
-        # Button for Level 4
+       
         Button:
             id: LVL4
             pos_hint: {'center_x': .9, 'center_y': .4}
@@ -63,7 +61,7 @@
             on_press:
                 root.open_start_popup(root.timestamp, level4, 'level4')
         
-        # Button for Level 5
+      
         Button:
             id: LVL5
             pos_hint: {'center_x': .7, 'center_y': .5}
@@ -73,7 +71,7 @@
             on_press:
                 root.open_start_popup(root.timestamp, level5, 'level5')
         
-        # Button for Level 6
+
         Button:
             id: LVL6
             pos_hint: {'center_x': .4, 'center_y': .6}
@@ -83,7 +81,6 @@
             on_press:
                 root.open_start_popup(root.timestamp, level6, 'level6')
 
-        # Button for Level 7
         Button:
             id: LVL7
             pos_hint: {'center_x': .2, 'center_y': .8}
@@ -93,7 +90,7 @@
             on_press:
                 root.open_start_popup(root.timestamp, level7, 'level7')
 
-        # Button for navigating to 'Coming Soon' screen with slide transition
+        # Button for navigating to 'Coming Soon' screen 
         Button:
             pos_hint: {'center_x': .2, 'center_y': .95}
             size_hint: (.05, .05)
@@ -101,59 +98,59 @@
             background_color: 0, 0, 0, 0.6
             on_press:
                 root.manager.transition = SlideTransition()
-                root.manager.transition.direction = 'down'  # Slide down transition
-                app.root.current = 'comingsoon'  # Navigate to 'comingsoon' screen
+                root.manager.transition.direction = 'down'  
+                app.root.current = 'comingsoon' 
         
-        # Home button to navigate back to the main page
+   
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
             size_hint: (.1, .1)
             background_color: 0, 0, 0, 0
             on_press:
-                root.goto_mainpage(root.timestamp)  # Go to main page
+                root.goto_mainpage(root.timestamp)  
             Image:
-                source: 'images/homeButton.png'  # Home button image
-                center_x: self.parent.center_x  # Center the image horizontally
-                center_y: self.parent.center_y  # Center the image vertically
-                size: 50, 50  # Set image size
+                source: 'images/homeButton.png'  
+                center_x: self.parent.center_x  
+                center_y: self.parent.center_y 
+                size: 50, 50 
 
-# Define the ComingSoon screen
+
 <ComingSoon>:
     name: 'comingsoon'
     FloatLayout:
         Button:
             background_color: 0, 0, 0, 0
-            text: 'Coming Soon'  # Display a "Coming Soon" message
-            font_name: 'fonts/Caribbean.ttf'  # Custom font
-            font_size: 52  # Set font size
+            text: 'Coming Soon'  
+            font_name: 'fonts/Caribbean.ttf' 
+            font_size: 52 
             on_press:
-                root.manager.transition = FadeTransition()  # Use fade transition
+                root.manager.transition = FadeTransition() 
                 app.root.current = 'levelSelection'  # Go back to level selection screen
 
-# Define the StartPopup screen for level start selection
+
 <StartPopup>:
     name: 'startPopup'
     BoxLayout:
         id: start_box
-        orientation: "vertical"  # Vertical layout for the popup
+        orientation: "vertical" 
         Label:
-            text: "Choose which projectile you want to use"  # Label for selecting the projectile
-            font_name: 'fonts/Caribbean.ttf'  # Custom font
+            text: "Choose which projectile you want to use"  
+            font_name: 'fonts/Caribbean.ttf'  
         GridLayout:
             id: ammo_grid
             cols: 3  # 3 columns for the ammo selection
-            spacing: '10dp'  # Spacing between buttons
-            padding: '10dp'  # Padding around the grid
+            spacing: '10dp' 
+            padding: '10dp'  
         # Button to start the selected level
         Button:
             id: start_button
-            background_color: 0, 0, 0, 0  # Transparent background
+            background_color: 0, 0, 0, 0  
             on_press:
                 root.goto_level(root.timestamp, root.selected_prj, root.screen_name, root.name)  # Start the level
             Image:
-                source: 'images/playButton.png'  # Play button image
-                allow_stretch: True  # Allow image to stretch
-                keep_ratio: False  # Do not keep aspect ratio
-                center_x: self.parent.center_x  # Center the image horizontally
-                center_y: self.parent.center_y  # Center the image vertically
-                size: 50, 50  # Set image size
+                source: 'images/playButton.png' 
+                allow_stretch: True 
+                keep_ratio: False  
+                center_x: self.parent.center_x  
+                center_y: self.parent.center_y  
+                size: 50, 50  

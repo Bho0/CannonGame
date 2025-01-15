@@ -15,49 +15,49 @@ class Ship(Screen):
     selected_projectile = StringProperty('')  # Store the selected projectile type
 
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)  # Initialize the Screen class
-        self.projectile_popup = None  # Initialize the popup as None
+        super().__init__(**kwargs) 
+        self.projectile_popup = None 
 
     def load_screen(self, timestamp):
-        self.timestamp = timestamp  # Load the timestamp data when the screen is accessed
+        self.timestamp = timestamp 
     
     def goto_captain(self, timestamp):
-        game_screen = self.manager.get_screen('captain')  # Get the 'captain' screen from the screen manager
-        game_screen.load_screen(timestamp)  # Pass the timestamp to the captain screen
-        self.manager.current = 'captain'  # Switch to the captain screen
+        game_screen = self.manager.get_screen('captain') 
+        game_screen.load_screen(timestamp) 
+        self.manager.current = 'captain' 
     
     def goto_projectile(self, timestamp):
-        if not self.projectile_popup:  # If the popup is not already created
-            self.projectile_popup = Projectile_Popup()  # Create the popup for projectiles
-        self.projectile_popup.load_popup(timestamp)  # Load the projectile data into the popup
-        self.projectile_popup.open()  # Open the popup window
-    
+        if not self.projectile_popup:  
+            self.projectile_popup = Projectile_Popup() 
+        self.projectile_popup.load_popup(timestamp) 
+        self.projectile_popup.open()  
+
     def goto_mainpage(self, timestamp):
         app = App.get_running_app()  # Get the running instance of the app
-        app.add_screen(MainPage, 'mainpage')  # Add the main page to the screen manager
+        app.add_screen(MainPage, 'mainpage')
         filename = 'save_data.json'  # Define the file for saving data
         
-        if os.path.exists(filename):  # If the save data file exists
+        if os.path.exists(filename):  
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the saved data
+                all_data = json.load(f)  
             
-            if timestamp in all_data:  # If the timestamp exists in the saved data
-                save_data = all_data[timestamp]  # Get the saved data for the current timestamp
-                game_screen = self.manager.get_screen('mainpage')  # Get the 'mainpage' screen
-                game_screen.load_saved_game(save_data, timestamp)  # Pass the saved data to the main page
-                self.manager.current = 'mainpage'  # Switch to the main page screen
+            if timestamp in all_data:
+                save_data = all_data[timestamp] 
+                game_screen = self.manager.get_screen('mainpage') 
+                game_screen.load_saved_game(save_data, timestamp) 
+                self.manager.current = 'mainpage' 
 
 class Captain(Screen):
-    selected_dress = StringProperty('')  # Store the selected dress type for the captain
+    selected_dress = StringProperty('')  
 
     def select_dress(self, dress_type, timestamp):
-        filename = 'save_data.json'  # Define the file for saving data
-        if os.path.exists(filename):  # If the save data file exists
+        filename = 'save_data.json'
+        if os.path.exists(filename):  
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the saved data
+                all_data = json.load(f)  
             
-            if timestamp in all_data:  # If the timestamp exists in the saved data
-                save_data = all_data[timestamp]  # Get the saved data for the current timestamp
+            if timestamp in all_data: 
+                save_data = all_data[timestamp] 
 
         # Check if the selected dress is the same as the current dress
         if self.selected_dress == dress_type:
@@ -75,17 +75,17 @@ class Captain(Screen):
                 'blu_dress': save_data['blu_dress'],
                 'green_dress': save_data['green_dress'],
                 'yellow_dress': save_data['yellow_dress'],
-                'selected_dress': 'red',  # Set the selected dress to 'red' as an example
+                'selected_dress': 'red', 
             }
 
-            # Update the data with the new selection
+           
             all_data[timestamp] = updated_data
             
-            # Save the updated data back to the file
+  
             with open(filename, 'w') as f:
                 json.dump(all_data, f, indent=4)
         else:
-            # Update the selected dress if a different one is chosen
+  
             self.selected_dress = dress_type
             updated_data = {
                 'name': save_data['name'],
@@ -100,27 +100,24 @@ class Captain(Screen):
                 'blu_dress': save_data['blu_dress'],
                 'green_dress': save_data['green_dress'],
                 'yellow_dress': save_data['yellow_dress'],
-                'selected_dress': dress_type,  # Set the selected dress to the chosen one
+                'selected_dress': dress_type, 
             }
 
-            # Update the data with the new selection
             all_data[timestamp] = updated_data
             
-            # Save the updated data back to the file
             with open(filename, 'w') as f:
                 json.dump(all_data, f, indent=4)
 
     def load_screen(self, timestamp):
-        grid = self.ids.cap_grid  # Get the grid for displaying the dress options
-        grid.clear_widgets()  # Clear any existing widgets in the grid
-
-        filename = 'save_data.json'  # Define the file for saving data
-        if os.path.exists(filename):  # If the save data file exists
+        grid = self.ids.cap_grid# Get the grid for displaying the dress options
+        grid.clear_widgets()  
+        filename = 'save_data.json'  
+        if os.path.exists(filename):  
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the saved data
+                all_data = json.load(f) 
 
-            if timestamp in all_data:  # If the timestamp exists in the saved data
-                save_data = all_data[timestamp]  # Get the saved data for the current timestamp
+            if timestamp in all_data:  
+                save_data = all_data[timestamp] 
 
             # Create toggle buttons for each available dress based on the saved data
             if save_data['red_dress'] == True:
@@ -185,22 +182,22 @@ class Captain(Screen):
 
 class Projectile_Popup(Popup):
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)  # Initialize the Popup class
-        self.title = ""  # Set the title of the popup
-        self.size_hint = (0.5, 0.5)  # Set the size of the popup
-        self.auto_dismiss = True  # Allow the popup to be dismissed automatically
+        super().__init__(**kwargs)  
+        self.title = "" 
+        self.size_hint = (0.5, 0.5)  
+        self.auto_dismiss = True  
 
     def load_popup(self, timestamp):
-        grid = self.ids.ammo_grid  # Get the grid for displaying the projectiles
-        grid.clear_widgets()  # Clear any existing widgets in the grid
+        grid = self.ids.ammo_grid 
+        grid.clear_widgets()  
 
-        filename = 'save_data.json'  # Define the file for saving data
-        if os.path.exists(filename):  # If the save data file exists
+        filename = 'save_data.json'  
+        if os.path.exists(filename): 
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the saved data
+                all_data = json.load(f)  
 
-            if timestamp in all_data:  # If the timestamp exists in the saved data
-                save_data = all_data[timestamp]  # Get the saved data for the current timestamp
+            if timestamp in all_data: 
+                save_data = all_data[timestamp] 
 
             # Create labels for each available projectile based on the saved data
             if save_data['bullet'] == True:

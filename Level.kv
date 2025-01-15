@@ -2,63 +2,43 @@
 # Importing the Factory class from Kivy for creating dynamic instances of widgets.
 
 <Option@Popup>:
-    # Custom Popup class named Option.
+   
     auto_dismiss: True
-    # Automatically dismiss the popup when touched outside.
     size_hint: (.5, .5)
-    # Size of the popup as a fraction of the window size.
     title: ''
-    # Empty title for the popup.
 
     BoxLayout:
-        # Container with vertical orientation.
         orientation: 'vertical'
 
         Button:
-            # Button to exit the popup and return to levels.
             text: 'Exit'
-            color: 1, 1, 1, 1
-            # Text color set to white.
+            color: 1, 1, 1, 1 # Text color set to white.
             font_size: 30
             font_name: 'fonts/Caribbean.ttf'
-            # Custom font used for the text.
             background_color: 0, 0, 0, 0
-            # Transparent background for the button.
             on_press:
                 root.dismiss()
-                # Close the popup.
                 app.root.current_screen.return_to_levels()
-                # Return to the levels screen.
-
+                
         Label:
-            # Label for "Music" text.
             text: "Music"
             font_size: 30
             font_name: 'fonts/Caribbean.ttf'
 
         Slider:
-            # Slider to adjust music volume.
             id: slider_music
-            value_track: True
-            # Show the value track.
-            value_track_color: [0, 0, 1, 1]
-            # Blue color for the value track.
+            value_track: True # Show the value track.          
+            value_track_color: [0, 0, 1, 1]# Blue color for the value track.           
             min: 0
             max: 1
-            # Slider range from 0 to 1.
-            value: 0.5
-            # Default value set to 0.5.
             on_value: app.change_volume(self.value)
-            # Change music volume when the slider value changes.
 
         Label:
-            # Label for "Sound" text.
             text: "Sound"
             font_size: 30
             font_name: 'fonts/Caribbean.ttf'
 
         Slider:
-            # Slider to adjust sound effects volume.
             id: slider_sound
             value_track: True
             value_track_color: [0, 0, 1, 1]
@@ -66,32 +46,23 @@
             max: 1
             value: 0.5
             on_value: app.root.current_screen.change_volume(self.value)
-            # Change sound effects volume when the slider value changes.
 
 <Help@Popup>:
-    # Custom Popup class named Help.
     auto_dismiss: True
-    # Automatically dismiss the popup when touched outside.
     size_hint: (.8, .8)
-    # Larger size for this popup.
     title: ''
-    # Empty title for the popup.
 
     BoxLayout:
-        # Container with vertical orientation.
         orientation: 'vertical'
 
         Label:
-            # Label to display help text from a file.
             text: app.get_file_content('texts/Help.txt')
             font_name: 'fonts/Caribbean.ttf'
-            # Custom font used for the text.
+ 
 
 <EndLevel>:
-    # Custom layout for the end level screen.
     BoxLayout:
         orientation: 'vertical'
-        # Vertical arrangement of children.
 
         Label:
             # Label to show the congratulatory message.
@@ -99,25 +70,20 @@
             font_name: 'fonts/Caribbean.ttf'
 
         Label:
-            # Label to show the earned coins.
             text: "You have earned 50 coins"
             font_name: 'fonts/Caribbean.ttf'
 
         Label:
-            # Label to show total points.
             text: root.tot_points
             font_name: 'fonts/Caribbean.ttf'
 
         BoxLayout:
-            # Horizontal arrangement for buttons.
             orientation: 'horizontal'
 
             Button:
-                # Button for refreshing the screen.
                 background_color: 0, 0, 0, 0
                 on_press:
                     root.dismiss()
-                    # Close the popup.
                     app.root.current_screen.refresh_screen()
                     # Refresh the current screen.
 
@@ -135,12 +101,11 @@
                 background_color: 0, 0, 0, 0
                 on_press:
                     root.dismiss()
-                    # Close the popup.
                     app.root.current_screen.return_to_levels()
-                    # Return to the levels screen.
+
 
                 Image:
-                    # Image for the play button.
+
                     source: 'images/playButton.png'
                     allow_stretch: True
                     keep_ratio: False
@@ -149,18 +114,14 @@
                     size: 50, 50
 
 <Transition>:
-    # Define a screen named transition.
     name: "transition"
 
 <Level>:
-    # Define a screen named level.
     name: "level"
 
 <Level1>:
-    # Layout for Level 1 screen.
 
     FloatLayout:
-        # Container that uses floating positioning.
 
         Image:
             # Background image for Level 1.
@@ -171,7 +132,6 @@
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
 
         Button:
-            # Button for opening the options popup.
             id: option_button
             background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .9, 'center_y': .9}
@@ -179,14 +139,12 @@
             on_press: Factory.Option().open()
 
             Image:
-                # Image for the options button.
                 source: 'images/options.webp'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 60, 60
 
         Button:
-            # Button for opening the help popup.
             id: help_button
             background_color: 0, 0, 0, 0
             pos_hint: {'center_x': .8, 'center_y': .9}
@@ -194,14 +152,12 @@
             on_press: Factory.Help().open()
 
             Image:
-                # Image for the help button.
                 source: 'images/help-icon-png-16.jpg'
                 center_x: self.parent.center_x
                 center_y: self.parent.center_y
                 size: 60, 60
 
         Label:
-            # Label with instructions.
             text: "Click here to know the rules of the game"
             pos_hint: {'center_x': .45, 'center_y': .9}
             color: (0, 0, 0, 1)
@@ -209,7 +165,6 @@
             font_name: 'fonts/Caribbean.ttf'
 
         Image:
-            # Right arrow icon.
             source: 'images/right-arrow-icon-free-png.webp'
             pos_hint: {'center_x': .7, 'center_y': .9}
             size_hint: (.1, .1)

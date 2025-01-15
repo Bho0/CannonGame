@@ -10,515 +10,433 @@ from mainpage import MainPage
 
 import json
 import os
-
-# BluDress is a Popup window where the user can purchase the blue dress.
+#Each purchasable item has similar implementation
 class BluDress(Popup):
-    manager = ObjectProperty(None)  # Reference to the manager for navigation
-    on_buy_callback = ObjectProperty(None)  # Callback function for after the buy action
+    manager = ObjectProperty(None)
+    on_buy_callback = ObjectProperty(None)
 
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)  # Call the constructor of the Popup class
-        self.title = ""  # Set the title of the popup to an empty string
-        self.size_hint = (0.8, 0.8)  # Set the size of the popup to 80% of the screen width and height
-        self.auto_dismiss = True  # Automatically dismiss the popup when clicking outside of it
-    
-    # Method to load the popup content
+        super().__init__(**kwargs)
+        self.title = ""
+        self.size_hint = (0.8, 0.8)
+        self.auto_dismiss = True
+
     def load_popup(self, timestamp):
-        self.content = BoxLayout(orientation='vertical')  # Create a vertical layout for the content
-
-        filename = 'save_data.json'  # File where game data (including coins) is saved
-        if os.path.exists(filename):  # Check if the save data file exists
+        self.content = BoxLayout(orientation='vertical')
+        filename = 'save_data.json'
+        if os.path.exists(filename):
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the saved data from the file
+                all_data = json.load(f)
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
 
-            if timestamp in all_data:  # If there is data for the given timestamp
-                save_data = all_data[timestamp]  # Get the saved data for the timestamp
-            
-        # Add the title and price labels to the popup
         self.content.add_widget(Label(text="Blue Dress", font_name='fonts/Caribbean.ttf', height=44))
         self.content.add_widget(Label(text="50S", font_name='fonts/Caribbean.ttf', height=44))
 
-        # Check if the user has enough coins to buy the dress
-        if save_data['coins'] < 50:
+        if save_data['coins'] < 50: #Check the json file for the coins
             self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name='fonts/Caribbean.ttf', height=44))
-            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf', disabled=True)  # Disable the buy button if not enough coins
+            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf', disabled=True)
         else:
-            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf',)
-            buy_button.bind(on_press=self.on_buy)  # Bind the buy action to the on_buy method
-        
-        # Add the buy button to the popup
+            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf')
+            buy_button.bind(on_press=self.on_buy)
+
         self.content.add_widget(buy_button)
 
-    # Method called when the buy button is pressed
-    def on_buy(self, instance):
-        if self.on_buy_callback:  # If a callback function is defined
-            self.on_buy_callback()  # Execute the callback
-        self.dismiss()  # Close the popup
+    def on_buy(self, instance): #Handle the purchase
+        if self.on_buy_callback:
+            self.on_buy_callback()
+        self.dismiss()
 
-
-# GreenDress is a Popup window where the user can purchase the green dress (similar to BluDress)
 class GreenDress(Popup):
-    manager = ObjectProperty(None)  # Reference to the manager for navigation
-    on_buy_callback = ObjectProperty(None)  # Callback function for after the buy action
+    manager = ObjectProperty(None)
+    on_buy_callback = ObjectProperty(None)
 
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)  # Call the constructor of the Popup class
-        self.title = ""  # Set the title of the popup to an empty string
-        self.size_hint = (0.8, 0.8)  # Set the size of the popup to 80% of the screen width and height
-        self.auto_dismiss = True  # Automatically dismiss the popup when clicking outside of it
-    
+        super().__init__(**kwargs)
+        self.title = ""
+        self.size_hint = (0.8, 0.8)
+        self.auto_dismiss = True
+
     def load_popup(self, timestamp):
-        self.content = BoxLayout(orientation='vertical')  # Create a vertical layout for the content
-
-        filename = 'save_data.json'  # File where game data (including coins) is saved
-        if os.path.exists(filename):  # Check if the save data file exists
+        self.content = BoxLayout(orientation='vertical')
+        filename = 'save_data.json'
+        if os.path.exists(filename):
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the saved data from the file
+                all_data = json.load(f)
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
 
-            if timestamp in all_data:  # If there is data for the given timestamp
-                save_data = all_data[timestamp]  # Get the saved data for the timestamp
-            
-        # Add the title and price labels to the popup
         self.content.add_widget(Label(text="Green Dress", font_name='fonts/Caribbean.ttf', height=44))
         self.content.add_widget(Label(text="50S", font_name='fonts/Caribbean.ttf', height=44))
 
-        # Check if the user has enough coins to buy the dress
         if save_data['coins'] < 50:
             self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name='fonts/Caribbean.ttf', height=44))
-            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf', disabled=True)  # Disable the buy button if not enough coins
+            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf', disabled=True)
         else:
-            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf',)
-            buy_button.bind(on_press=self.on_buy)  # Bind the buy action to the on_buy method
-        
-        # Add the buy button to the popup
+            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf')
+            buy_button.bind(on_press=self.on_buy)
+
         self.content.add_widget(buy_button)
 
-    # Method called when the buy button is pressed
     def on_buy(self, instance):
-        if self.on_buy_callback:  # If a callback function is defined
-            self.on_buy_callback()  # Execute the callback
-        self.dismiss()  # Close the popup
+        if self.on_buy_callback:
+            self.on_buy_callback()
+        self.dismiss()
 
-
-# YellowDress is a Popup window where the user can purchase the yellow dress (similar to BluDress)
 class YellowDress(Popup):
-    manager = ObjectProperty(None)  # Reference to the manager for navigation
-    on_buy_callback = ObjectProperty(None)  # Callback function for after the buy action
+    manager = ObjectProperty(None)
+    on_buy_callback = ObjectProperty(None)
 
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)  # Call the constructor of the Popup class
-        self.title = ""  # Set the title of the popup to an empty string
-        self.size_hint = (0.8, 0.8)  # Set the size of the popup to 80% of the screen width and height
-        self.auto_dismiss = True  # Automatically dismiss the popup when clicking outside of it
-    
+        super().__init__(**kwargs)
+        self.title = ""
+        self.size_hint = (0.8, 0.8)
+        self.auto_dismiss = True
+
     def load_popup(self, timestamp):
-        self.content = BoxLayout(orientation='vertical')  # Create a vertical layout for the content
-
-        filename = 'save_data.json'  # File where game data (including coins) is saved
-        if os.path.exists(filename):  # Check if the save data file exists
+        self.content = BoxLayout(orientation='vertical')
+        filename = 'save_data.json'
+        if os.path.exists(filename):
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the saved data from the file
+                all_data = json.load(f)
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
 
-            if timestamp in all_data:  # If there is data for the given timestamp
-                save_data = all_data[timestamp]  # Get the saved data for the timestamp
-            
-        # Add the title and price labels to the popup
         self.content.add_widget(Label(text="Yellow Dress", font_name='fonts/Caribbean.ttf', height=44))
         self.content.add_widget(Label(text="50S", font_name='fonts/Caribbean.ttf', height=44))
 
-        # Check if the user has enough coins to buy the dress
         if save_data['coins'] < 50:
             self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name='fonts/Caribbean.ttf', height=44))
-            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf', disabled=True)  # Disable the buy button if not enough coins
+            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf', disabled=True)
         else:
-            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf',)
-            buy_button.bind(on_press=self.on_buy)  # Bind the buy action to the on_buy method
-        
-        # Add the buy button to the popup
+            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf')
+            buy_button.bind(on_press=self.on_buy)
+
         self.content.add_widget(buy_button)
 
-    # Method called when the buy button is pressed
     def on_buy(self, instance):
-        if self.on_buy_callback:  # If a callback function is defined
-            self.on_buy_callback()  # Execute the callback
-        self.dismiss()  # Close the popup
+        if self.on_buy_callback:
+            self.on_buy_callback()
+        self.dismiss()
 
-
-# Bomb is a Popup window where the user can purchase a bomb (similar to previous items)
 class Bomb(Popup):
-    manager = ObjectProperty(None)  # Reference to the manager for navigation
-    on_buy_callback = ObjectProperty(None)  # Callback function for after the buy action
+    manager = ObjectProperty(None)
+    on_buy_callback = ObjectProperty(None)
 
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)  # Call the constructor of the Popup class
-        self.title = ""  # Set the title of the popup to an empty string
-        self.size_hint = (0.8, 0.8)  # Set the size of the popup to 80% of the screen width and height
-        self.auto_dismiss = True  # Automatically dismiss the popup when clicking outside of it
-    
+        super().__init__(**kwargs)
+        self.title = ""
+        self.size_hint = (0.8, 0.8)
+        self.auto_dismiss = True
+
     def load_popup(self, timestamp):
-        self.content = BoxLayout(orientation='vertical')  # Create a vertical layout for the content
-
-        filename = 'save_data.json'  # File where game data (including coins) is saved
-        if os.path.exists(filename):  # Check if the save data file exists
+        self.content = BoxLayout(orientation='vertical')
+        filename = 'save_data.json'
+        if os.path.exists(filename):
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the saved data from the file
+                all_data = json.load(f)
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
 
-            if timestamp in all_data:  # If there is data for the given timestamp
-                save_data = all_data[timestamp]  # Get the saved data for the timestamp
-            
-        # Add the title and price labels to the popup
         self.content.add_widget(Label(text="Bomb", font_name='fonts/Caribbean.ttf', height=44))
         self.content.add_widget(Label(text="50S", font_name='fonts/Caribbean.ttf', height=44))
 
-        # Check if the user has enough coins to buy the bomb
         if save_data['coins'] < 50:
             self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name='fonts/Caribbean.ttf', height=44))
-            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf', disabled=True)  # Disable the buy button if not enough coins
+            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf', disabled=True)
         else:
-            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf',)
-            buy_button.bind(on_press=self.on_buy)  # Bind the buy action to the on_buy method
-        
-        # Add the buy button to the popup
+            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf')
+            buy_button.bind(on_press=self.on_buy)
+
         self.content.add_widget(buy_button)
 
-    # Method called when the buy button is pressed
     def on_buy(self, instance):
-        if self.on_buy_callback:  # If a callback function is defined
-            self.on_buy_callback()  # Execute the callback
-        self.dismiss()  # Close the popup
+        if self.on_buy_callback:
+            self.on_buy_callback()
+        self.dismiss()
 
-
-# Laser is a Popup window where the user can purchase a laser (similar to previous items)
 class Laser(Popup):
-    manager = ObjectProperty(None)  # Reference to the manager for navigation
-    on_buy_callback = ObjectProperty(None)  # Callback function for after the buy action
+    manager = ObjectProperty(None)
+    on_buy_callback = ObjectProperty(None)
 
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)  # Call the constructor of the Popup class
-        self.title = ""  # Set the title of the popup to an empty string
-        self.size_hint = (0.8, 0.8)  # Set the size of the popup to 80% of the screen width and height
-        self.auto_dismiss = True  # Automatically dismiss the popup when clicking outside of it
+        super().__init__(**kwargs)
+        self.title = ""
+        self.size_hint = (0.8, 0.8)
+        self.auto_dismiss = True
         self.attention_popup = None
-    
+
     def load_popup(self, timestamp):
-        self.content = BoxLayout(orientation='vertical')  # Create a vertical layout for the content
-
-        filename = 'save_data.json'  # File where game data (including coins) is saved
-        if os.path.exists(filename):  # Check if the save data file exists
+        self.content = BoxLayout(orientation='vertical')
+        filename = 'save_data.json'
+        if os.path.exists(filename):
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the saved data from the file
+                all_data = json.load(f)
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
 
-            if timestamp in all_data:  # If there is data for the given timestamp
-                save_data = all_data[timestamp]  # Get the saved data for the timestamp
-            
-        # Add the title and price labels to the popup
         self.content.add_widget(Label(text="Laser", font_name='fonts/Caribbean.ttf', height=44))
         self.content.add_widget(Label(text="50S", font_name='fonts/Caribbean.ttf', height=44))
 
-        # Check if the user has enough coins to buy the laser
         if save_data['coins'] < 50:
             self.content.add_widget(Label(text="YOU DON'T HAVE ENOUGH MONEY", font_name='fonts/Caribbean.ttf', height=44))
-            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf', disabled=True)  # Disable the buy button if not enough coins
+            buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf', disabled=True)
         else:
             buy_button = Button(text="BUY", font_name='fonts/Caribbean.ttf')
-            buy_button.bind(on_press=self.on_buy)  # Bind the buy action to the on_buy method
-        
-        # Add the buy button to the popup
+            buy_button.bind(on_press=self.on_buy)
+
         self.content.add_widget(buy_button)
 
-    # Method called when the buy button is pressed
     def on_buy(self, instance):
         instance.disabled = True
-        if not self.attention_popup:  # If the laser popup is not yet created
-            self.attention_popup = Attention(manager=self.manager)  # Create the popup
-        self.attention_popup.load_popup()  # Load the popup with the timestamp data
-        self.attention_popup.open()  # Open the popup
-        if self.on_buy_callback:  # If a callback function is defined
-            self.on_buy_callback()  # Execute the callback
+        if not self.attention_popup:
+            self.attention_popup = Attention(manager=self.manager)
+        self.attention_popup.load_popup()
+        self.attention_popup.open()
+        if self.on_buy_callback:
+            self.on_buy_callback()
         self.dismiss()
 
-class Attention(Popup):
+class Attention(Popup): #Load a message
     manager = ObjectProperty(None)
-    on_buy_callback = ObjectProperty(None)  # Callback function for after the buy action
+    on_buy_callback = ObjectProperty(None)
 
     def __init__(self, **kwargs):
-        super().__init__(**kwargs)  # Call the constructor of the Popup class
-        self.title = ""  # Set the title of the popup to an empty string
-        self.size_hint = (0.8, 0.8)  # Set the size of the popup to 80% of the screen width and height
-        self.auto_dismiss = True  # Automatically dismiss the popup when clicking outside of it
+        super().__init__(**kwargs)
+        self.title = ""
+        self.size_hint = (0.8, 0.8)
+        self.auto_dismiss = True
 
     def load_popup(self):
-        self.content = BoxLayout(orientation='vertical')  # Create a vertical layout for the content
-            
-        # Add the title and price labels to the popup
+        self.content = BoxLayout(orientation='vertical')
         self.content.add_widget(Label(text="OH NO! This Merchant sold us a defected laser!", font_name='fonts/Caribbean.ttf', height=44))
         self.content.add_widget(Label(text="Now the aim isn't precise as it should be!", font_name='fonts/Caribbean.ttf', height=44))
-        
+
         close_button = Button(text="CLOSE", font_name='fonts/Caribbean.ttf')
-        close_button.bind(on_press=self.on_close)  # Bind the buy action to the on_buy method
+        close_button.bind(on_press=self.on_close)
 
         self.content.add_widget(close_button)
-    
+
     def on_close(self, instance):
         self.dismiss()
 
-        
-# The Market class is a screen that allows users to navigate through different stores in the game.
+#Different screens and navigation instructions, using Json to keep track of data
 class Market(Screen):
-    timestamp = StringProperty("")  # Stores the current timestamp for game save data
+    timestamp = StringProperty("")
 
     def load_screen(self, timestamp):
-        # Method to load the screen and set the timestamp
         self.timestamp = timestamp
-    
+
     def goto_dressingRoom(self, timestamp):
-        # Navigate to the DressingRoom screen
-        game_screen = self.manager.get_screen('dressingRoom')  # Get the DressingRoom screen
-        game_screen.load_screen(timestamp)  # Pass the timestamp to the DressingRoom screen
-        self.manager.current = 'dressingRoom'  # Switch to the DressingRoom screen
-    
+        game_screen = self.manager.get_screen('dressingRoom')
+        game_screen.load_screen(timestamp)
+        self.manager.current = 'dressingRoom'
+
     def goto_projectileStore(self, timestamp):
-        # Navigate to the ProjectileStore screen
-        game_screen = self.manager.get_screen('projectileStore')  # Get the ProjectileStore screen
-        game_screen.load_screen(timestamp)  # Pass the timestamp to the ProjectileStore screen
-        self.manager.current = 'projectileStore'  # Switch to the ProjectileStore screen
-    
+        game_screen = self.manager.get_screen('projectileStore')
+        game_screen.load_screen(timestamp)
+        self.manager.current = 'projectileStore'
+
     def goto_mainpage(self, timestamp):
-        # Navigate to the MainPage screen
         app = App.get_running_app()
-        app.add_screen(MainPage, 'mainpage')  # Add MainPage screen to the app
+        app.add_screen(MainPage, 'mainpage')
         filename = 'save_data.json'
-        if os.path.exists(filename):  # Check if the save data file exists
+        if os.path.exists(filename):
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the save data from the file
-            
-            if timestamp in all_data:  # If data exists for the timestamp
-                save_data = all_data[timestamp]  # Get the saved game data
-                game_screen = self.manager.get_screen('mainpage')  # Get the MainPage screen
-                game_screen.load_saved_game(save_data, timestamp)  # Pass the saved game data to the MainPage screen
-                self.manager.current = 'mainpage'  # Switch to the MainPage screen
+                all_data = json.load(f)
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
+                game_screen = self.manager.get_screen('mainpage')
+                game_screen.load_saved_game(save_data, timestamp)
+                self.manager.current = 'mainpage'
 
-
-# The DressingRoom class represents the dressing room screen, where users can buy dresses.
 class DressingRoom(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.blu_dress_popup = None  # Initialize the blue dress popup as None
-        self.green_dress_popup = None  # Initialize the green dress popup as None
-        self.yellow_dress_popup = None  # Initialize the yellow dress popup as None
+        self.blu_dress_popup = None
+        self.green_dress_popup = None
+        self.yellow_dress_popup = None
     
     def load_screen(self, timestamp):
-        # Load the screen and display the available dresses based on the timestamp (saved game data)
         grid = self.ids.dress_grid
-        grid.clear_widgets()  # Clear the grid before adding new buttons
+        grid.clear_widgets()
 
         filename = 'save_data.json'
-        if os.path.exists(filename):  # Check if the save data file exists
+        if os.path.exists(filename):
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the save data from the file
+                all_data = json.load(f)
 
-            if timestamp in all_data:  # If data exists for the timestamp
-                save_data = all_data[timestamp]  # Get the saved game data
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
 
-                # Check if the blue dress is not bought
-                if save_data['blu_dress'] == False:
-                    # Create a button to buy the blue dress
-                    button = Button(text=f"blu dress",
+                if save_data['blu_dress'] == False: #Check if the blu dress has been bought, if not, make it available to purchase
+                    button = Button(text="blu dress",
                                     background_normal='images/blue_dress.png',
-                                    font_name= 'fonts/Caribbean.ttf',
+                                    font_name='fonts/Caribbean.ttf',
                                     on_press=lambda btn, ts=timestamp: self.open_blu_dress_popup(ts)
                                     )
                     grid.add_widget(button)
-                else: 
-                    # Disable the button if the blue dress is already bought
-                    button = Button(text=f"SOLD",
-                                    font_name= 'fonts/Caribbean.ttf',
+                else:
+                    button = Button(text="SOLD",
+                                    font_name='fonts/Caribbean.ttf',
                                     disabled=True
                                     )
                     grid.add_widget(button)
                 
-                # Check if the green dress is not bought
                 if save_data['green_dress'] == False:
-                    # Create a button to buy the green dress
-                    button = Button(text=f"green dress",
+                    button = Button(text="green dress",
                                     background_normal='images/green_dress(1).png',
-                                    font_name= 'fonts/Caribbean.ttf',
+                                    font_name='fonts/Caribbean.ttf',
                                     on_press=lambda btn, ts=timestamp: self.open_green_dress_popup(ts)
                                     )
                     grid.add_widget(button)
-                else: 
-                    # Disable the button if the green dress is already bought
-                    button = Button(text=f"SOLD",
-                                    font_name= 'fonts/Caribbean.ttf',
+                else:
+                    button = Button(text="SOLD",
+                                    font_name='fonts/Caribbean.ttf',
                                     disabled=True
                                     )
                     grid.add_widget(button)
                 
-                # Check if the yellow dress is not bought
                 if save_data['yellow_dress'] == False:
-                    # Create a button to buy the yellow dress
-                    button = Button(text=f"yellow dress",
+                    button = Button(text="yellow dress",
                                     background_normal='images/yellow_dress.png',
-                                    font_name= 'fonts/Caribbean.ttf',
+                                    font_name='fonts/Caribbean.ttf',
                                     on_press=lambda btn, ts=timestamp: self.open_yellow_dress_popup(ts)
                                     )
                     grid.add_widget(button)
-                else: 
-                    # Disable the button if the yellow dress is already bought
-                    button = Button(text=f"SOLD",
-                                    font_name= 'fonts/Caribbean.ttf',
+                else:
+                    button = Button(text="SOLD",
+                                    font_name='fonts/Caribbean.ttf',
                                     disabled=True
                                     )
                     grid.add_widget(button)
-    
-    # Opens a popup to buy the blue dress
+    #popup for each dress and methods for completing the purchase
     def open_blu_dress_popup(self, timestamp):
-        if not self.blu_dress_popup:  # If the blue dress popup is not yet created
-            self.blu_dress_popup = BluDress(manager=self.manager)  # Create the popup
-            self.blu_dress_popup.on_buy_callback = lambda: self.on_blu_dress_bought(timestamp)  # Set the callback after purchase
-        self.blu_dress_popup.load_popup(timestamp)  # Load the popup with the timestamp data
-        self.blu_dress_popup.open()  # Open the popup
+        if not self.blu_dress_popup:
+            self.blu_dress_popup = BluDress(manager=self.manager)
+            self.blu_dress_popup.on_buy_callback = lambda: self.on_blu_dress_bought(timestamp)
+        self.blu_dress_popup.load_popup(timestamp)
+        self.blu_dress_popup.open()
 
-    # Logic for buying the blue dress
     def on_blu_dress_bought(self, timestamp):
-        self.update_save_data(timestamp, "blu_dress", 50)  # Update the save data for blue dress purchase
-        self.load_screen(timestamp)  # Reload the screen to update the buttons
+        self.update_save_data(timestamp, "blu_dress", 50)
+        self.load_screen(timestamp)
     
-    # Opens a popup to buy the green dress
     def open_green_dress_popup(self, timestamp):
-        if not self.green_dress_popup:  # If the green dress popup is not yet created
-            self.green_dress_popup = GreenDress(manager=self.manager)  # Create the popup
-            self.green_dress_popup.on_buy_callback = lambda: self.on_green_dress_bought(timestamp)  # Set the callback after purchase
-        self.green_dress_popup.load_popup(timestamp)  # Load the popup with the timestamp data
-        self.green_dress_popup.open()  # Open the popup
+        if not self.green_dress_popup:
+            self.green_dress_popup = GreenDress(manager=self.manager)
+            self.green_dress_popup.on_buy_callback = lambda: self.on_green_dress_bought(timestamp)
+        self.green_dress_popup.load_popup(timestamp)
+        self.green_dress_popup.open()
 
-    # Logic for buying the green dress
     def on_green_dress_bought(self, timestamp):
-        self.update_save_data(timestamp, "green_dress", 50)  # Update the save data for green dress purchase
-        self.load_screen(timestamp)  # Reload the screen to update the buttons
+        self.update_save_data(timestamp, "green_dress", 50)
+        self.load_screen(timestamp)
     
-    # Opens a popup to buy the yellow dress
     def open_yellow_dress_popup(self, timestamp):
-        if not self.yellow_dress_popup:  # If the yellow dress popup is not yet created
-            self.yellow_dress_popup = YellowDress(manager=self.manager)  # Create the popup
-            self.yellow_dress_popup.on_buy_callback = lambda: self.on_yellow_dress_bought(timestamp)  # Set the callback after purchase
-        self.yellow_dress_popup.load_popup(timestamp)  # Load the popup with the timestamp data
-        self.yellow_dress_popup.open()  # Open the popup
+        if not self.yellow_dress_popup:
+            self.yellow_dress_popup = YellowDress(manager=self.manager)
+            self.yellow_dress_popup.on_buy_callback = lambda: self.on_yellow_dress_bought(timestamp)
+        self.yellow_dress_popup.load_popup(timestamp)
+        self.yellow_dress_popup.open()
 
-    # Logic for buying the yellow dress
     def on_yellow_dress_bought(self, timestamp):
-        self.update_save_data(timestamp, "yellow_dress", 50)  # Update the save data for yellow dress purchase
-        self.load_screen(timestamp)  # Reload the screen to update the buttons
+        self.update_save_data(timestamp, "yellow_dress", 50)
+        self.load_screen(timestamp)
     
-    # Updates the save data with the purchase of the dress
     def update_save_data(self, timestamp, dress_type, cost):
         filename = 'save_data.json'
-        if os.path.exists(filename):  # Check if the save data file exists
+        if os.path.exists(filename):
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the save data from the file
+                all_data = json.load(f)
 
-            if timestamp in all_data:  # If data exists for the timestamp
-                save_data = all_data[timestamp]  # Get the saved game data
-                save_data[dress_type] = True  # Mark the dress as bought
-                save_data['coins'] -= cost  # Deduct the cost from the coins
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
+                save_data[dress_type] = True
+                save_data['coins'] -= cost
 
-            # Save the updated data back to the file
             with open(filename, 'w') as f:
                 json.dump(all_data, f, indent=4)
 
 
-# The ProjectileStore class represents the screen where users can buy projectiles like bombs and lasers.
 class ProjectileStore(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.bomb_popup = None  # Initialize the bomb popup as None
-        self.laser_popup = None  # Initialize the laser popup as None
+        self.bomb_popup = None
+        self.laser_popup = None
 
     def load_screen(self, timestamp):
-        # Load the screen and display the available projectiles based on the timestamp (saved game data)
         grid = self.ids.prj_grid
-        grid.clear_widgets()  # Clear the grid before adding new buttons
+        grid.clear_widgets()
 
         filename = 'save_data.json'
-        if os.path.exists(filename):  # Check if the save data file exists
+        if os.path.exists(filename):
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the save data from the file
+                all_data = json.load(f)
 
-            if timestamp in all_data:  # If data exists for the timestamp
-                save_data = all_data[timestamp]  # Get the saved game data
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
 
-                # Check if the bomb is not bought
-                if save_data['bomb'] == False:
-                    # Create a button to buy the bomb
-                    button = Button(text=f"bomb",
-                                    font_name= 'fonts/Caribbean.ttf',
+                if save_data['bomb'] == False: #display projectiles if they can be bought
+                    button = Button(text="bomb",
+                                    font_name='fonts/Caribbean.ttf',
                                     background_color=(0, 0, 0, 0.6),
                                     on_press=lambda btn, ts=timestamp: self.open_bomb_popup(ts)
                                     )
                     grid.add_widget(button)
-                else: 
-                    # Disable the button if the bomb is already bought
-                    button = Button(text=f"SOLD",
-                                    font_name= 'fonts/Caribbean.ttf',
+                else:
+                    button = Button(text="SOLD",
+                                    font_name='fonts/Caribbean.ttf',
                                     disabled=True
                                     )
                     grid.add_widget(button)
                 
-                # Check if the laser is not bought
                 if save_data['laser'] == False:
-                    # Create a button to buy the laser
-                    button = Button(text=f"laser",
-                                    font_name= 'fonts/Caribbean.ttf',
+                    button = Button(text="laser",
+                                    font_name='fonts/Caribbean.ttf',
                                     background_color=(0, 0, 0, 0.6),
                                     on_press=lambda btn, ts=timestamp: self.open_laser_popup(ts)
                                     )
                     grid.add_widget(button)
-                else: 
-                    # Disable the button if the laser is already bought
-                    button = Button(text=f"SOLD",
-                                    font_name= 'fonts/Caribbean.ttf',
+                else:
+                    button = Button(text="SOLD",
+                                    font_name='fonts/Caribbean.ttf',
                                     disabled=True
                                     )
                     grid.add_widget(button)
-    
-    # Opens a popup to buy the bomb
+    #Handle purchase of bomb and laser
     def open_bomb_popup(self, timestamp):
-        if not self.bomb_popup:  # If the bomb popup is not yet created
-            self.bomb_popup = Bomb(manager=self.manager)  # Create the popup
-            self.bomb_popup.on_buy_callback = lambda: self.on_bomb_bought(timestamp)  # Set the callback after purchase
-        self.bomb_popup.load_popup(timestamp)  # Load the popup with the timestamp data
-        self.bomb_popup.open()  # Open the popup
+        if not self.bomb_popup:
+            self.bomb_popup = Bomb(manager=self.manager)
+            self.bomb_popup.on_buy_callback = lambda: self.on_bomb_bought(timestamp)
+        self.bomb_popup.load_popup(timestamp)
+        self.bomb_popup.open()
 
-    # Logic for buying the bomb
     def on_bomb_bought(self, timestamp):
-        self.update_save_data(timestamp, "bomb", 50)  # Update the save data for bomb purchase
-        self.load_screen(timestamp)  # Reload the screen to update the buttons
+        self.update_save_data(timestamp, "bomb", 50)
+        self.load_screen(timestamp)
     
-    # Opens a popup to buy the laser
     def open_laser_popup(self, timestamp):
-        if not self.laser_popup:  # If the laser popup is not yet created
-            self.laser_popup = Laser(manager=self.manager)  # Create the popup
-            self.laser_popup.on_buy_callback = lambda: self.on_laser_bought(timestamp)  # Set the callback after purchase
-        self.laser_popup.load_popup(timestamp)  # Load the popup with the timestamp data
-        self.laser_popup.open()  # Open the popup
+        if not self.laser_popup:
+            self.laser_popup = Laser(manager=self.manager)
+            self.laser_popup.on_buy_callback = lambda: self.on_laser_bought(timestamp)
+        self.laser_popup.load_popup(timestamp)
+        self.laser_popup.open()
 
-    # Logic for buying the laser
     def on_laser_bought(self, timestamp):
-        self.update_save_data(timestamp, "laser", 50)  # Update the save data for laser purchase
-        self.load_screen(timestamp)  # Reload the screen to update the buttons
+        self.update_save_data(timestamp, "laser", 50)
+        self.load_screen(timestamp)
     
-    # Updates the save data with the purchase of the projectile
     def update_save_data(self, timestamp, projectile_type, cost):
         filename = 'save_data.json'
-        if os.path.exists(filename):  # Check if the save data file exists
+        if os.path.exists(filename):
             with open(filename, 'r') as f:
-                all_data = json.load(f)  # Load the save data from the file
+                all_data = json.load(f)
 
-            if timestamp in all_data:  # If data exists for the timestamp
-                save_data = all_data[timestamp]  # Get the saved game data
-                save_data[projectile_type] = True  # Mark the projectile as bought
-                save_data['coins'] -= cost  # Deduct the cost from the coins
+            if timestamp in all_data:
+                save_data = all_data[timestamp]
+                save_data[projectile_type] = True
+                save_data['coins'] -= cost
 
-            # Save the updated data back to the file
             with open(filename, 'w') as f:
                 json.dump(all_data, f, indent=4)

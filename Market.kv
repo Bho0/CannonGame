@@ -12,135 +12,131 @@
 
 # Market screen where users can purchase items
 <Market>:
-    name: 'market'  # Name of the screen for navigation purposes
+    name: 'market' 
     
     FloatLayout:
-        # Image to represent the background or setting of the market
+
         Image:
-            source: 'images/Concept_Art_pirate_market_stand_3.jpg'  # Background image
-            allow_stretch: True  # Allow image to stretch to fit the layout
-            keep_ratio: False  # Do not maintain the aspect ratio of the image
-            size_hint: (1, 1)  # Image takes up the full size of the layout
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  # Center the image on the screen
-        
+            source: 'images/Concept_Art_pirate_market_stand_3.jpg' 
+            allow_stretch: True  
+            keep_ratio: False 
+            size_hint: (1, 1) 
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  
+            
         BoxLayout:
-            orientation: 'vertical'  # Organize widgets vertically
+            orientation: 'vertical'  
             
             Label:
-                text: 'This is our market:'  # Text label for the market screen
-                font_size: 32  # Set the font size
-                font_name: 'fonts/Caribbean.ttf'  # Custom font for the label
+                text: 'This is our market:'
+                font_size: 32
+                font_name: 'fonts/Caribbean.ttf' 
             
-            # Grid layout to display buttons for different sections of the market
+            
             GridLayout:
-                cols: 3  # 3 columns in the grid
-                spacing: '10dp'  # Spacing between elements
-                padding: '10dp'  # Padding around the grid
+                cols: 3 
+                spacing: '10dp'  
+                padding: '10dp'
                 
                 Button:
-                    text: 'Dressing room'  # Button text
-                    font_name: 'fonts/Caribbean.ttf'  # Custom font
-                    background_color: 0, 0, 0, 0.6  # Semi-transparent black background
+                    text: 'Dressing room'
+                    font_name: 'fonts/Caribbean.ttf'
+                    background_color: 0, 0, 0, 0.6 
                     on_press: root.goto_dressingRoom(root.timestamp)  # Navigate to dressing room on press
                 
                 Button:
-                    text: 'Projectile store'  # Button text
-                    font_name: 'fonts/Caribbean.ttf'  # Custom font
-                    background_color: 0, 0, 0, 0.6  # Semi-transparent black background
+                    text: 'Projectile store'
+                    font_name: 'fonts/Caribbean.ttf' 
+                    background_color: 0, 0, 0, 0.6 
                     on_press: root.goto_projectileStore(root.timestamp)  # Navigate to projectile store on press
 
-        # Button to navigate back to the main page
+      
         Button:
-            pos_hint: {'center_x': .05, 'center_y': .91}  # Position of the button on the screen
-            size_hint: (.1, .1)  # Size of the button (10% of the screen size)
-            background_color: 0, 0, 0, 0  # Transparent background
+            pos_hint: {'center_x': .05, 'center_y': .91} 
+            size_hint: (.1, .1) 
+            background_color: 0, 0, 0, 0  
             on_press: 
-                root.goto_mainpage(root.timestamp)  # Navigate to main page on press
+                root.goto_mainpage(root.timestamp) 
             Image:
-                source: 'images/homeButton.png'  # Image for the button
-                center_x: self.parent.center_x  # Center the image horizontally
-                center_y: self.parent.center_y  # Center the image vertically
-                size: 50, 50  # Set the size of the image
-
+                source: 'images/homeButton.png' 
+                center_x: self.parent.center_x 
+                center_y: self.parent.center_y  
+                size: 50, 50  
 # Dressing room screen where users can choose different outfits
 <DressingRoom>:
-    name: 'dressingRoom'  # Name of the screen for navigation purposes
+    name: 'dressingRoom' 
     
     FloatLayout:
-        # Image to represent the background or setting of the dressing room
+ 
         Image:
             source: 'images/Concept_Art_pirate_market_stand_3.jpg'  # Background image
-            allow_stretch: True  # Allow image to stretch to fit the layout
-            keep_ratio: False  # Do not maintain the aspect ratio of the image
-            size_hint: (1, 1)  # Image takes up the full size of the layout
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  # Center the image on the screen
+            allow_stretch: True 
+            keep_ratio: False  
+            size_hint: (1, 1)  
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  
         
         BoxLayout:
-            orientation: 'vertical'  # Organize widgets vertically
+            orientation: 'vertical'  
             
             Label:
-                text: 'Choose your style:'  # Text label for the dressing room screen
-                font_size: 32  # Set the font size
-                font_name: 'fonts/Caribbean.ttf'  # Custom font for the label
+                text: 'Choose your style:' 
+                font_size: 32 
+                font_name: 'fonts/Caribbean.ttf' 
             
-            # Grid layout to display dress options
+           
             GridLayout:
-                id: dress_grid  # ID to reference the grid in Python code
-                cols: 3  # 3 columns in the grid
-                spacing: '10dp'  # Spacing between elements
-                padding: '10dp'  # Padding around the grid
+                id: dress_grid 
+                cols: 3 
+                spacing: '10dp' 
+                padding: '10dp' 
 
         # Button to navigate back to the market screen
         Button:
-            pos_hint: {'center_x': .05, 'center_y': .91}  # Position of the button on the screen
-            size_hint: (.1, .1)  # Size of the button (10% of the screen size)
-            background_color: 0, 0, 0, 0  # Transparent background
-            on_press: app.root.current = 'market'  # Navigate to market screen on press
+            pos_hint: {'center_x': .05, 'center_y': .91}  
+            size_hint: (.1, .1)  
+            background_color: 0, 0, 0, 0  
+            on_press: app.root.current = 'market'
             Image:
-                source: 'images/undo.png'  # Image for the button (undo icon)
-                center_x: self.parent.center_x  # Center the image horizontally
-                center_y: self.parent.center_y  # Center the image vertically
-                size: 50, 50  # Set the size of the image
-
+                source: 'images/undo.png'  
+                center_x: self.parent.center_x 
+                center_y: self.parent.center_y 
+                size: 50, 50 
 # Projectile store screen where users can buy projectiles
 <ProjectileStore>:
-    name: 'projectileStore'  # Name of the screen for navigation purposes
-    
+    name: 'projectileStore' 
     FloatLayout:
-        # Image to represent the background or setting of the projectile store
         Image:
             source: 'images/Concept_Art_pirate_market_stand_3.jpg'  # Background image
-            allow_stretch: True  # Allow image to stretch to fit the layout
-            keep_ratio: False  # Do not maintain the aspect ratio of the image
-            size_hint: (1, 1)  # Image takes up the full size of the layout
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  # Center the image on the screen
+            allow_stretch: True
+            keep_ratio: False 
+            size_hint: (1, 1) 
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5} 
         
         BoxLayout:
-            orientation: 'vertical'  # Organize widgets vertically
+            orientation: 'vertical'
             
             Label:
-                text: 'Buy your projectiles'  # Text label for the projectile store screen
-                font_size: 32  # Set the font size
-                font_name: 'fonts/Caribbean.ttf'  # Custom font for the label
+                text: 'Buy your projectiles'
+                font_size: 32
+                font_name: 'fonts/Caribbean.ttf'  
             
-            # Grid layout to display projectile options
+            
             GridLayout:
-                id: prj_grid  # ID to reference the grid in Python code
-                cols: 2  # 2 columns in the grid
-                spacing: '10dp'  # Spacing between elements
-                padding: '10dp'  # Padding around the grid
+                id: prj_grid 
+                cols: 2  
+                spacing: '10dp'  
+                padding: '10dp'  
 
         # Button to navigate back to the market screen
         Button:
-            pos_hint: {'center_x': .05, 'center_y': .91}  # Position of the button on the screen
-            size_hint: (.1, .1)  # Size of the button (10% of the screen size)
-            background_color: 0, 0, 0, 0  # Transparent background
-            on_press: app.root.current = 'market'  # Navigate to market screen on press
+            pos_hint: {'center_x': .05, 'center_y': .91} 
+            size_hint: (.1, .1) 
+            background_color: 0, 0, 0, 0
+            on_press: app.root.current = 'market'  
             Image:
-                source: 'images/undo.png'  # Image for the button (undo icon)
-                center_x: self.parent.center_x  # Center the image horizontally
-                center_y: self.parent.center_y  # Center the image vertically
-                size: 50, 50  # Set the size of the image
+                source: 'images/undo.png'  
+                center_x: self.parent.center_x  
+                center_y: self.parent.center_y  
+                size: 50, 50  
 
 
 

@@ -23,7 +23,7 @@ class EndLevel(Popup):
         self.size_hint = (0.5, 0.5)
         self.auto_dismiss = False
         self.update_tot_points(par)
-    
+    # Update total points based on the number of shots compared to par
     def update_tot_points(self, par, *args):
         self.tot_shooted = cannon.shoot_count
         if self.tot_shooted <= par:
@@ -36,8 +36,8 @@ class Transition(Screen):
     def load_screen(self, selected_prj, timestamp, screen_class, name):
         app = App.get_running_app()
         app.add_screen(screen_class, name)
-        game_screen = app.root.get_screen(name)  # Ottieni il nuovo schermo
-        game_screen.load_screen(selected_prj, timestamp, screen_class)  # Passa i dati al nuovo schermo
+        game_screen = app.root.get_screen(name)  # Get new screen
+        game_screen.load_screen(selected_prj, timestamp, screen_class)  # Load data in the new screen
         app.root.current = name
 
 
@@ -60,7 +60,6 @@ class Level(Screen):
         self.flag_collisionxy = True
     
     def change_volume(self, value):
-        # Cambia il volume della musica
         if self.basic_cannon:
             if self.basic_cannon.sound:
                 self.basic_cannon.sound.volume = value
@@ -72,7 +71,7 @@ class Level(Screen):
         if self.basic_laser:
             if self.basic_laser.sound:
                 self.basic_laser.sound.volume = value
-
+     # Load appropriate weapon based on selection
     def load_screen(self, selected_prj, timestamp, screen_name):
         self.screen_name = screen_name
         self.keyboard = Window.request_keyboard(self._keyboard_closed, self)
@@ -99,7 +98,6 @@ class Level(Screen):
     
     def collisions(self, w1, w2):
         if w1 is not None and w2 is not None:
-            # Get positions and sizes of both widgets
             x11, y11 = w1.pos  # bottom-left corner of w1
             x12, y12 = x11 + w1.size[0], y11 + w1.size[1]  # top-right corner of w1
             x21, y21 = w2.pos  # bottom-left corner of w2
@@ -109,11 +107,8 @@ class Level(Screen):
 
             # Check if there's any overlap between the bounding boxes
             if (x11 < x22 and x12 > x21) and (y11 < y22 and y12 > y21):
-                # Calculate the horizontal and vertical overlaps
                 horizontal_overlap = min(x12, x22) - max(x11, x21)
                 vertical_overlap = min(y12, y22) - max(y11, y21)
-
-# Determine the collision direction based on which overlap is greater
                 if horizontal_overlap > vertical_overlap:
                      self.flag_collisionxy = False  # Horizontal collision
                 else:
@@ -125,7 +120,7 @@ class Level(Screen):
     def distance(self, pos1, pos2):
         return sqrt((pos1[0] - pos2[0]) ** 2 + (pos1[1] - pos2[1]) ** 2)
 
-    def game_update(self, dt):
+    def game_update(self, dt): # Check collisions and update game state
         if hasattr(self, 'rock'):     
             for self.rock in self.rocklist[:]:
                 if self.basic_cannon :
@@ -142,13 +137,10 @@ class Level(Screen):
                     if self.basic_bomber.projectile and self.collisions(self.rock, self.basic_bomber.projectile):
                         self.remove_widget(self.rock)
                         self.rocklist.remove(self.rock)
-                        # Raggio di esplosione di 15 pixel
                         explosion_radius = 200
                         
-                        # Posizione della bomba
                         bomb_pos = self.basic_bomber.projectile.pos
                         
-                        # Controlla le rocce nel raggio dell'esplosione
                         for element in self.rocklist[:]:
                             if self.distance(bomb_pos, element.pos) <= explosion_radius:
                                 self.remove_widget(element)
@@ -168,7 +160,7 @@ class Level(Screen):
                         Clock.unschedule(self.basic_laser.timer_projectile)
                         self.rocklist.remove(self.rock)
         
-        if hasattr(self, 'treasure'):
+        if hasattr(self, 'treasure'): 
             if self.basic_cannon :
                 if self.basic_cannon.projectile and self.collisions(self.treasure, self.basic_cannon.projectile):
                     if not self.endLevel_popup:
@@ -219,13 +211,10 @@ class Level(Screen):
 
                 if self.basic_bomber :
                     if self.basic_bomber.projectile and self.collisions(self.perpetio, self.basic_bomber.projectile):
-                        # Raggio di esplosione di 15 pixel
                         explosion_radius = 200
                         
-                        # Posizione della bomba
                         bomb_pos = self.basic_bomber.projectile.pos
                         
-                        # Controlla le rocce nel raggio dell'esplosione
                         for element in self.rocklist[:]:
                             if self.distance(bomb_pos, element.pos) <= explosion_radius:
                                 self.remove_widget(element)
@@ -291,13 +280,12 @@ class Level(Screen):
             else:
                 self.keyboard.unbind(on_key_down=self._on_keyboard_down)
         else:
-            # If keyboard is None, try to request it again
             self.keyboard = Window.request_keyboard(self._keyboard_closed, self)
             if self.keyboard:
                 self.keyboard.bind(on_key_down=self._on_keyboard_down)
     
     def update_projectiles(self):
-    # Check for boundary conditions of projectiles and remove them if they leave the screen
+    # Check for projectiles and remove them if they leave the screen
         if self.basic_bomber:
             if self.basic_bomber.projectile:
                 if (self.basic_bomber.projectile.pos[0] < 0 - self.basic_bomber.projectile.size [0] or self.basic_bomber.projectile.pos[0] > 1000 + self.basic_bomber.projectile.size[0] or 
@@ -344,6 +332,7 @@ class Level(Screen):
             self.weaponswitcher(self.selected_prj)
 
     def weaponswitcher(self, selected_prj):
+        #Handle different weapons being used
         if self.basic_cannon:
             self.remove_widget(self.basic_cannon)
         if self.basic_bomber:
@@ -389,7 +378,7 @@ class Level(Screen):
         self.on_leave()
         self.selected_prj.clear()
         app = App.get_running_app()
-        game_screen = app.root.get_screen('levelSelection')  # Ottieni il nuovo schermo
+        game_screen = app.root.get_screen('levelSelection')
         app.root.remove_widget(app.root.current_screen)
         app.root.current = 'levelSelection'
         game_screen.load_screen(self.timestamp)
@@ -398,7 +387,7 @@ class Level(Screen):
         self.on_leave()
         app = App.get_running_app()
         app.root.remove_widget(app.root.current_screen)
-        game_screen = app.root.get_screen('transition')  # Ottieni il nuovo schermo
+        game_screen = app.root.get_screen('transition')
         app.root.current = 'transition'
         game_screen.load_screen(self.selected_prj, self.timestamp, self.screen_name, self.name)  # Passa i dati al nuovo schermo
     
@@ -432,11 +421,12 @@ class Level(Screen):
 
         with open(filename, 'w') as f:
             json.dump(all_data, f, indent=4)
-
+#Here each level is defined, following a similar logic for all of them. 
+#Each class, for each level, contains the type and positions of all obstacles and the par
 class Level1(Level, Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
-        self.obstacles_placer()
+        self.obstacles_placer() 
         self.par = 2
     
     def obstacles_placer(self):

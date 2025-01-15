@@ -1,13 +1,14 @@
 <NewGame>:
     name: 'newgame'
     FloatLayout:        
+    #background image
         Image:
             source: 'images/Default_pirate_captain_cabin_in_the_ship_2.jpg'
             allow_stretch: True
             keep_ratio: False
-            size_hint: (1, 1)  # Copre l'intero layout
+            size_hint: (1, 1)
             pos_hint: {'center_x': 0.5, 'center_y': 0.5}
-
+# Button to go back to the homepage
         Button:
             pos_hint: {'center_x': .05, 'center_y': .91}
             size_hint: (.1, .1)
@@ -32,18 +33,19 @@
             id: label
             text: app.get_file_content('texts/Introduction.txt')
             font_size: 12
-            font_name: 'fonts/Caribbean.ttf'  # Specifica il font personalizzato
-            color: 0, 0, 0, 1  # Testo nero
+            font_name: 'fonts/Caribbean.ttf' 
+            color: 0, 0, 0, 1  #Black as test color
             size_hint: (None, None)
             size: self.texture_size
             pos_hint: {'center_x': 0.65, 'center_y': 0.6}
-        
+            
+            #User input
         TextInput:
             id: text_input
             multiline: False
             size_hint: (.4, .05)
             pos_hint: {'center_x': 0.6, 'center_y': 0.4}
-
+ # Button to start the game, checks the entered name
         Button:
             pos_hint: {'center_x': .9, 'center_y': .1}
             size_hint: (.1, .05)

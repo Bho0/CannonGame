@@ -6,19 +6,18 @@
 
 <VolPopup@Popup>:
     auto_dismiss: True  # The popup will close when clicking outside of it
-    size_hint: (.5, .3)  # Size of the popup as a fraction of the window
-    title: 'Volume'  # Title of the popup
-
+    size_hint: (.5, .3)  
+    title: 'Volume' 
     BoxLayout:
         orientation: 'vertical'  # Arrange widgets vertically
 
         Label:
-            text: "Music"  # Label text
-            font_name: 'fonts/Caribbean.ttf'  # Custom font for the label
+            text: "Music"  
+            font_name: 'fonts/Caribbean.ttf'  
 
         Slider:
-            id: slider  # ID for the slider to reference it
-            value_track: True  # Show the value track
+            id: slider  
+            value_track: True  
             value_track_color: [0, 0, 1, 1]  # Blue color for the value track
             min: 0  # Minimum value for the slider
             max: 1  # Maximum value for the slider
@@ -29,35 +28,35 @@
     # Placeholder for the Hall of Fame screen
 
 <CredPopup@Popup>:
-    auto_dismiss: True  # Close the popup when clicking outside
-    size_hint: (.6, .6)  # Popup size as a fraction of the window
+    auto_dismiss: True 
+    size_hint: (.6, .6)  
 
-    title: 'Credits'  # Title of the popup
+    title: 'Credits' 
 
     Label:
-        text: app.get_file_content('texts/Credits.txt')  # Load credits text from a file
-        font_name: 'fonts/Caribbean.ttf'  # Custom font for the label
+        text: app.get_file_content('texts/Credits.txt') 
+        font_name: 'fonts/Caribbean.ttf'  
 
 <HomePage>:
-    name: 'homepage'  # Assign a name to the HomePage screen
+    name: 'homepage'  
 
     FloatLayout:
-        # Use FloatLayout for flexible positioning
+        
         
         Image:
-            source: 'images/Default_pirate_ship_3.jpg'  # Background image
-            allow_stretch: True  # Allow image to stretch
-            keep_ratio: False  # Do not maintain aspect ratio
-            size_hint: (1, 1)  # Cover the entire layout
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  # Center the image
+            source: 'images/Default_pirate_ship_3.jpg'  
+            allow_stretch: True
+            keep_ratio: False  
+            size_hint: (1, 1)  
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  
 
         BoxLayout:
-            orientation: 'vertical'  # Arrange buttons vertically
-            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  # Center the box layout
-            size_hint: (1, .5)  # Size hint for the box layout
+            orientation: 'vertical' 
+            pos_hint: {'center_x': 0.5, 'center_y': 0.5}  
+            size_hint: (1, .5)  
 
             Button:
-                text: 'New Game'  # Text on the button
+                text: 'New Game'  
                 color: 0, 0, 0, 1  # Black text color
                 font_size: 52  # Font size for the button text
                 font_name: 'fonts/Caribbean.ttf'  # Custom font
@@ -67,58 +66,58 @@
                     app.root.current = 'newgame'  # Switch to NewGame screen
 
             Button:
-                text: 'Load Game'  # Text on the button
+                text: 'Load Game'  
                 color: 0, 0, 0, 1  # Black text color
-                font_size: 52  # Font size for the button text
-                font_name: 'fonts/Caribbean.ttf'  # Custom font
-                background_color: 0, 0, 0, 0  # Transparent background
-                on_press: app.root.current = 'loadgame'  # Switch to LoadGame screen
+                font_size: 52  
+                font_name: 'fonts/Caribbean.ttf'  
+                background_color: 0, 0, 0, 0  
+                on_press: app.root.current = 'loadgame'  
 
             Button:
-                text: 'Quit'  # Text on the button
+                text: 'Quit'  
                 color: 0, 0, 0, 1  # Black text color
-                font_size: 34  # Font size for the button text
-                font_name: 'fonts/Caribbean.ttf'  # Custom font
-                background_color: 0, 0, 0, 0  # Transparent background
-                on_press: app.stop()  # Stop the app
+                font_size: 34 
+                font_name: 'fonts/Caribbean.ttf' 
+                background_color: 0, 0, 0, 0  
+                on_press: app.stop()  
 
         BoxLayout:
-            orientation: 'horizontal'  # Arrange buttons horizontally
-            pos_hint: {'center_x': 0.5, 'center_y': .05}  # Position at the bottom center
-            size_hint: (.3, .1)  # Size hint for the box layout
+            orientation: 'horizontal' 
+            pos_hint: {'center_x': 0.5, 'center_y': .05} 
+            size_hint: (.3, .1) 
 
             Button:
-                background_color: 0, 0, 0, 0  # Transparent background
-                on_press: app.root.current = 'start'  # Switch to Start screen
+                background_color: 0, 0, 0, 0 
+                on_press: app.root.current = 'start' 
                 Image:
-                    source: 'images/homeButton.png'  # Home button image
-                    center_x: self.parent.center_x  # Center image horizontally
-                    center_y: self.parent.center_y  # Center image vertically
+                    source: 'images/homeButton.png'  
+                    center_x: self.parent.center_x 
+                    center_y: self.parent.center_y  
                     size: 50, 50  # Size of the image
 
             Button:
-                background_color: 0, 0, 0, 0  # Transparent background
-                on_press: Factory.VolPopup().open()  # Open the volume popup
+                background_color: 0, 0, 0, 0  
+                on_press: Factory.VolPopup().open()  
                 Image:
-                    source: 'images/volumeButton.webp'  # Volume button image
-                    center_x: self.parent.center_x  # Center image horizontally
-                    center_y: self.parent.center_y  # Center image vertically
+                    source: 'images/volumeButton.webp'  
+                    center_x: self.parent.center_x  
+                    center_y: self.parent.center_y  
                     size: 50, 50  # Size of the image
 
             Button:
-                background_color: 0, 0, 0, 0  # Transparent background
+                background_color: 0, 0, 0, 0  
                 on_press: root.open_Hof_popup()  # Open Hall of Fame popup (placeholder)
                 Image:
-                    source: 'images/hofButton.webp'  # Hall of Fame button image
-                    center_x: self.parent.center_x  # Center image horizontally
-                    center_y: self.parent.center_y  # Center image vertically
+                    source: 'images/hofButton.webp' 
+                    center_x: self.parent.center_x 
+                    center_y: self.parent.center_y 
                     size: 50, 50  # Size of the image
 
             Button:
-                background_color: 0, 0, 0, 0  # Transparent background
+                background_color: 0, 0, 0, 0  
                 on_press: Factory.CredPopup().open()  # Open the credits popup
                 Image:
-                    source: 'images/creditButton.png'  # Credits button image
-                    center_x: self.parent.center_x  # Center image horizontally
-                    center_y: self.parent.center_y  # Center image vertically
-                    size: 50, 50  # Size of the image
+                    source: 'images/creditButton.png'  
+                    center_x: self.parent.center_x 
+                    center_y: self.parent.center_y 
+                    size: 50, 50 
