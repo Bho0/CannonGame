@@ -46,7 +46,7 @@ class Laser(Projectile):
 class Eraser(Projectile):
     def __init__(self, size=(30, 30), **kwargs):
         self.key = 'eraser'  
-        super().__init__(color=(1, 1, 1, 1), size=(10, 10), **kwargs)  # Call parent constructor with white color (transparent)
+        super().__init__(color=(1, 1, 1, 0), size=(10, 10), **kwargs)  # Call parent constructor with white color (transparent)
     
     def update_shape(self, *args):
         self.shape.pos = self.pos 
